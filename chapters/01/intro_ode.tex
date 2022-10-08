@@ -1,0 +1,56 @@
+\chapter{Introduction to ordinary differential equations}
+
+\section{General concepts and methods}
+
+	\subsection{First order differential equations}
+	A first order differential equation is written in normal form as:
+
+	$$y'(t) = f(t, y(t))$$
+
+	Where $f$ is a function of variables $t$ and $y$.
+
+		\subsubsection{Autonomous differential equations}
+		In the case that $f$ does not depend on the variable $t$ the equation is said to be autonomous: the law that regulates how $y(t)$ changes does not depend on time.
+
+		\subsubsection{Solution of a differential equation}
+		The solution of a differential equation if a function $y(t)$.
+		To check whether $y(t)$ is a solution it is sufficient to compute its derivative and check that it is equal to the right hand side of the equation.
+		So a solution if a function $y:I\rightarrow\mathbb{R}$ where $I$ is an interval of $\mathbb{R}$ sich that $y'(t) = f(t,y(y))\forall t\in I$.
+
+		\subsubsection{Cauchy problems}
+		A differential equation has infinite solutions as a function has infinite primitives.
+		In order to predict the future evolution of a quantity it is necessary to know, besides the law regulating its dynamics or differential equation, an initial condition.
+		An initial value problem or Cauchy problem is constituted by a differential equation and an initial condition:
+
+		$$\begin{cases} y'(t) = f(t,y(t))\\y(t_0) = y_0\end{cases}$$
+
+		A solution to an initial value problem is a function defined on an interval $I$ that contains the point $t_0$ such that for every $t\in I, y'(t) = f(t, y(t)))$ and also it is true that $y(t_0) = y_0$.
+
+	\subsection{Direction fields}
+	It is usually difficult or impossible to find exact solutions of differential equations.
+	Because of this it is necessary to settle for something less complete.
+	Direction fields allow to perform a graphical study of the qualitative behaviour of the solutions.
+	The idea sit that according to the equation $y'=f(t,y)$ if a solution satisfies $y(t_0) = y_0$, the slope of the graph of $y(t)$ calculated at $t_0$, which is by definition $y'(t_0)$ must be equal to $f(t_0, y_0)$.
+	Consequently, if in every $(t_0, y_0)$ a small segment of slop $f(t_0, y_0)$ is traced the slope of a solution that goes through that point is indicated.
+
+		\subsubsection{Draying a direction field}
+		Many point $(\bar{t}, \bar{y})$ in a Cartesian plane are chosen an in each of them a small segment of slope $f(\bar{t}, \bar{y})$ are drawn.
+		In this way the field of direction of $y' = f(t, y)$ can be built.
+		Then a solution can be drawn making sure it is at all point tangent to the direction field.
+
+		\subsubsection{Autonomous equations}
+		Autonomous equations are a class of differential equations in which the right hand side does not depend on $t$:
+
+		$$y' = g(y)$$
+
+		This means that the law that regulates the dynamics of the $y$ variable does not change over time.
+		In particular if $y(t)$ is a solution, also $y(t-t_0)$ is a solution for all $t_0$.
+		Graphically a solution can be moved horizontally and reach another one.
+		Considering direction fields, each column in it will be equal to all the others, so it is sufficient to draw them at a given $t$ and repeat them for all the values of $t$.
+
+	\subsection{Equilibria}
+	Given the autonomous differential equation $y' = f(y(t))$ the points $\bar{y}$ such that $f(\bar{y})=0$ are said to be equilibria because if $y(0) = \bar{y}$ then $y(t) = \bar{y}$ for every $t$.
+	Since solutions cannot cross each other if $f(y_0)>0$ then $f(y(t))>0$ for every $t$ and then $y'(t) = f(y(t))>0$ or $y(t)$ is an increasing function.
+	The same happens in the case of $f(y_0)<0$.
+
+\section{Solution through separation of variables}
