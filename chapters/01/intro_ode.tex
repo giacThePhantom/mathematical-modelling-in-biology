@@ -54,3 +54,79 @@
 	The same happens in the case of $f(y_0)<0$.
 
 \section{Solution through separation of variables}
+The separation of variables is a technique that allows to find an explicit expression for the exact solutions of a class of equations.
+
+	\subsection{Equations in which the right hand-side does not depend on $y$}
+	In the case of an equation where the right-had side does not depend on $y$, it can be written as:
+
+	$$y' = f(t)$$
+
+	In this case the derivative of $y(t)$ is explicitly assigend.
+	Solutions are all the primitives of $f$, so:
+
+	$$y(t) = \int f(t)dt$$
+
+	\subsection{Separable equations}
+	Separable equations are equations of the form:
+
+	$$y' = f(t)g(y)$$
+
+	They can be solved through the following steps:
+
+	\begin{enumerate}
+		\item The derivative $y'$ is written using the Leibniz notation:
+
+			$$\frac{dy}{dt} = f(t)g(y)$$
+
+		\item Then $dt$ gets multiplied as if it were a number:
+
+			$$\frac{dy}{g(y)} = f(t)dt$$
+
+		\item The integral is then applied to each of the members:
+
+			$$\int\frac{dy}{g(y)} = \int f(t)dt$$
+
+		\item Then the last equality is interrogated: a primitive $H(y)$ of $\frac{1}{g(y)}$ and $F(t)$ of $f(t)$ are chosen, such that for each $t$:
+
+			$$H(y(t)) = F(t) + C$$
+
+			Is true, where $C$ is a constant and $y(t)$ is the value of the solution at time $t$.
+	\end{enumerate}
+
+		\subsubsection{Theorem}
+		Consider the equation $y' = f(t)g(y)$.
+		Let $F(t)$ be a primitive of $f$: $F'(t) = f(t)$ and $H(y)$ a primitive of $\frac{1}{g}$, $H'(y) = \frac{1}{g(y)}$.
+		Then:
+
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item If $y(t)$ is a solution of $y' = f(t)g(y)$ such that $g(y(t))\neq 0$ then there exists a constant $C$ such that $H(y(t)) = F(t) + C$ for each $t$.
+				\item If $y(t)$ satisfies $H(y(t)) = F(t) + C$ and $g(y(t)) \neq 0$ for each $t$ or, in other words, $H(y(t))-F(t)$ is constant, then $y(t)$ is a solution of $y' = f(t)g(y)$.
+			\end{itemize}
+		\end{multicols}
+
+	\subsection{Linear equations}
+	A linear differential equation is an equation in which the second member is linearly dependent on $y$, so that it has form:
+
+	$$y' = a(t)y + b(t)$$
+
+		\subsubsection{Type of linear equation}
+
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item $b(t) = 0$: homogeneous.
+				\item $b(t)\neq 0$: non-homogeneous.
+				\item $a(t)\equiv a\land b(t)\equiv b$: autonomous.
+				\item $a(t)\equiv a\land b(t)\equiv\ any$: constant coefficients.
+			\end{itemize}
+		\end{multicols}
+
+		\subsubsection{Solution of linear equations}
+		Autonomous and homogeneous linear equations can be solved by separating variables if and only if a primitive of $a(t)$ is found following the same procedure described above.
+		Non-homogeneous linear equations can be solved creating a new variable equal to $y(t)$ over the solution of the corresponding homogeneous equation.
+
+	\subsection{Separable equations that cannot be solved}
+	To be able to explicitly write the solutions of a differential equation with the method of separating variables, after making sure that the equation can be written in $y' = f(t)g(y)$.
+	First the primitives $\int\frac{dy}{g(y)}$ and $\int f(t)dt$ need to be computed and this is not always possible.
+	Once this is done, the solution of the equation satisfy $H(y(t)) = F(t)+C$.
+	So, in order to be able to explicitly write the solutions $y(t)$ it must be isolable in that expression: $H$ must be invertible.
