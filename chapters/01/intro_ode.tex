@@ -130,3 +130,21 @@ The separation of variables is a technique that allows to find an explicit expre
 	First the primitives $\int\frac{dy}{g(y)}$ and $\int f(t)dt$ need to be computed and this is not always possible.
 	Once this is done, the solution of the equation satisfy $H(y(t)) = F(t)+C$.
 	So, in order to be able to explicitly write the solutions $y(t)$ it must be isolable in that expression: $H$ must be invertible.
+
+\section{Systems of differential equations}
+A system of two autonomous differential equation can be written as:
+
+$$\begin{cases}x'(t) = f(x(t), y(t))\\y'(t)=g(x(t), y(t))\end{cases}$$
+
+	\subsection{Vector field and isoclines}
+	An isocline is a set of point where one of the two derivatives is equal to zero.
+	In general:
+
+	$$\{(x,y):f(x,y) = 0\}\qquad\land\qquad\{(x,y):g(x,y) = 0\}$$
+
+	After having found the isoclines the regions where the derivatives  of $x$ are $y$ are positive or negative:
+
+	$$\{(x,y):f(x,y)>0\}\ \{(x,y):f(x,y)<0\}\ \{(x,y):g(x,y)>0\}\ \{(x,y):g(x,y)<0\}$$
+
+	It can be noted how these regions will be divided by the isoclines.
+	At the intersections of the isoclines there are the equilibria.
