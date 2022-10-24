@@ -1,0 +1,58 @@
+\chapter{Biological models based on differential equations}
+
+\section{The bathtub}
+Let $Q(t)$ the quantity of a substance in the bathtub, then:
+
+$$Q'(t) = I(t) - O(t)$$
+
+Where:
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item $I(t)$ is the input rate: the quantity that enters in the time unit.
+		\item $O(t)$ is the output rate, the quantity that exits in the time unit.
+	\end{itemize}
+\end{multicols}
+
+If $I_{t, t+\delta t}$ is the quantity that enters in the interval, then $I_{t, t+\delta t} = I(t)\Delta t + o(\Delta t)$, where $o(\Delta t)$ is a higher order infinitesimal than $\Delta t$.
+This means that when $\Delta t$ goes to $i$, not only $\lim\limits_{\Delta t \rightarrow 0}o(\Delta t) = 0$ and that $\lim\limits_{\Delta t\rightarrow 0}\frac{o(\Delta t)}{\Delta t} = 0$.
+Hence:
+
+$$I(t) = \lim\limits_{\Delta t\rightarrow 0}\frac{I_{t, t+\Delta t}}{\Delta t}$$
+
+So the input rate behaves like an instantaneous velocity and is measured in $[\frac{C}{t}]$ Where $[C]$ represents the concentration.
+The same applies for the exit rate $O(t)$.
+
+	\subsection{An example}
+	Let's assume that $I(t) = \Lambda$, a constant input flux and $O(t) = \gamma Q(t)$, the exit flux is proportional to the quantity present at the moment.
+	The proportionality constant $\gamma$ is often called the exit rate and has dimension $[t^{-1}]$.
+	From these assumptions:
+
+	$$Q'(t) = \Lambda - \gamma Q(t)$$
+
+	To which the initial condition $Q(0) = Q_0$ is added.
+	The solution to the equation is:
+
+	$$Q(t) = e^{-\gamma t}Q_0+\frac{\Lambda}{\gamma}(1-e^{-\gamma t})$$
+
+	If $\Lambda = 0$ the solution is then $Q(t) = Q_0e^{-\gamma t}$, meaning that the survival time of a molecule initially present follows the exponential distribution:
+
+	$$\mathbb{P}(\text{a molecule present at time }0\text{ is present at time }t>0) = e^{-\gamma t}$$
+
+	So the mean survival time $\mathbb{E}(T) = \frac{1}{\gamma}$ and the exit rate $\gamma$ can be interpreted as the inverse of the mean survival time.
+
+\section{Malthus equation}
+The bathtub can be used to model the dynamics of a population.
+Neglecting all differences among individuals a population can be represented through its size $N(t)$.
+This will increase through input due to births and output due to death, hence:
+
+$$N'(t) = B(t)-D(t)$$
+
+Where:
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item $B(t)$ are the births.
+		\item $D(t)$ are the deaths.
+	\end{itemize}
+\end{multicols}
