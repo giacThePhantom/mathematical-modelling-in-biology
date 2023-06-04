@@ -27,5 +27,10 @@
 \contentsline {subsubsection}{\numberline {1.4.4.1}Proof}{6}{subsubsection.1.4.4.1}%
 \contentsline {subsection}{\numberline {1.4.5}Linearized stability for systems of differential equations}{7}{subsection.1.4.5}%
 \contentsline {subsection}{\numberline {1.4.6}Linear systems}{7}{subsection.1.4.6}%
-\contentsline {chapter}{\numberline {2}Biological models based on differential equations}{8}{chapter.2}%
-\contentsline {section}{\numberline {2.1}The bathtub}{8}{section.2.1}%
+\contentsline {section}{\numberline {1.5}Video}{8}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}What is a differential equation}{8}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}A solution of a differential equation}{9}{subsection.1.5.2}%
+\contentsline {chapter}{\numberline {2}Biological models based on differential equations}{10}{chapter.2}%
+\contentsline {section}{\numberline {2.1}The bathtub}{10}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}An example}{10}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Malthus equation}{11}{section.2.2}%

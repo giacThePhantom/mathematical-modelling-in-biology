@@ -240,3 +240,108 @@ In particular:
 	In such a case the origin $\vec{O}$ is an equilibrium and the solution can be expressed through:
 
 	$$e^{tA} = \sum\limits_{k=0}^\infty\frac{t^k}{k!}A^k\qquad as\ \vec{Y}(t) = e^{tA}\vec{Y}_0$$
+
+\section{Video}
+
+	\subsection{What is a differential equation}
+	An ordinary differential equation is in the form:
+
+	$$\frac{dy(t)}{dt} = f(t, y(t))$$
+
+	As an example consider the Malthus equation:
+
+	$$\frac{N(t)}{dt} = rN(t)$$
+
+	Where $N$ is population size and $r$ the growth rate of the population (difference between fertility and mortility).
+	So, in particular $y(t) = N(t)$ and $f(t, y(t)) = rN(t)$.
+	In another example the logistic or Nerhulst equation:
+
+	$$\frac{N(t)}{dt} = (r-\nu N(t))N(t)$$
+
+	Where $y(t) = N(t)$ and $f(t,y) = (r-\nu y(t))y(t)$.
+
+	Assuming the growth rate non constant and modyfing accordingly the first equation:
+
+	$$\frac{N'(t)}{dt} = r_0(1+r_1\cos(\omega t))N(t)$$
+
+	So that the growth rate changes sinusoidally with time.
+	So $y(t) = N(t)$ and $f(t,y) = r_0(1+r_1\cos(\omega t))y(t)$.
+
+	Often there is a system of equation.
+	As an example the SIR epidemic model.
+	There are three compartments:
+
+	$$\begin{cases}\frac{dS(t)}{dt} = -\frac{\beta}{N} S(t)I(t)\\\frac{dI(t)}{dt} = \frac{\beta}{N} S(t)I(t)-\gamma I(t)\\\frac{dR(t)}{dt} = \gamma I(t)\end{cases}$$
+
+	Where $S$ is the number of susceptible people (can be infected by infected people)., $I$ the number of infected people and $R$ the number of recovered people.
+	So $\beta$ is the contact rate and $\gamma$ the recovery rate.
+	In this case $y$ is a vector: $y(t) = \begin{pmatrix}S(t)\\I(t)\\R(t)\end{pmatrix}$ and $f(t,y) = \begin{pmatrix}-\frac{\beta}{N} S(t)I(t)\\\frac{\beta}{N} S(t)I(t)-\gamma I(t)\\\gamma I(t)\end{pmatrix}$.
+	Another example can be:
+
+	$$m\frac{d^2x(t)}{dt^2} = -kx(t)$$
+
+	Which is Newton's law for an elastic spring.
+	To account for the second derivative another equation is introduced:
+
+	$$\begin{cases} \frac{dx(t)}{dt} = v(t)\\\frac{dv(t)}{dt} = -\frac{k}{m}x(t)\end{cases}$$
+
+	So now $y(t) = \begin{pmatrix}x(t)\\v(t)\end{pmatrix}$ and $f(t,y) = \begin{pmatrix}v(t)\\-\frac{k}{m}x(t)\end{pmatrix}$.
+
+	\subsection{A solution of a differential equation}
+	An ordinary differential equation is in the form:
+
+	$$\frac{dy(t)}{dt} = f(t, y(t))$$
+
+	Where $y(t)$ is the unknown function.
+	So that $y(t)\forall t\in \mathbb{R}^n$.
+	The function $f$ must have the same dimension as $y$.
+	A solution of a differential equation is a function.
+	$y(t)$ is a solution of $\frac{dy(t)}{dt} = f(t, y(t))$ if:
+
+	\begin{itemize}
+		\item $y(t)$ is a function defined on an interval $I$:
+
+			$$y:I\to \mathbb{R}^n$$
+
+		\item The function $y(t)$ is differentiable in $I$.
+			There is a derivative in any point in the interval.
+		\item It must be true that:
+
+			$$\frac{dy(t)}{dt} = f(t, y(t))\qquad \forall t\in I$$
+	\end{itemize}
+
+		\subsubsection{Checking is a function is a solution}
+		Consider the equation:
+
+		$$\frac{dy(t)}{dt} = ry(t)$$
+
+		And $y(t) = Ce^{rt}$ is a solution of the equation defined on $I=\mathbb{R}$ and where $C$ any constant.
+		In fact:
+
+		$$\frac{dy(t)}{dt} = Cre^{rt}$$
+
+		And:
+
+		$$ry(t) = r\cdot Ce^{rt}$$
+
+		So that $\frac{dy(t)}{dt} = ry(t)$.
+
+		Another example from physics:
+
+		$$m\frac{d^2x(t)}{dt^2} = -kx(t)$$
+
+		The solution of this equation is:
+
+		$$x(t) = A\cos\left(\sqrt{\frac{k}{m}}t\right) + B\sin\left(\sqrt{\frac{{k}{m}}t\right)}$$
+
+		Now computing the second derivative:
+
+		$$\frac{dx(t)}{dt} = -A\sin\left(\sqrt{\frac{k}{m}t}\right)\cdot\sqrt{\frac{k}{m}} + B\cos\left(\sqrt{\frac{k}{m}t}\right)\cdot\sqrt{k}{m}$$
+
+		And:
+
+		$$\frac{d^2x(t)}{dt^2} = -A\frac{k}{m}\cos\left(\sqrt{\frac{k}{m}t}\right) - B\frac{k}{m}\sin\left(\sqrt{\frac{k}{m}t}\right)$$
+
+		Now:
+
+		$$-Ak\cos\left(\sqrt{\frac{k}{m}}t\right) -Bk\sin\left(\sqrt{\frac{k}{m}}t\right) = -k(A\cos\left(\sqrt{\frac{k}{m}}t\right) + B\sin\left(\sqrt{\frac{k}{m}}t\right)) = -kx(t)$$
