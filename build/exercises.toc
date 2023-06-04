@@ -1,0 +1,10 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Problems of week 1}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Problem 1}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problem 2}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Problem 3}{2}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Solve the equation for $\mathbf {U(t)}$}{3}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}How can the quantities of $\mathbf {a}$ and $\mathbf {b}$ can be interpreted? From the data provided can we infer the half-live of Uranium-234 and Thorium-230?}{3}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Calculate $\mathbf {T(t)}$, solution of the second differential equation}{4}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Compute $\mathbf {\lim \limits _{t \to \infty } \frac {T(t)}{U(t)}}$}{5}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.3.5}Explain why it is possible to estimate the rock age from the knowledge of $\mathbf {\frac {T(t)}{U(t)}}$ at current time}{5}{subsection.1.3.5}%

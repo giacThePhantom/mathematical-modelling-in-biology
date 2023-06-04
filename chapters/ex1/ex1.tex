@@ -1,0 +1,165 @@
+\chapter{Problems of week 1}
+
+\section{Problem 1}
+
+\section{Problem 2}
+
+\section{Problem 3}
+The thorium-uranium method for dating rocks is based on the fact that Uranium234 decays into Thorium-230 which in turn decays into other elements.
+Set $t = 0$ the rock formation time and denoting $U(t)$ [$T(t)$] the amount of Uranium-234 [Thorium-230] in the rock at time $t$ ( measured in years), the following differential equation system is written:
+
+$$\begin{cases}
+  \frac{dU(t)}{dt} = -aU(t) \\
+  \frac{dT(t)}{dt} = aU(t) - bT(t) \\
+  U(0) = U_0\\
+  T(0) = 0
+\end{cases}$$
+
+Where:
+
+\begin{multicols}{2}
+  \begin{itemize}
+    \item $a \approx 5.9 \cdot 10^{-6}\frac{1}{years}$
+    \item $b \approx 1.9 \cdot 10^{-5}\frac{1}{years}$
+    \item $U_0$ is the initial amount of Uranium-234
+  \end{itemize}
+\end{multicols}
+
+
+
+Note that, based on geological principles, it is believed that there was no thorium at the time of rock formation.
+
+  \subsection{Solve the equation for $\mathbf{U(t)}$}
+
+  \begin{align*}
+    \frac{dU(t)}{dt} &= -aU(t) \\
+    \frac{dU(t)}{dU(t)} &= -adt \\
+    \int \frac{q}{dU(t)}dt & \int -adt \\
+    \log(U(t)) &= -at + C \\
+    U(t) &= e^{-at + C}\\
+    U(t) &= C_1e^{-at}
+  \end{align*}
+
+  Considering $U(0) = U_0$:
+
+  \begin{align*}
+    C_1e^{-a0} &= U_0\\
+    C_1 = U_0
+  \end{align*}
+
+  So, in conclusion:
+
+  $$U(t) = U_0e^{-at}$$
+
+  \subsection{How can the quantities of $\mathbf{a}$ and $\mathbf{b}$ can be interpreted? From the data provided can we infer the half-live of Uranium-234 and Thorium-230?}
+
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item $a$ is the rate at which Uranium-234 decays into Thorium-230.
+      \item $b$ is the rate at which Thorium-230 decays into other elements.
+    \end{itemize}
+  \end{multicols}
+
+  To compute the half-life of Uranium-234:
+
+  \begin{align*}
+    U(t_1) &= \frac{1}{2}U(t_2)\\
+    \cancel{U_0}e^{-at_1} &= \frac{1}{2}\cancel{U_0}e^{-at_2}\\
+    2 &= \frac{e^{-a t_2}}{e^{-a t_1}}\\
+    e^{-a t_2 + at_1} &= 2\\
+    e^{a(t_1 - t_2)} &= 2\\
+    a(t_1 - t_2) &= \log(2)\\
+    t_1 - t_2 &= \frac{\log(2)}{a}\\
+    t_1 - t_2 &= \frac{\log(2)}{5.9 \cdot 10^{-6}} = 117482.6\text{ years}\\
+  \end{align*}
+
+
+
+  \subsection{Calculate $\mathbf{T(t)}$, solution of the second differential equation}
+
+  $$\frac{dT(t)}{dt} = aU_0e^{-at} - bT(t)$$
+
+  Let:
+
+  \begin{align*}
+    w(t) &= \frac{T(t)}{e^{-bt}}\\
+    w(t) &= T(t)e^{bt}
+  \end{align*}
+
+  Taking its derivative:
+
+  \begin{align*}
+    \frac{dw(t)}{dt} &= bT(t)e^{bt} + [aU_0e^{-at} - bT(t)]e^{bt}\\
+    \frac{dw(t)}{dt} &= bT(t)e^{bt} + aU_0e^{-at + bt} - bT(t)e^{bt}\\
+    \frac{dw(t)}{dt} &= \cancel{bT(t)e^{bt}} + aU_0e^{-at + bt} \cancel{- bT(t)e^{bt}}\\
+    \frac{dw(t)}{dt} &= aU_0e^{-at + bt}
+  \end{align*}
+
+  Now taking the integral:
+
+  \begin{align*}
+    \int\frac{dw(t)}{dt}dt &= \int aU_0 e^{-at + bt}dt\\
+    w(t) = \int aU_0\int e^{(b-a)t}dt\\
+    w(t) = \frac{aU_0}{b-a}e^{b-at} + C_2
+  \end{align*}
+
+  Now, considering that:
+
+  $$T(t) = w(t)e^{-bt}$$
+
+  \begin{align*}
+    T(t) & = \frac{aU_0}{b-a}e^{(b-a)t}e^{-bt} + C_2e^{-bt}\\
+    T(t) & = \frac{aU_0}{b-a}\cancel{e^{bt}}e^{-at}\cancel{e^{-bt}} + C_2e^{-bt}\\
+         & = \frac{aU_0}{b-a}e^{-at} + C_2e^{-bt}
+  \end{align*}
+
+  Considering $T(0) = 0$:
+
+  \begin{align*}
+    \frac{aU_0}{b-a}e^{-at} + C_2e^{-bt} & = 0\\
+    \frac{aU_0}{b-a} + C_2 & = 0\\
+    C_2 &= \frac{-aU_0}{b-a}\\
+  \end{align*}
+
+  So, in the end:
+
+  $$T(t) = \frac{aU_0}{b-a}e^{-at} - \frac{aU_0}{b-a}e^{-bt}$$
+
+  \subsection{Compute $\mathbf{\lim\limits_{t \to \infty} \frac{T(t)}{U(t)}}$}
+
+  Computing the ratio:
+
+  \begin{align*}
+     \frac{T(t)}{U(t)} &= \frac{\frac{aU_0}{b-a}e^{-at} - \frac{aU_0}{b-a}e^{-bt}}{U_0e^{-at}}\\
+                       &= \frac{aU_0}{b-a}e^{-at}\frac{1}{U_0e^{_at}} - \frac{aU_0}{b-a}e^{-bt}\frac{1}{U_0e^{_at}}\\
+                       &= \frac{a\cancel{U_0}}{b-a}\cancel{e^{-at}}\frac{1}{\cancel{U_0}\cancel{e^{_at}}} - \frac{a\cancel{U_0}}{b-a}e^{-bt}\frac{1}{\cancel{U_0}e^{-at}}\\
+                       &= \frac{a}{b-a} - \frac{a}{b-a}e^{(a-b)t}
+   \end{align*}
+
+
+  \begin{align*}
+    \lim\limits_{t \to \infty} \frac{T(t)}{U(t)} = \lim\limits_{t\to\infty} \frac{a}{b-a} - \frac{a}{b-a}e^{(a-b)t} &= \frac{a}{b-a} - \frac{a}{b-a}e^{(a-b)\infty}\\
+                                          &= \frac{a}{b-a} - \frac{a}{b-a}0\\
+                                          &= \frac{a}{b-a}\\
+  \end{align*}
+
+  \subsection{Explain why it is possible to estimate the rock age from the knowledge of $\mathbf{\frac{T(t)}{U(t)}}$ at current time}
+  \textit{Hint: write down the function $\frac{T(t)}{U(t)}$ and evaluate its behaviour.}
+  \\
+  \\
+  Consider:
+
+  $$\frac{T(t)}{U(t)} = \frac{a}{b-a} - \frac{a}{b-a}e^{(a-b)}$$
+
+  Now, this function does not depend on the initial concentration of Uranium and can be inverted for $t$:
+
+  \begin{align*}
+    \frac{T(t)}{U(t)} &= \frac{a}{b-a} - \frac{a}{b-a}e^{(a-b)t}\\
+    \frac{a}{b-a}e^{(a-b)t} &= \frac{a}{b-a} - \frac{T(t)}{U(t)}  \\
+    e^{(a-b)t} &= \cancel{\frac{a}{b-a}}\cancel{\frac{b-a}{a}} - \frac{b-a}{a}\frac{T(t)}{U(t)}  \\
+    e^{(a-b)t} &= 1 - \frac{b-a}{a}\frac{T(t)}{U(t)}\\
+    (a-b)t &= \log\left(1 - \frac{b-a}{a}\frac{T(t)}{U(t)}\right)\\
+    t\left(\frac{T(t)}{U(t)}\right) &= \frac{\log\left(1 - \frac{b-a}{a}\frac{T(t)}{U(t)}\right)}{a-b}
+  \end{align*}
+
+  So now from the ratio $\frac{T(t)}{U(t)}$ the rock age can be estimated.
