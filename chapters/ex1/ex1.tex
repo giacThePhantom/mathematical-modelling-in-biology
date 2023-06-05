@@ -1,8 +1,389 @@
+\graphicspath{{chapters/ex1/images}}
 \chapter{Problems of week 1}
 
 \section{Problem 1}
+Consider the logistic equation:
+
+$$\frac{dN(t)}{dt} = r\left(1-\frac{N(t)}{K}\right)N(t)$$
+
+Where $r$ and $K$ are two positive constants.
+
+  \subsection{Draw the direction field of this equation. From that you should be able to understand the value of $\mathbf{\lim\limits_{t\to\infty}N(t)}$ for any solution such that $\mathbf{N(0) = N_0>0}$}
+  This is an autonomous equation, so each column of the direction field will be equal to each other.
+  Computing the behaviour of the equation:
+
+  \begin{align*}
+    \frac{dN(t)}{dt} &\ge 0\\
+    r\left(1-\frac{N(t)}{K}\right)N(t) &\ge 0\\
+    N(t)\ge 0\land N(t)\le K
+  \end{align*}
+
+  Now, solving the inequality:
+
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+      %Vertical lines
+      \draw[-latex] (-2,0)--(5,0);
+      \draw (0,-2)--(0,.1);
+      \node[above] at (0,0.1) () {\small 0};
+      \draw (3,-2)--(3,.1);
+      \node[above] at (3,0.1) () {\small K};
+      \draw (-2,-1.5)--(5,-1.5);
+
+      %First solution
+      \node at (-3,-.5) {$N(t)\ge 0$};
+      \node at (-1,-.5) () {-};
+      \node at (1.5,-.5) () {+};
+      \node at (4,-.5) () {+};
+
+      %Second solution
+      \node at (-3,-1) {$N(t) \le K$};
+      \node at (-1,-1) () {+};
+      \node at (1.5,-1) () {+};
+      \node at (4,-1) () {-};
+
+      %Final solution
+      \node at (-1,-2) {-};
+      \node at (1.5,-2) () {+};
+      \node at (4,-2) () {-};
+    \end{tikzpicture}
+  \end{figure}
+
+  From this we get:
+
+  $$\frac{dN(t)}{dt}\ge 0\rightarrow N(t)\in[0,K]$$
+  Now the direction field can be drawn.
+  Using Matlab:
+
+  \begin{lstlisting}[language=Matlab]
+    [T, N] = meshgrid(-2:0.2:4, -2:0.2:4);
+    r = 1; K = 2;
+    S = r.*(1.-(N./K)).*N;
+    L = sqrt(1 + S.^2);
+    quiver(T,N, 1./L,S./L, 0.5), axis tight
+  \end{lstlisting}
+
+  So that the direction field:
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth/2]{01_direction_field}
+  \end{figure}
+
+  \subsection{Consider $\mathbf{u(t) = \frac{1}{N(t)}}$. Show that $\mathbf{u(t)}$ satisfies a linear non-homogeneous equation. By solving the resulting equation for $\mathbf{u(t)}$ find the solution of the equation together with the initial condition $\mathbf{N(0) = N0 > 0}$}
+  \textit{This trick is a special case of the trick used for Bernoulli equations; check any text on ordinary differential equations.}\\
+  A linear non-homongeneous equation is in the form $\frac{dy(t)}{dt} = a(t)y(t)+b(t)$, with $b(t) \neq 0$.
+
+  So now:
+
+  \begin{align*}
+    \frac{dU(t)}{dt} &= \frac{d\frac{1}{N(t)}}{dt}\\
+                     &= -\frac{1}{N^2(t)}\frac{dN(t)}{dt}\\
+                     &= \frac{1}{N^{\cancel{2}}(t)}r\left(\frac{N(T)}{K}-1\right)\cancel{N(t)}\\
+                     &= -\frac{1}{N(t)}r + \frac{1}{\cancel{N(t)}}\frac{r\cancel{N(t)}}{K}\\
+                     &= -\frac{1}{N(t)}r + \frac{r}{K}\\
+                     &= -rU(t)+\frac{r}{K}
+  \end{align*}
+
+  So, in the end $U(t)$ is a linear non-homogeneous equation.
+  Now to solve $\frac{dU(t)}{dt}$, we divide it by the factor of the corresponding solution of the homogeneous equation:
+
+  \begin{align*}
+    \frac{dQ(t)}{dt} &= -rQ(t)\\
+    \frac{dQ(t)}{Q(t)} & = -rdt\\
+    \int\frac{1}{Q(t)}dQ(t) &= -\int rdt\\
+    \log(Q(t)) &= -rt + C\\
+    Q(t) &= e^{-rt + C}\\
+    Q(t) &= Ce^{-rt}
+  \end{align*}
+
+  So, now consider $W(t) = \frac{U(t)}{e^{-rt}} = U(t)e^{rt}$ and take its derivative:
+
+  \begin{align*}
+    \frac{dW(t)}{dt} &= \frac{dU(t)}{dt}e^{rt} + U(t)\frac{de^{rt}}{dt}\\
+                     &= \left(-rU(t) + \frac{r}{K}\right)e^{rt} + rU(t)e^{rt}\\
+                     &= \cancel{-rU(t)e^{rt}} + \frac{re^{rt}}{K} \cancel{ rU(t)e^{rt}}\\
+                     &= \frac{re^{rt}}{K}
+  \end{align*}
+
+  Now integrating $\frac{dW(t)}{dt}$:
+
+  \begin{align*}
+    W(t) = \int\frac{dW(t)}{dt} &= \int\frac{re^{rt}}{K}dt\\
+                                &=\frac{r}{K}\int e^{rt}dt\\
+                                &= \frac{r}{K}\left(\frac{1}{r}e^{rt} + C\right)\\
+                                &= \frac{\cancel{r}}{K\cancel{r}}e^{rt} + \frac{C}{K}\\
+                                &= \frac{1}{K}e^{rt} + \frac{C}{K}
+  \end{align*}
+
+  Now, remembering that $W(t) = \frac{U(T)}{e^{-rt}}$:
+
+  \begin{align*}
+    U(t) &= W(t)e^{-rt}\\
+         &= \left(\frac{1}{K}e^{rt} + \frac{C}{K}\right)e^{-rt}\\
+         &= \frac{1}{K}\cancel{e^{rt}}\cancel{e^{-rt}}+\frac{C}{K}e^{-rt}\\
+         &= \frac{1}{K}+\frac{C}{K}e^{-rt}
+  \end{align*}
+
+  Moreover, $U(t) = \frac{1}{N(t)}$:
+
+  \begin{align*}
+    N(t) &= \frac{1}{U(t)}\\
+         &= \frac{1}{\frac{1}{K} + \frac{C}{K}e^{-rt}}\\
+  \end{align*}
+
+  Now, considering that $N(0) = N_0$:
+
+  \begin{align*}
+    N(0) = \frac{1}{\frac{1}{K} + \frac{C}{K}e^{-r0}} &= N_0\\
+    \frac{1}{\frac{1}{K} + \frac{C}{K}} &= N_0\\
+    \frac{1}{K} + \frac{C}{K} &= \frac{1}{N_0}\\
+    \frac{C}{K} &= \frac{1}{N_0} - \frac{1}{K}\\
+    C &= \frac{K}{N_0} - 1\\
+  \end{align*}
+
+  So, the solution for $N(t)$ is:
+
+  \begin{align*}
+    N(t) &= \frac{1}{\frac{1}{K} + \frac{1}{K}\left(\frac{K}{N_0}-1\right)e^{-rt}}\\
+         &= \frac{1}{\frac{1}{K} + \left(\frac{1}{\cancel{K}}\frac{\cancel{K}}{N_0}-\frac{1}{K}\right)e^{-rt}}\\
+         &= \frac{1}{\frac{1}{K} + \left(\frac{1}{N_0}-\frac{1}{K}\right)e^{-rt}}\\
+  \end{align*}
+
+  \subsection{The equation has two equilibria: $\mathbf{N = 0}$ and $\mathbf{N = K}$ (check!). Show that if $\mathbf{r > 0}$ and $\mathbf{K > 0}$, $\mathbf{0}$ is an unstable equilibrium, while $\mathbf{K}$ is asymptotically stable}
+
+  \begin{align*}
+    \frac{dN(t)}{dt} &= 0\\
+    r\left(1-\frac{N(t)}{K}\right)N(t) &= 0\\
+    N(t)= 0\land N(t)= K
+  \end{align*}
+
+  An equilibrium $\bar{y}$ of a differential equation in the form $\frac{dy(t)}{dt} = f(t, y(t))$ is asymptotically stable if $\frac{f(t, y(t))}{dt}(\bar{y}) < 0$, if $\frac{f(t, y(t))}{dt}h(\bar{y})>0$, then it is unstable.
+  Now computing $\frac{f(t, y(t))}{dt}$:
+
+  \begin{align*}
+    \frac{f(t, y(t))}{dt} &= \frac{d}{dt}r\left(1-\frac{N(t)}{K}\right)N(t)\\
+                          &=r\left(-\frac{1}{K}\right)N(t) + r\left(1-\frac{N(t)}{K}\right)\\
+                          &=-\frac{rN(t)}{K} + r - \frac{rN(t)}{K}\\
+                          &= r-\frac{2rN(t)}{K}
+  \end{align*}
+
+  So now, considering the equilibrium $N(t) = 0$:
+
+  $$r - \frac{2r0}{K} = r$$
+
+  So $\frac{f(t, y(t))}{dt} = r >0$, the equilibrium is unstable.\\
+  Looking at $N(t) = K$:
+
+  $$r - \frac{2r\cancel{K}}{\cancel{K}} = -r$$
+
+  So $\frac{f(t, y(t))}{dt} = -r <0$, the equilibrium is asymptotically stable.
+
+  \subsection{What is wrong (from the modelling point of view, if $\mathbf{N(t)}$ represents population density) in considering the logistic equation with $\mathbf{r < 0}$ and $\mathbf{K > 0}$?}
+  A negative $r$ represents a negative growth rate, meaning that the population decreases with time, meaning that the population will never reach the limiting value $K$, but will always settle at $0$.
+
+  \subsection{Change the time unit to $\mathbf{\tau = rt}$ and the variable to $\mathbf{y = \frac{N}{K}}$. Show that $\mathbf{\frac{dy}{d\tau}=y(1-y)}$}
+  \textit{This procedure is known as scaling or non-dimensionalizing; we will see more of that in the next lectures.}\\
+
+  Consider that:
+
+  \begin{align*}
+    \tau = rt &\Rightarrow t = \frac{\tau}{r}\\
+    y(t) = \frac{N(t)}{K} &\Rightarrow N(t) = y(t)K
+  \end{align*}
+
+  Meaning that, by the chain rule:
+
+  $$\frac{dN(t)}{dt} = \frac{dKy(\tau)}{d\frac{\tau}{r}} = Kr\frac{dy(\tau)}{d\tau}$$
+
+  Substituting in the equation:
+
+  \begin{align*}
+    Kr\frac{dy(\tau)}{d\tau} &= r\left(1-\frac{\cancel{K}y(\tau)}{\cancel{K}}\right)Ky(\tau)\\
+    \frac{dy(\tau)}{d\tau} &=  \frac{\cancel{r}\left(1-y(\tau)\right)\cancel{K}y(\tau)}{\cancel{K}\cancel{r}}\\
+                           &=(1-y(\tau))y(\tau)
+  \end{align*}
+
+
 
 \section{Problem 2}
+Zeisel et al. considered the following system for the concentration of mRNA.
+The variables are $M(t)$, the concentration of mature mRNA, and $P(t)$, the concentration of precursor mRNA:
+
+$$\begin{cases}
+  \frac{dP(t)}{dt} = b(t) - a_1P(t)\\
+  \frac{dM(t)}{dt} = a_1P(t) - a_2(t)M(t)
+\end{cases}$$
+
+Where:
+
+\begin{multicols}{2}
+  \begin{itemize}
+    \item $b(t)$ is the (gene-specific and time-dependent) production rate.
+    \item $a_1$ is the conversion (splicing) rate of pre-mRNA to mRNA.
+    \item $a_2(t)$ is the (time-dependent) degradation rate of mRNA.
+  \end{itemize}
+\end{multicols}
+
+  \subsection{Assume $\mathbf{b(t) \equiv b}$ and $\mathbf{a_2(t) \equiv a_2}$ are constant. Find the equilibria of the system}
+  The system becomes:
+
+  $$\begin{cases}
+    \frac{dP(t)}{dt} = b - a_1P(t)\\
+    \frac{dM(t)}{dt} = a_1P(t) - a_2M(t)
+  \end{cases}$$
+
+  Finding the equilibria means making the derivatives equal to $0$:
+
+  \begin{align*}
+    \begin{cases}
+      b - a_1P(t) &= 0\\
+      a_1P(t) - a_2M(t) &=0\\
+    \end{cases}\\
+    \begin{cases}
+      P(t) &= \frac{b}{a_1}\\
+      a_1P(t) - a_2M(t) &=0\\
+    \end{cases}\\
+    \begin{cases}
+      P(t) &= \frac{b}{a_1}\\
+      \cancel{a_1}\frac{b}{\cancel{a_1}} - a_2M(t) &=0\\
+    \end{cases}\\
+    \begin{cases}
+      P(t) &= \frac{b}{a_1}\\
+      M(t) &=\frac{b}{a_2}\\
+    \end{cases}\\
+  \end{align*}
+
+  So, the equilibria of the systems are:
+
+  $$P(t) = \frac{b}{a_1}\qquad M(t) = \frac{b}{a_2}$$
+
+  \subsection{Under the same assumptions find the explicit solution}
+  Solving $\frac{dP(t)}{dt} = -a_1P(t) + b$ first.
+  First find the factor to divide $P(t)$ with as the solution of the corresponding homogeneous problem, which is $e^{-a_1t}$.
+  Now let $U(t) = \frac{P(t)}{e^{-a_1t}} = P(t)e^{a_1t}$ and computing its derivative:
+
+  \begin{align*}
+    \frac{dU(t)}{dt} &= \frac{dP(t)}{dt}e^{a_1t} + P(t)\frac{de^{a_1t}}{dt}\\
+                     &= \cancel{a_1P(t)e^{a_1t}} \cancel{- a_1P(t)e^{a_1t}} + be^{a_1t}\\
+                     &= be^{a-1t}
+  \end{align*}
+
+  Recomputing the primitive via an integral:
+
+  \begin{align*}
+    U(t) = \int\frac{dU(t)}{dt} &= \int be^{a_1t}\\
+                                &= \frac{b}{a_1}e^{a_1t} +C_1 \\
+  \end{align*}
+
+  Now, $P(t) = U(t)e^{-a_1t}$:
+
+  \begin{align*}
+    P(t) &= \frac{b}{a_1}\cancel{e^{a_1t}}\cancel{e^{-a_1t}} + C_1e^{-a_1t}\\
+         &= \frac{b}{a_1} + C_1e^{-a_1t}\\
+  \end{align*}
+
+  Solving now the second, substituting inside the solution of the first: $\frac{dM(t)}{dt} = a_1\left(\frac{b}{a_1} +C_1e^{-a_1t}\right) - a_2M(t)$:
+
+  \begin{align*}
+    \frac{dM(t)}{dt} &= \cancel{a_1}\frac{b}{\cancel{a_1}} +a_1C_1e^{-a_1t} - a_2M(t)\\
+                     &= b + a_1C_1e^{-a_1t} - a_2M(t)\\
+  \end{align*}
+
+  Again find the factor as the solution of the corresponding homogeneous problem, $e^{-a_2t}$.
+  Let $Q(t) = \frac{M(t)}{e^{-a_2t}} = M(t)e^{a_2t}$ and compute its derivative:
+
+  \begin{align*}
+    \frac{dQ(t)}{dt} &= M(t)\frac{de^{a_2t}}{dt} + \frac{dM(t)}{dt}e^{a_2t}\\
+         &= \cancel{a_2M(t)e^{a_2t}} + be^{a_2t} + a_1C_1e^{(a_2-a_1)t} \cancel{-a_2M(t)e^{a_2t}}\\
+         &= be^{a_2t} + a_1C_1e^{(a_2-a_1)t}
+  \end{align*}
+
+  Recomputing the primitive via an integral:
+
+  \begin{align*}
+    Q(t) = \int\frac{dQ(t)}{dt} &= \int\left[be^{a_2t} + a_1C_1e^{(a_2-a_1)t}\right]dt\\
+                                &= b\int e^{a_2t}dt + a_1C_1\int e^{(a_2-a_1)t}dt\\
+                                &=\frac{b}{a_2}e^{a_2t} + \frac{a_1C_1}{a_2-a_1}e^{(a_2-a_1)t} + C_2
+  \end{align*}
+
+  Now, $M(t) = Q(t) e^{-a_2t}$:
+
+  \begin{align*}
+    M(t) &= \frac{b}{a_2}e^{a_2t}e^{-a_2t} + \frac{a_1C_1}{a_2-a_1}e^{(a_2-a_1)t}e^{-a_2t} + C_2e^{-a_2t}\\
+         &= \frac{b}{a_2}e^{(\cancel{a_2}-\cancel{a_2})t} + \frac{a_1C_1}{a_2-a_1}e^{(\cancel{a_2}-\cancel{a_2}-a_1)t} + C_2e^{-a_2t}\\
+         &= \frac{b}{a_2} + \frac{a_1C_1}{a_2-a_1}e^{-a_1t} + C_2e^{-a_2t}\\
+  \end{align*}
+
+  So that, in the end the solution for the system are:
+
+  $$\begin{cases}
+    P(t) &= \frac{b}{a_1} + C_1e^{-a_1t}\\
+    M(t) &= \frac{b}{a_2} + \frac{a_1C_1}{a_2-a_1}e^{-a_1t} + C_2e^{-a_2t}\\
+  \end{cases}$$
+
+  \subsection{Assume now $\mathbf{a_2(t) \equiv a_2}$ and $\mathbf{b(t) = \begin{cases} \bar{b} & t < \bar{t}\\0 &t > \bar{t}\end{cases}}$ It can be easily found that $\mathbf{M(t)}$ tends to $\mathbf{0}$ as $\mathbf{t\to\infty}$; at which rate does it decay?}
+
+  Computing the case in which $b(t) = 0$:
+
+  $$\frac{dP(t)}{dt} = -a_1P(t)$$
+
+  Which, solving through the separation of variables:
+
+  \begin{align*}
+    \frac{dP(t)}{P(t)} &= -a_1dt\\
+    \int\frac{1}{P(t)}dP(t) &= \int -a_1dt\\
+    \log(P(t)) &= -a_1t + C_1\\
+    P(t) &= e^{-a_1t + C}\\
+    P(t) &= C_1e^{-a_1t}\\
+  \end{align*}
+
+  Now solving $\frac{dM(t)}{dt} = a_1C_1e^{-a_1t} - a_2M(t)$.
+  Again find the factor as the solution of the corresponding homogeneous problem, $e^{-a_2t}$, and introduce $W(t) = \frac{M(t)}{e^{-a_2t}} = M(t)e^{a_2t}$.
+  Computing its derivative:
+
+  \begin{align*}
+    \frac{dW(t)}{dt} &= \frac{dM(t)}{dt}e^{a_2t} + M(t)\frac{de^{a_2t}}{dt}\\
+                     &= a_1C_1e^{(a_2-a_1)t} \cancel{-a_2M(t)e^{a_2t}} + \cancel{a_2M(t)e^{a_2t}}\\
+                     &= a_1C_1e^{(a_2-a_1)t}
+  \end{align*}
+
+  Recomputing the primitive via an integral:
+
+  \begin{align*}
+    W(t) = \int\frac{dW(t)}{dt} &= \int a_1C_1e^{(a_2-a_1)t}dt\\
+                                &= a_1C_1\int e^{(a_2-a_1)t}dt\\
+                                &=\frac{a_1C_1}{a_2-a_1}e^{(a_2-a_1)t} + C_2
+  \end{align*}
+
+  Now, $M(t) = W(t) e^{-a_2t}$:
+
+  \begin{align*}
+    M(t) &= \frac{a_1C_1}{a_2-a_1}e^{(a_2-a_1)t}e^{-a_2t} + C_2e^{-a_2t}\\
+         &= \frac{a_1C_1}{a_2-a_1}e^{(\cancel{a_2}-\cancel{a_2}-a_1)t} + C_2e^{-a_2t}\\
+         &= \frac{a_1C_1}{a_2-a_1}e^{-a_1t} + C_2e^{-a_2t}\\
+  \end{align*}
+
+  So that, now $M(t)$ is equal to:
+
+  $$\begin{cases}
+    M(t) = \frac{\bar{b}}{a_2} + \frac{a_1C_1}{a_2-a_1}e^{-a_1t} + C_2e^{-a_2t} & t<\bar{t}\\
+    M(t) = \frac{a_1C_1}{a_2-a_1}e^{-a_1t} + C_2e^{-a_2t} & t>\bar{t}\\
+  \end{cases}$$
+
+  Computing now $\lim\limits_{t\to\infty}M(t)$:
+
+  \begin{align*}
+    \lim\limits_{t\to\infty} \frac{a_1C_1}{a_2-a_1}e^{-a_1t} + C_2e^{-a_2t}&= \frac{a_1C_1}{a_2-a_1}e^{-a_1\infty} + C_2e^{-a_2\infty}\\
+                                                                           &=\frac{a_1C_1}{a_2-a_1}0 + C_20\\
+                                                                           &= 0
+  \end{align*}
+
+  The decay rate is the exponential factor of $M(t)$.
+  To compute it:
+
+  So that the concentration decays exponentially.
 
 \section{Problem 3}
 The thorium-uranium method for dating rocks is based on the fact that Uranium234 decays into Thorium-230 which in turn decays into other elements.
@@ -71,6 +452,30 @@ Note that, based on geological principles, it is believed that there was no thor
     a(t_1 - t_2) &= \log(2)\\
     t_1 - t_2 &= \frac{\log(2)}{a}\\
     t_1 - t_2 &= \frac{\log(2)}{5.9 \cdot 10^{-6}} = 117482.6\text{ years}\\
+  \end{align*}
+
+  Now, computing the half-life of Thorium-230, in this case the half life depends only on the time and not on the initial concentration, so we can ignore the effect of increase of the Uranium-234.
+  So the differential equation becomes $\frac{dT(t)}{dt} = -bT(t)$.
+  In this case the solution of the equation becomes then:
+
+  \begin{align*}
+    \frac{dT(t)}{dt} &= -bT(t) \\
+    \frac{dT(t)}{dT(t)} &= -bdt \\
+    \int \frac{q}{dT(t)}dt & \int -bdt \\
+    \log(T(t)) &= -bt + C \\
+    T(t) &= e^{-bt + C}\\
+    T(t) &= C_2e^{-bt}
+  \end{align*}
+
+  So that the half-life then becomes:
+
+  \begin{align*}
+    T(t_1) &= \frac{1}{2}T(t_2)\\
+    \cancel{C_2}e^{-bt_1} &= \frac{1}{2}\cancel{C_2}e^{-bt_2}\\
+    2 &= \frac{e^{-bt_2}}{e^{-bt_1}}\\
+    b(t_1-t_2) &= \log(2)\\
+    t_1-t_2 &= \frac{\log(2)}{b}\\
+    t_1-t_2 &= \frac{\log(2)}{1.9 \cdot 10^{-5}} = 3684.143\text{ years}\\
   \end{align*}
 
 
@@ -163,3 +568,186 @@ Note that, based on geological principles, it is believed that there was no thor
   \end{align*}
 
   So now from the ratio $\frac{T(t)}{U(t)}$ the rock age can be estimated.
+
+\section{Problem 4}
+It may be considered reasonable that, for a sexual species, births are proportional to the number of encounters, hence, disregarding the mortality process:
+
+$$\frac{dN(t)}{dt} = \beta N^2(t)$$
+
+  \subsection{This equation can be solved by the method of separation of variables. Show that the solutions of this equation with $\mathbf{N(0) > 0}$ tend to infinity in a finite time}
+  Solving the equation through separation of variables:
+
+  \begin{align*}
+    \frac{dN(t)}{dt} &= \beta N^2(t)\\
+    \frac{1}{N^2}dN(t) &= \beta dt\\
+    \int\frac{1}{N^2}dN(t) &= \int\beta dt\\
+    -\frac{1}{N(t)} &= \beta t + C\\
+    N(t) = \frac{1}{C-\beta t}
+  \end{align*}
+
+  This equation has an accumulation point at $t = \frac{C}{\beta}$, so let's compute the limit of it approaching from $0$:
+
+  \begin{align*}
+    \lim\limits_{t\to\frac{C}{\beta}^-} &= \frac{1}{C-\cancel{\beta}\frac{C}{\cancel{\beta}}^-}\\
+                                        &=\frac{1}{C-C^-}\\
+                                        &=\frac{1}{0^+}\\
+                                        &=+\infty
+  \end{align*}
+
+
+  \subsection{Let us correct the equation, introducing deaths: $\mathbf{\frac{dN(t)}{dt} = \beta N^2(t)-\mu N(t)}$. Discuss how the dynamics changes. In particular, does the equation still have the problem of solutions going to infinity in a finite time?}
+  \textit{One may answer this question by computing the exact solutions of the equation. It is recommended instead to base the answer on a qualitative argument, comparing the two}\\
+  Now the growth has a limiting factor represented by the death.
+  The problem is that the number of death grows with an order of magnitude less with respect to the births, so the solution still goes to infinity in finite time.
+  In particular the new equation is not monotonic anymore looking at the sign of the derivative:
+
+
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+      %interval
+      \draw[-latex] (-2,0)--(5,0);
+      %Vertical lines
+      \draw (0,-2)--(0,.1);
+      \node[above] at (0,0.1) () {\small 0};
+      \draw (3,-2)--(3,.1);
+      \node[above] at (3,0.1) () {\small $\frac{\mu}{\beta}$};
+      \draw (-2,-1.5)--(5,-1.5);
+
+      %First solution
+      \node at (-3,-.5) {$N(t)\ge 0$};
+      \node at (-1,-.5) () {-};
+      \node at (1.5,-.5) () {+};
+      \node at (4,-.5) () {+};
+
+      %Second solution
+      \node at (-3,-1) {$N(t) \ge \frac{\mu}{\beta}$};
+      \node at (-1,-1) () {-};
+      \node at (1.5,-1) () {-};
+      \node at (4,-1) () {+};
+
+      %Final solution
+      \node at (-1,-2) {+};
+      \node at (1.5,-2) () {-};
+      \node at (4,-2) () {+};
+    \end{tikzpicture}
+  \end{figure}
+
+  It will reach a minimum at $\frac{\mu}{\beta}$ and then grow again to infinity.
+  This is the point where the deaths are unable to keep up with the births and the population begins to grow.
+
+
+  \subsection{Let us introduce a limiting factor of logistic type:\\ $\mathbf{\frac{dN(t)}{dt} = \left(\beta N^2(t) - \mu N(t)\right)(1-\gamma N(t))}$ Find all non-negative equilibria and discuss their stability. From the direction field conclude that all solutions of are bounded}
+  \textit{Hence, the theory of differential equations ensure that solutions are global, i.e. defined for all $t > 0$.}
+
+
+  To find the equilibria:
+
+  \begin{align*}
+    \left(\beta N^2(t) - \mu N(t)\right)(1-\gamma N(t)) &= 0\\
+    N(t)\left(\beta N(t) - \mu\right)(1-\gamma N(t)) &= 0\\
+    N(t) = 0 \qquad \lor\qquad N(t) = \frac{\mu}{\beta}\qquad\lor\qquad N(t) = \frac{1}{\gamma}
+  \end{align*}
+
+  Now, computing their stability.
+  First compute the derivative of the second-hand of the differential equation:
+
+  \begin{align*}
+    \frac{df(N(t), t)}{dN(t)} &= \frac{d}{dN(t)}\left(\beta N^2(t) - \mu N(t)\right)(1-\gamma N(t))\\
+                              &=\frac{d}{dN(t)}\left(\beta N^2(t)-\mu N^2(t)-\beta\gamma N^3(t)+\mu\gamma N^2(t)\right)\\
+                              &=-3\beta\gamma N^2(t) + (2\beta + 2\mu\gamma)N(t) - \mu
+  \end{align*}
+
+  Now let's consider $N(t) = 0$:
+
+  \begin{align*}
+    \frac{df(0, t)}{dN(t)} &= -3\beta\gamma 0 + (2\beta + 2\mu\gamma)0 - \mu\\
+                           &= -\mu
+  \end{align*}
+
+  Since $\mu\ge 0$ $\frac{df(0, t)}{dN(t)} <0$, so the equilibrium is asymptotically stable.\\
+  Now let's consider $N(t) = \frac{\mu}{\beta}$:
+
+  \begin{align*}
+    \frac{df(\frac{\mu}{\beta}, t)}{dN(t)} &= -3\beta\gamma\left(\frac{\mu}{\beta}\right)^2 + (2\beta + 2\mu\gamma)\frac{\mu}{\beta} - \mu\\
+                                           &=-\frac{3\gamma\mu^2}{\beta} + 2\mu+2\gamma\frac{\mu^2}{\beta}-\mu\\
+                                           &=-3\beta\gamma\left(\frac{\mu}{\beta}\right)^2+\beta\frac{\mu}{\beta}+2\gamma\beta\left(\frac{\mu}{\beta}^2\right)\\
+                                           &=-\beta\gamma\left(\frac{\mu}{\beta}\right)^2 + \beta\frac{\mu}{\beta}\\
+                                           &=\frac{\mu}{\beta}\left(-\beta\gamma\frac{\mu}{\beta} + \beta\right)
+  \end{align*}
+
+  Now let's discuss the sign:
+
+  \begin{align*}
+    \frac{\mu}{\beta}\left(-\cancel{\beta}\gamma\frac{\mu}{\beta} + \cancel{\beta}\frac{\mu}{\beta}\right) &\ge 0
+    \frac{\mu}{\beta} \ge 0\qquad \frac{\mu}{\beta} \le \frac{1}{\gamma} \\
+  \end{align*}
+
+  Since $\mu\ge 0$ $\frac{df(0, t)}{dN(t)} <0$, so the equilibrium is asymptotically stable.\\
+
+  Now, solving the inequality:
+
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+      %interval
+      \draw[-latex] (-2,0)--(5,0);
+      %Vertical lines
+      \draw (0,-2)--(0,.1);
+      \node[above] at (0,0.1) () {\small 0};
+      \draw (3,-2)--(3,.1);
+      \node[above] at (3,0.1) () {\small $\frac{1}{\gamma}$};
+      \draw (-2,-1.5)--(5,-1.5);
+
+      %First solution
+      \node at (-3,-.5) {$\frac{\mu}{\beta}\ge 0$};
+      \node at (-1,-.5) () {-};
+      \node at (1.5,-.5) () {+};
+      \node at (4,-.5) () {+};
+
+      %Second solution
+      \node at (-3,-1) {$\frac{\mu}{\beta} \le \frac{1}{\gamma}$};
+      \node at (-1,-1) () {+};
+      \node at (1.5,-1) () {+};
+      \node at (4,-1) () {-};
+
+      %Final solution
+      \node at (-1,-2) {-};
+      \node at (1.5,-2) () {+};
+      \node at (4,-2) () {-};
+    \end{tikzpicture}
+  \end{figure}
+
+  So the equilibrium $\frac{\mu}{\beta}$ is asymptotically stable if it is $\le 0$ (always true) or if it is $\ge\frac{1}{\gamma}$.
+  Otherwise it is unstable.\\
+  Now let's consider $N(t) = \frac{1}{\gamma}$.
+
+  \begin{align*}
+    \frac{df(\frac{\mu}{\beta}, t)}{dN(t)} &= -3\beta\gamma\left(\frac{1}{\gamma}\right)^2 + (2\beta + 2\mu\gamma)\frac{1}{\gamma} - \mu\\
+                                           &=-3\beta\frac{1}{\gamma} + 2\beta\frac{1}{\gamma} + 2\mu -\mu\\
+                                           &=-\beta\frac{1}{\gamma} +\mu\\
+  \end{align*}
+
+  Now solving the inequality:
+
+  \begin{align*}
+    -\beta\frac{1}{\gamma} +\mu \ge 0\\
+    \frac{1}{\gamma}\le \frac{\mu}{\beta}
+  \end{align*}
+
+  So the equilibrium is asymptotically stable if it $\ge\frac{\mu}{\beta}$, otherwise it is unstable.\\
+  This means that the biggest equilibrium is always asympotically stable, effectively posing a bound on the solution of the equation.\\
+  Drawing the direction field using Matlab:
+
+  \begin{lstlisting}[language=Matlab]
+    [T, N] = meshgrid(-2:0.2:4, -2:0.2:4);
+    b = 1; m = 2; g = 1;
+    S = (b.*N.^2-m.*N).*(1-g.*N);
+    L = sqrt(1 + S.^2);
+    quiver(T,N, 1./L,S./L, 0.5), axis tight
+  \end{lstlisting}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth/2]{04_direction_field}
+  \end{figure}
