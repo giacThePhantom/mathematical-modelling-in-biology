@@ -1,0 +1,192 @@
+\input{prefix}
+
+\title{\Huge\textbf{{Mathematical modelling in biology}}\\\LARGE Methods to solve differential equations}
+
+\author{
+  Giacomo Fantoni \\
+  \small telegram: \href{https://t.me/GiacomoFantoni}{@GiacomoFantoni} \\[3pt]
+  \small Github: \href{https://github.com/giacThePhantom/mathematical-modelling-in-biology}{https://github.com/riacchiappando/mathematical-modelling-in-biology}\\
+}
+
+
+\begin{document}
+
+  \maketitle
+  \tableofcontents
+
+
+\section{First order differential equations}
+
+	\subsection{Right hand term does not depend on $\mathbf{y(t)}$}
+	First order ODEs whose right hand term does not depend on $y(t)$:
+
+	$$\frac{dy}{dt} = k\qquad\land\qquad\frac{dy}{dt} = f(t)$$
+
+	Where $k$ is a constant and $f(t)$ is a function of $t$, can be solved by integration:
+
+	\begin{align*}
+		\frac{dy(t)}{dt} &= k\\
+		\int\frac{dy(t)}{dt}dt &= \int kdt\\
+		y(t) &= kt + c\\
+		y(t) &=\int_{t_0}^{t_1}kds = k(t_1-t_0)
+	\end{align*}
+
+	\begin{align*}
+		\frac{dy(t)}{dt} &= f(t)\\
+		\int\frac{dy(t)}{dt}dt &= \int f(t)dt\\
+		y(t) &= \int f(t)dt\\
+		y(t) &= \int_{t_0}^{t_1}f(s)ds
+	\end{align*}
+
+\section{Separation of variables}
+Separable equations are in the form:
+
+$$\frac{dy(t)}{dt} = f(t)g(y(t))$$
+
+The method consists if three steps:
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item The derivative is written using Leibnitz' notation.
+		\item The equation is multiplied by $dt$ and divided by $g(y(t))$.
+		\item Both sides are integrated.
+	\end{itemize}
+\end{multicols}
+
+So, in practice:
+
+\begin{align*}
+	\frac{dy(t)}{dt} &= f(t)g(y(t))\\
+	\frac{dy(t)}{g(y(t))} &= f(t)dt\\
+	\int\frac{dy(t)}{g(y(t))} &= \int f(t)dt\\
+	\int\frac{1}{g(y(t))}dy(t) &= \int f(t)dt\\
+	\int\frac{1}{g(y(t))}dy(t) &= \int_{t_0}^{t_1} f(s)ds\\
+\end{align*}
+
+\section{Variation of constants}
+Variation of constants solves non-homogeneous ODEs:
+
+$$\frac{dy(t)}{dt} = a(t)y(t) + b(t)$$
+
+First the assciated homogeneous function is solved through separation of variables:
+
+\begin{align*}
+	\frac{du(t)}{dt} &= a(t)u(t)\\
+	\frac{du(t)}{u(t)} &= a(t)dt\\
+	\int\frac{du(t)}{u(t)} &= \int a(t)dt\\
+	\ln|u(t)| &= \int a(t)dt + c\\
+	u(t) &= e^{\int a(t)dt + c}\\
+	u(t) &= C_1e^{\int a(t)dt}e\\
+\end{align*}
+
+Then the constant is turned into a generic function of $t$:
+
+$$y(t) = C(t)e^{\int a(t)dt}$$
+
+Then the derivative is computed:
+
+$$\frac{du(t)}{dt} = \frac{C(t)}{dt}e^{\int a(t)dt} + C(t)a(t)e^{\int a(t)dt}$$
+
+Then the two are equated:
+
+\begin{align*}
+	\frac{du(t)}{dt} = a(t)y(t) + b(t)\\
+	\frac{C(t)}{dt}e^{\int a(t)dt} + C(t)a(t)e^{\int a(t)dt} &= a(t)y(t) + b(t)\\
+\end{align*}
+
+Considering that $y(t) = C(t)e^{\int a(t)dt}$:
+
+\begin{align*}
+	\frac{C(t)}{dt}e^{\int a(t)dt} + C(t)a(t)e^{\int a(t)dt} &= a(t)C(t)e^{\int a(t)dt} + b(t)\\
+	\frac{C(t)}{dt}e^{\int a(t)dt} &= b(t)\\
+	\frac{C(t)}{dt} &= b(t)e^{-\int a(t)dt}\\
+	C(t) &= \int b(t)e^{-\int a(t)dt}dt\\
+\end{align*}
+
+So that, in the end:
+
+$$y(t) = \left(\int b(t)e^{-\int a(t)dt}dt\right)e^{\int a(t)dt}$$
+
+\section{Multiplication by an integrating factor}
+An integrating factors is a function $u(t)$ that facilitates the solution of a differential equation.
+It applied to ODE in the form:
+
+$$\frac{dy(t)}{dt} + a(t)y(t) = b(t)$$
+
+The goal is to make the left hand side of the equation the derivative of a product:
+
+$$u(t)\frac{dy(t)}{dt} + u(t)a(t)y(t) = u(t)b(t)$$
+
+So that the left side can be expressed as:
+
+$$\frac{d}{dt}\left[u(t)y(t)\right] = \frac{du(t)}{dt}b(t)$$
+
+To make this happen:
+
+\begin{align*}
+	\frac{du(t)}{dt}\cancel{y(t)} &= u(t)a(t)\cancel{y(t)}\\
+	\frac{du(t)}{dt} &= u(t)a(t)\\
+\end{align*}
+
+Which can be solved through separation of variables:
+
+\begin{align*}
+	\frac{du(t)}{dt} &= u(t)a(t)\\
+	\frac{du(t)}{u(t)} &= a(t)dt\\
+	\int\frac{du(t)}{u(t)} &= \int a(t)dt\\
+	\ln|u(t)| &= \int a(t)dt + c\\
+	u(t) &= e^{\int a(t)dt + c}\\
+	u(t) &= C_1e^{\int a(t)dt}\\
+\end{align*}
+
+The constant $C_1$ can be ignored because it will be cancelled out when the integrating factor is applied to the ODE.
+So in general:
+
+$$u(t) = e^{\int a(t)dt}$$
+
+Now both sides can be multiplied by $u(t)$:
+
+\begin{align*}
+	u(t)\frac{dy(t)}{dt} + u(t)a(t)y(t) &= u(t)b(t)\\
+	\underbrace{e^{\int a(t)dt}\frac{dy(t)}{dt} + e^{\int a(t)dt}a(t)y(t)}_{\text{derivative of a product}} &= e^{\int a(t)dt}b(t)\\
+	\int\frac{d}{dt}\left[e^{\int a(t)dt}y(t)\right] &= e^{\int a(t)dt}b(t)\\
+	e^{\int a(t) dt}y(t) + C = \int e^{\int a(t)dt}b(t)dt\\
+\end{align*}
+
+Now, solving for $y(t)$:
+
+\begin{align*}
+	y(t) &= \frac{\int e^{\int a(t)dt}b(t)dt + C}{e^{\int a(t)dt}}\\
+	     &= \frac{\int u(t)db(t)dt + C}{u(t)}\\
+\end{align*}
+
+\section{Direction field}
+Many point in the Cartesian plane are choen and in each a vector $h, hf(t_i, y_i)$, with $h$ small is drawn.
+Then a particular solution can be drawn by chosing an initial point and following the path tangent to the vectors.
+
+\section{Equilibrium points}
+They are identified in a direction field as the solutions always parallel to the $t$ axis.
+They are computed by setting the ODE to $0$ and solving for $y(t)$.
+
+	\subsection{Classifying equilibrium points}
+	An equilibrium is stable [unstable] if the direction of the derivative is negative [positive] above the equilibrium and positive [negative] below it.\\
+	In the case of autonomous DE, an alternative way to do it is to plot $y(t)$ against $\frac{dy(t)}{dt}$.
+	Equilibria will be points with $x=0$.
+	The derivative allow to classify it: if $y(t)>[<]0$ unstable [asymptotically stable].
+
+\section{Solving the reciprocal of the function}
+A trick used to solve the logistic equation (and maybe more) is to solve for the reciprocal of the function.
+This is done by setting $y(t) = \frac{1}{z(t)}$ and solving for $z(t)$.
+Then $y(t)$ is computed as $y(t) = \frac{1}{z(t)}$.
+Consider that:
+
+$$\frac{dz(t)}{dt} = -\frac{1}{y^2(t)}\frac{dy(t)}{dt}$$
+
+
+
+
+
+
+
+
+\end{document}

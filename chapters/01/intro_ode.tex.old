@@ -1,0 +1,411 @@
+\chapter{Introduction to ordinary differential equations}
+
+\section{General concepts and methods}
+A differnetial equation relates a function and its derivative.
+They are charaterized by their order, or the term with the highest derivative.
+Other criteria can be used to classify them, useful to inform the chouse of approach to a solution.
+
+	\subsection{Ordinary differential equations}
+	An ordinary differential equation is a differential equation whose unknown is a function:
+
+	$$y(t) : I\in\mathbb{R}\rightarrow\mathbb{R}^n$$
+
+	Of one variable $t$, which derivative $dt$ is involved.
+
+
+	\subsection{First order differential equations}
+	A first order differential equation is written in normal form as:
+
+	$$y'(t) = f(t, y(t))$$
+
+	Where $f$ is a function of variables $t$ and $y$.
+
+	\subsection{Solution of a differential equation}
+	The solution of a differential equation if a function $y(t):I\in\mathbb{R}\rightarrow\mathbb{R}^n$, differentiable in each $t\in I$, such that:
+
+	$$y' = f(t, y(t))\forall t\in I$$
+
+	To check whether $y(t)$ is a solution it is sufficient to compute its derivative and check that it is equal to $f(t, y(t))$.
+
+		\subsubsection{Cauchy problems}
+		A differential equation has infinite solutions as a function has infinite primitives.
+		In order to predict the future evolution of a quantity it is necessary to know, besides the law regulating its dynamics or differential equation, an initial condition.
+		An initial value problem or Cauchy problem is constituted by a differential equation and an initial condition:
+
+		$$\begin{cases} y'(t) = f(t,y(t))\\y(t_0) = y_0\end{cases}$$
+
+		A solution to an initial value problem is a function defined on an interval $I$ that contains the point $t_0$ such that for every $t\in I, y'(t) = f(t, y(t)))$ and also it is true that $y(t_0) = y_0$.
+
+
+	\subsection{Strategies to tackle the problem of solving ODEs}
+	There are different strategies to solve ODEs:
+
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item Finding an analytical solution.
+			\item Finding the analytical solution of an easier, but similar, problem.
+			\item Finding a numerical solution iwth an algorithm.
+			\item FInding qualitative results so to probe some of the property of the equation.
+		\end{itemize}
+	\end{multicols}
+
+\section{The bathtub}
+The bathtub is a simple example of a first order differential equation.
+Imagine a container in which there exist an input of water $I(t)$ and an output $O(t)$.
+Let $V(t)$ the volume of water contained at a specific moment.
+The variation in time of the volume of water is:
+
+$$\frac{dV(t)}{dt} = I(t)-O(t)$$
+
+Assume first the input constant:
+
+$$I(t) = \Lambda$$
+
+Morover assume that the output flux is proportional to the volume of water in the container:
+
+$$$\frac{dV(t)}{dt} = \Lambda - \gamma V(t)$$
+
+If there is no output of water:
+
+$$\frac{dV(t)}{dt} = \Lambda$$
+
+This is easy to solve: if the derivatie of the volume is constant:
+
+$$V(t) =\Lambda t + c$$
+
+Which has infinite solution as the initial volume of water is not known.\\
+Now let the imput flux  vary with time:
+
+$$\frac{dV(t)}{dt} = \Lambda(t)$$
+
+The solution is found by integrating both sides of the equation:
+
+$$V(t) = \int_0^t \Lambda(t)du + c$$
+
+	\subsection{Solution of ODEs whose right hand term does not depend on the function}
+	First order differential equations whose right-hand term does not depend on $y(t)$:
+
+	$$y'(t) = k\qquad\qquad y'(t) = f(t)$$
+
+	Where $k$ is a constant and $f(t)$ a funciton of $t$, can be solved simply by integration.
+
+
+	\subsection{Direction fields}
+	It is usually difficult or impossible to find exact solutions of differential equations.
+	Because of this it is necessary to settle for something less complete.
+	Direction fields allow to perform a graphical study of the qualitative behaviour of the solutions.
+	The idea sit that according to the equation $y'=f(t,y)$ if a solution satisfies $y(t_0) = y_0$, the slope of the graph of $y(t)$ calculated at $t_0$, which is by definition $y'(t_0)$ must be equal to $f(t_0, y_0)$.
+	Consequently, if in every $(t_0, y_0)$ a small segment of slop $f(t_0, y_0)$ is traced the slope of a solution that goes through that point is indicated.
+
+		\subsubsection{Draying a direction field}
+		Many point $(\bar{t}, \bar{y})$ in a Cartesian plane are chosen an in each of them a small segment of slope $f(\bar{t}, \bar{y})$ are drawn.
+		In this way the field of direction of $y' = f(t, y)$ can be built.
+		Then a solution can be drawn making sure it is at all point tangent to the direction field.
+
+		\subsubsection{Autonomous equations}
+		Autonomous equations are a class of differential equations in which the right hand side does not depend on $t$:
+
+		$$y' = g(y)$$
+
+		This means that the law that regulates the dynamics of the $y$ variable does not change over time.
+		In particular if $y(t)$ is a solution, also $y(t-t_0)$ is a solution for all $t_0$.
+		Graphically a solution can be moved horizontally and reach another one.
+		Considering direction fields, each column in it will be equal to all the others, so it is sufficient to draw them at a given $t$ and repeat them for all the values of $t$.
+
+	\subsection{Equilibria}
+	Given the autonomous differential equation $y' = f(y(t))$ the points $\bar{y}$ such that $f(\bar{y})=0$ are said to be equilibria because if $y(0) = \bar{y}$ then $y(t) = \bar{y}$ for every $t$.
+	Since solutions cannot cross each other if $f(y_0)>0$ then $f(y(t))>0$ for every $t$ and then $y'(t) = f(y(t))>0$ or $y(t)$ is an increasing function.
+	The same happens in the case of $f(y_0)<0$.
+
+\section{Solution through separation of variables}
+The separation of variables is a technique that allows to find an explicit expression for the exact solutions of a class of equations.
+
+	\subsection{Equations in which the right hand-side does not depend on $y$}
+	In the case of an equation where the right-had side does not depend on $y$, it can be written as:
+
+	$$y' = f(t)$$
+
+	In this case the derivative of $y(t)$ is explicitly assigend.
+	Solutions are all the primitives of $f$, so:
+
+	$$y(t) = \int f(t)dt$$
+
+	\subsection{Separable equations}
+	Separable equations are equations of the form:
+
+	$$y' = f(t)g(y)$$
+
+	They can be solved through the following steps:
+
+	\begin{enumerate}
+		\item The derivative $y'$ is written using the Leibniz notation:
+
+			$$\frac{dy}{dt} = f(t)g(y)$$
+
+		\item Then $dt$ gets multiplied as if it were a number:
+
+			$$\frac{dy}{g(y)} = f(t)dt$$
+
+		\item The integral is then applied to each of the members:
+
+			$$\int\frac{dy}{g(y)} = \int f(t)dt$$
+
+		\item Then the last equality is interrogated: a primitive $H(y)$ of $\frac{1}{g(y)}$ and $F(t)$ of $f(t)$ are chosen, such that for each $t$:
+
+			$$H(y(t)) = F(t) + C$$
+
+			Is true, where $C$ is a constant and $y(t)$ is the value of the solution at time $t$.
+	\end{enumerate}
+
+		\subsubsection{Theorem}
+		Consider the equation $y' = f(t)g(y)$.
+		Let $F(t)$ be a primitive of $f$: $F'(t) = f(t)$ and $H(y)$ a primitive of $\frac{1}{g}$, $H'(y) = \frac{1}{g(y)}$.
+		Then:
+
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item If $y(t)$ is a solution of $y' = f(t)g(y)$ such that $g(y(t))\neq 0$ then there exists a constant $C$ such that $H(y(t)) = F(t) + C$ for each $t$.
+				\item If $y(t)$ satisfies $H(y(t)) = F(t) + C$ and $g(y(t)) \neq 0$ for each $t$ or, in other words, $H(y(t))-F(t)$ is constant, then $y(t)$ is a solution of $y' = f(t)g(y)$.
+			\end{itemize}
+		\end{multicols}
+
+	\subsection{Linear equations}
+	A linear differential equation is an equation in which the second member is linearly dependent on $y$, so that it has form:
+
+	$$y' = a(t)y + b(t)$$
+
+		\subsubsection{Type of linear equation}
+
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item $b(t) = 0$: homogeneous.
+				\item $b(t)\neq 0$: non-homogeneous.
+				\item $a(t)\equiv a\land b(t)\equiv b$: autonomous.
+				\item $a(t)\equiv a\land b(t)\equiv\ any$: constant coefficients.
+			\end{itemize}
+		\end{multicols}
+
+		\subsubsection{Solution of linear equations}
+		Autonomous and homogeneous linear equations can be solved by separating variables if and only if a primitive of $a(t)$ is found following the same procedure described above.
+		Non-homogeneous linear equations can be solved creating a new variable equal to $y(t)$ over the solution of the corresponding homogeneous equation.
+
+	\subsection{Separable equations that cannot be solved}
+	To be able to explicitly write the solutions of a differential equation with the method of separating variables, after making sure that the equation can be written in $y' = f(t)g(y)$.
+	First the primitives $\int\frac{dy}{g(y)}$ and $\int f(t)dt$ need to be computed and this is not always possible.
+	Once this is done, the solution of the equation satisfy $H(y(t)) = F(t)+C$.
+	So, in order to be able to explicitly write the solutions $y(t)$ it must be isolable in that expression: $H$ must be invertible.
+
+\section{Systems of differential equations}
+A system of two autonomous differential equation can be written as:
+
+$$\begin{cases}x'(t) = f(x(t), y(t))\\y'(t)=g(x(t), y(t))\end{cases}$$
+
+	\subsection{Vector field and isoclines}
+	An isocline is a set of point where one of the two derivatives is equal to zero.
+	In general:
+
+	$$\{(x,y):f(x,y) = 0\}\qquad\land\qquad\{(x,y):g(x,y) = 0\}$$
+
+	After having found the isoclines the regions where the derivatives  of $x$ are $y$ are positive or negative:
+
+	$$\{(x,y):f(x,y)>0\}\ \{(x,y):f(x,y)<0\}\ \{(x,y):g(x,y)>0\}\ \{(x,y):g(x,y)<0\}$$
+
+	It can be noted how these regions will be divided by the isoclines.
+	At the intersections of the isoclines there are the equilibria.
+
+\section{Equilibria of differential equations and their stability}
+An equilibrium for an autonomous differential equation $y'(t) = f(y(t))$ is a point $\bar{y}$ such that $f(\bar{y}) = 0$.
+In particular:
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item $f(y)>0$ for $y>\bar{y}$ and $f(y)<0$ for $y<\bar{y}$ $\bar{y}$ is repulsive: the solutions that start near $\bar{y}$ go away from it.
+		\item $f(y)<0$ for $y>\bar{y}$ and $f(y)>0$ for $y<\bar{y}$ $\bar{y}$ is attractive: the solutions that start near $\bar{y}$ tend to it.
+	\end{itemize}
+\end{multicols}
+
+	\subsection{Stability}
+	An equilibrium $\bar{y}$ is stable if for each $\epsilon>0$ there exists a neighbourhood $U$ of $\bar{y}$ such that if the starting point $y_0$ is in $U$, the distance between $y(t;y_)$ (the solution that starts from $y_0$ and $\bar{y}$ is below $\epsilon$ for every $t>0$.
+	In other words an equilibrium is stable if solutions remain arbitrarily close to $\bar{y}$ when the starting point $y_0$ is close enough.
+
+	\subsection{Asympotical stability}
+	An equilibrium $\bar{y}$ is asymptotically stable if it is stable and for each $y_0$ close enough to $\bar{y}$:
+
+	$$\lim\limits_{t\rightarrow\infty}y(t,y_0) = \bar{y}$$
+
+	An asymptotically stable equilibrium is stable and attracting.
+
+	\subsection{Unstability}
+	An equilibrium is said to be unstable if it is not stable: a value $\eta$ such that $\forall\epsilon>0$ there exists $y_0$ whose distance from $\bar{y}$ is below $\epsilon$ and such that the solution $y(t)$ starting from $y_0$ at some time will be at a distance larger than $\eta$ from $\bar{y}$.
+
+	\subsection{Condition of stability}
+	Given an equilibrium $\bar{y}$ of the single equation $y'=f(y)$:
+
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item If $f'(\bar{y})<0$, then $\bar{y}$ is asymptotically stable.
+			\item If $f'(\bar{y})>0$, then $\bar{y}$ is unstable.
+		\end{itemize}
+	\end{multicols}
+
+	This follow from the discussion on the sign of $f$ or can be proven, allowing it to be extended to systems of equations through linearization.
+
+		\subsubsection{Proof}
+		Consider $u(t)=y(t)-\bar{y}$ the deviation from the equilibrium.
+		A function can be approximated near a $\bar{y}$ with its tangent line in $\bar{y}$:
+
+		$$f(y) = f(\bar{y})+f(\bar{y})(y-\bar{y}) + E(y)\approx a(y-\bar{y})$$
+
+		Where $a=f'(\bar{y})\land f(\bar{y}) = 0$ and $E(y)$ is the error arising from using the tangent line, which is negligible when $|y-\bar{y}|$ is small.
+		Then:
+
+		$$u'(t) = y'(t) = f(y(t))\approx a(y(t)-\bar{y})=au(t)$$
+
+		$u(t)$ satisfies assuming that $|u(t)|$ is close to $0$ solving a simple linear equation:
+
+		$$u(t) = u(0)e^{at} = (y_0-\bar{y})e^{at}$$
+
+		If $|y_0-\bar{y}|$ is small and $a<0$, $|u(t)|$ remains small for all $t>0$ and satisfies $\lim\limits_{t\rightarrow\infty}u(t)=0$.
+		So if $a<0$, $\bar{y}$ is stable.
+		If $a>0$, although $|y_0-\bar{y}|$ is small, at some point $|u(t)|$ becomes big, so $\bar{y}$ is unstable and the linear approximation cannot be valid for all $t>0$ and the non-linear equation must be considered.
+
+	\subsection{Linearized stability for systems of differential equations}
+	An equilibrium for the system written in matrix form is:
+
+	$$\vec{y}'(t) = \vec{f}(\vec{y}(t))$$
+
+	To generalize the idea of linearization the deviation is considered:
+
+	$$v(t) = \begin{pmatrix}x(t)-\bar{x}\\y(t)-\bar{y}\end{pmatrix}\ satisfying\ v'(t) = \begin{pmatrix}f(x(t),y(t))\\g(x(t), y(t))\end{pmatrix}$$
+
+	The vector needs to be approximated to the right hand side.
+	To do so the Jacobian matrix of $\vec{f}$ is built:
+
+	$$A = \begin{pmatrix}\frac{\partial f_1}{\partial y_1}(\bar{y}) & \frac{\partial f_1}{\partial y_2}(\bar{y})&\cdots&\frac{\partial f_1}{\partial y_n}(\bar{y})\\\frac{\partial f_2}{\partial y_1}(\bar{y}) & \frac{\partial f_2}{\partial y_2}(\bar{y})&\cdots&\frac{\partial f_2}{\partial y_n}(\bar{y})\\\vdots&\vdots&\cdots&\vdots\\\frac{\partial f_n}{\partial y_1}(\bar{y}) & \frac{\partial f_n}{\partial y_2}(\bar{y})&\cdots&\frac{\partial f_n}{\partial y_n}(\bar{y})\end{pmatrix}$$
+
+	It can be shown that:
+
+	$$(f(y(t)))\sim f(\bar{y})+A(y(t)-\bar{y}) = Av(t)$$
+
+	Higher order terms are neglected as the deviation $v(t)$ is assumed to be small.
+	Ultimately the linearized equation is obtained:
+
+	$$v'(t) = Av(t)$$
+
+	In order to understand the stability of $\bar{y}$ the behaviour of the solutions of $v'(t) = Av(t)$ where $A$ is the Jacobian matrix of $f$ at $\bar{y}$ need to be analysed.
+
+	\subsection{Linear systems}
+	The analysis of the linear case is important because it can give a full description of the solutions or because in the nonlinear cases, local analysis in a neighbourhood of an equilibrium point resorts on linearisation to draw conditions for stability.
+	The problem to consider is:
+
+	$$\vec{Y}'(t) = A\vec{Y}(t)\qquad \vec{Y}(0) = \vec{Y}_0$$
+
+	Where $A$ is an $n\times n$ matrix.
+	In such a case the origin $\vec{O}$ is an equilibrium and the solution can be expressed through:
+
+	$$e^{tA} = \sum\limits_{k=0}^\infty\frac{t^k}{k!}A^k\qquad as\ \vec{Y}(t) = e^{tA}\vec{Y}_0$$
+
+\section{Video}
+
+	\subsection{What is a differential equation}
+	An ordinary differential equation is in the form:
+
+	$$\frac{dy(t)}{dt} = f(t, y(t))$$
+
+	As an example consider the Malthus equation:
+
+	$$\frac{N(t)}{dt} = rN(t)$$
+
+	Where $N$ is population size and $r$ the growth rate of the population (difference between fertility and mortility).
+	So, in particular $y(t) = N(t)$ and $f(t, y(t)) = rN(t)$.
+	In another example the logistic or Nerhulst equation:
+
+	$$\frac{N(t)}{dt} = (r-\nu N(t))N(t)$$
+
+	Where $y(t) = N(t)$ and $f(t,y) = (r-\nu y(t))y(t)$.
+
+	Assuming the growth rate non constant and modyfing accordingly the first equation:
+
+	$$\frac{N'(t)}{dt} = r_0(1+r_1\cos(\omega t))N(t)$$
+
+	So that the growth rate changes sinusoidally with time.
+	So $y(t) = N(t)$ and $f(t,y) = r_0(1+r_1\cos(\omega t))y(t)$.
+
+	Often there is a system of equation.
+	As an example the SIR epidemic model.
+	There are three compartments:
+
+	$$\begin{cases}\frac{dS(t)}{dt} = -\frac{\beta}{N} S(t)I(t)\\\frac{dI(t)}{dt} = \frac{\beta}{N} S(t)I(t)-\gamma I(t)\\\frac{dR(t)}{dt} = \gamma I(t)\end{cases}$$
+
+	Where $S$ is the number of susceptible people (can be infected by infected people)., $I$ the number of infected people and $R$ the number of recovered people.
+	So $\beta$ is the contact rate and $\gamma$ the recovery rate.
+	In this case $y$ is a vector: $y(t) = \begin{pmatrix}S(t)\\I(t)\\R(t)\end{pmatrix}$ and $f(t,y) = \begin{pmatrix}-\frac{\beta}{N} S(t)I(t)\\\frac{\beta}{N} S(t)I(t)-\gamma I(t)\\\gamma I(t)\end{pmatrix}$.
+	Another example can be:
+
+	$$m\frac{d^2x(t)}{dt^2} = -kx(t)$$
+
+	Which is Newton's law for an elastic spring.
+	To account for the second derivative another equation is introduced:
+
+	$$\begin{cases} \frac{dx(t)}{dt} = v(t)\\\frac{dv(t)}{dt} = -\frac{k}{m}x(t)\end{cases}$$
+
+	So now $y(t) = \begin{pmatrix}x(t)\\v(t)\end{pmatrix}$ and $f(t,y) = \begin{pmatrix}v(t)\\-\frac{k}{m}x(t)\end{pmatrix}$.
+
+	\subsection{A solution of a differential equation}
+	An ordinary differential equation is in the form:
+
+	$$\frac{dy(t)}{dt} = f(t, y(t))$$
+
+	Where $y(t)$ is the unknown function.
+	So that $y(t)\forall t\in \mathbb{R}^n$.
+	The function $f$ must have the same dimension as $y$.
+	A solution of a differential equation is a function.
+	$y(t)$ is a solution of $\frac{dy(t)}{dt} = f(t, y(t))$ if:
+
+	\begin{itemize}
+		\item $y(t)$ is a function defined on an interval $I$:
+
+			$$y:I\to \mathbb{R}^n$$
+
+		\item The function $y(t)$ is differentiable in $I$.
+			There is a derivative in any point in the interval.
+		\item It must be true that:
+
+			$$\frac{dy(t)}{dt} = f(t, y(t))\qquad \forall t\in I$$
+	\end{itemize}
+
+		\subsubsection{Checking is a function is a solution}
+		Consider the equation:
+
+		$$\frac{dy(t)}{dt} = ry(t)$$
+
+		And $y(t) = Ce^{rt}$ is a solution of the equation defined on $I=\mathbb{R}$ and where $C$ any constant.
+		In fact:
+
+		$$\frac{dy(t)}{dt} = Cre^{rt}$$
+
+		And:
+
+		$$ry(t) = r\cdot Ce^{rt}$$
+
+		So that $\frac{dy(t)}{dt} = ry(t)$.
+
+		Another example from physics:
+
+		$$m\frac{d^2x(t)}{dt^2} = -kx(t)$$
+
+		The solution of this equation is:
+
+		$$x(t) = A\cos\left(\sqrt{\frac{k}{m}}t\right) + B\sin\left(\sqrt{\frac{{k}{m}}t\right)}$$
+
+		Now computing the second derivative:
+
+		$$\frac{dx(t)}{dt} = -A\sin\left(\sqrt{\frac{k}{m}t}\right)\cdot\sqrt{\frac{k}{m}} + B\cos\left(\sqrt{\frac{k}{m}t}\right)\cdot\sqrt{k}{m}$$
+
+		And:
+
+		$$\frac{d^2x(t)}{dt^2} = -A\frac{k}{m}\cos\left(\sqrt{\frac{k}{m}t}\right) - B\frac{k}{m}\sin\left(\sqrt{\frac{k}{m}t}\right)$$
+
+		Now:
+
+		$$-Ak\cos\left(\sqrt{\frac{k}{m}}t\right) -Bk\sin\left(\sqrt{\frac{k}{m}}t\right) = -k(A\cos\left(\sqrt{\frac{k}{m}}t\right) + B\sin\left(\sqrt{\frac{k}{m}}t\right)) = -kx(t)$$

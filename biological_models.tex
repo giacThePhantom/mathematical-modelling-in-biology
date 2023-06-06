@@ -1,0 +1,366 @@
+\input{prefix}
+
+\title{\Huge\textbf{{Mathematical modelling in biology}}\\\LARGE Some models}
+
+\author{
+  Giacomo Fantoni \\
+  \small telegram: \href{https://t.me/GiacomoFantoni}{@GiacomoFantoni} \\[3pt]
+  \small Github: \href{https://github.com/giacThePhantom/mathematical-modelling-in-biology}{https://github.com/riacchiappando/mathematical-modelling-in-biology}\\
+}
+
+
+\begin{document}
+
+  \maketitle
+  \tableofcontents
+
+\section{The bathtub}
+Imagine a container in which there exists an input of water $I(t)$ and an output $O(t)$.
+Let $V(t)$ be the volume of water in the bathtub.
+The varation in time of the volume of water is:
+
+$$\frac{dV(t)}{dt} = I(t)-O(t)$$
+
+  \subsection{Constant input}
+  Assume that the input is constant $I(t) = \Lambda$ and that the output depends on $V(t)$ through a constant $\gamma$.
+  The problem then becomes:
+
+  $$\frac{dV(t)}{dt} = \Lambda - \gamma V(t)$$
+
+  This can be solved thorugh the variation of constants method.
+  First solve the associated homogeneous equation:
+
+  \begin{align*}
+    \frac{du(t)}{dt} = -\gamma u(t)\\
+    \frac{du(t)}{u(t)} = -\gamma dt\\
+    \int\frac{du(t)}{u(t)} = -\gamma\int dt\\
+    \ln(u(t)) = -\gamma t + c\\
+    u(t) = e^{-\gamma t + c}\\
+    u(t) = Ce^{-\gamma t}\\
+  \end{align*}
+
+  Then we can write $V(t) = C(t)e^{-\gamma t}$.
+  Computing its derivative:
+
+  $$\frac{dV(t)}{dt} = \frac{dC(t)}{dt}e^{-\gamma t} - \gamma C(t)e^{-\gamma t}$$
+
+  Posing it equal to the starting one:
+
+  \begin{align*}
+    \Lambda - \gamma V(t) &= \frac{dC(t)}{dt}e^{-\gamma t} -\gamma C(t)e^{-\gamma t}\\
+    \Lambda - \cancel{\gamma V(t)} &= \frac{dC(t)}{dt}e^{-\gamma t} -\cancel{\gamma V(t)}\\
+    \frac{dC(t)}{dt} &= \Lambda e^{\gamma t}\\
+    C(t) &= \int\Lambda e^{\gamma t}dt\\
+    C(t) &= \frac{\Lambda}{\gamma}e^{\gamma t} + c\\
+  \end{align*}
+
+  So that the solution then becomes:
+
+  \begin{align*}
+    V(t) &= \left[\Lambda\frac{e^{\gamma t}{\gamma} + c\right]e^{-\gamma t}}\\
+         &= \frac{\Lambda}{\gamma} + ce^{-\gamma t}\\
+  \end{align*}
+
+  The same thing can be done using an integrating factor:
+
+  \begin{align*}
+    \frac{dV(t)}{dt} &= \Lambda - \gamma V(t)\\
+    \frac{dV(t)}{dt} + \gamma V(t) &= \Lambda\\
+    e^{\int \gamma dt}\frac{dV(t)}{dt} + \gamma e^{\int\gamma dt}V(t) &= \Lambda e^{\int\gamma dt}\\
+    e^{\gamma t}\frac{dV(t)}{dt} + \gamma e^{\gamma t}V(t) &= \Lambda e^{\gamma t}\\
+    \frac{d}{dt}\left[e^{\gamma t}V(t)\right] &= \Lambda e^{\gamma t}\\
+    e^{\gamma t}V(t) &= \int\Lambda e^{\gamma t}dt\\
+    e^{\gamma t}V(t) &= \frac{\Lambda}{\gamma}e^{\gamma t} + c\\
+    V(t) &= \frac{\Lambda}{\gamma} + ce^{-\gamma t}\\
+  \end{align*}
+
+
+  \subsection{Constant input and no output}
+  In the case in which there is no output the problem then becomes:
+
+  $$\frac{dV(t)}{dt} = \Lambda$$
+
+  This is easy to solve:
+
+  $$V(t) = \Lambda t + c$$
+
+  \subsection{Varying input}
+  Let now the input be a function of time $I(t) = \Lambda(t)$.
+  The equation becomes:
+
+  $$\frac{dV(t)}{dt} = \Lambda(t)$$
+
+  The solutions of this is found by integrating both sides:
+
+  $$V(t) + \int_0^t\Lambda(u)du + c$$
+
+  \subsection{Output flux but no input}
+  Let now the input be a function of time $O(t) = \gamma V(t)$.
+  The variation in time becomes:
+
+  $$\frac{dV(t)}{dt} = -\gamma V(t)$$
+
+  This does not explicitly depends on $t$: it is autonomous.
+  This can be solved thourgh the separation of variable methods:
+
+  \begin{align*}
+    \frac{dV(t)}{dt} &= -\gamma V(t)\\
+    \frac{dV(t)}{V(t)} &= -\gamma dt\\
+    \int\frac{dV(t)}{V(t)} &= -\gamma\int dt\\
+    \ln(V(t)) &= -\gamma t + c\\
+    V(t) &= e^{-\gamma t + c}\\
+    V(t) &= e^{-\gamma t}e^c\\
+    V(t) &= kre^{-\gamma t}
+  \end{align*}
+
+  $k$ in this context is the volume in the bathtub at time $0$, wich could be computed if the volme at time $0$ was given:
+
+  $$\begin{cases}
+    \frac{dV(t)}{dt} = -\gamma V(t)\\
+    V(0) = V_0
+  \end{cases}$$
+
+  So that $V(0)$ can be computed:
+
+  \begin{align*}
+    V(0) &= kre^{-\gamma 0}\\
+    V(0) &= k
+  \end{align*}
+
+\section{Malthus equation}
+The Malthus equation is a model for the growth of a population.
+It neglets difference amond individuals and migrations.
+It represents a population through its size that will increase thru reproduction and decrease through death:
+
+$$\frac{dN(t)}{dt} = B(t) - D(t)$$
+
+The number of births can deaths are linked to the current population.
+A death rate $\mu$ can be introduced ($\frac{1}{\mu}$ is the average lifespan) and a birth rate $\beta$ (the average number of newborn generated during a lifespan).
+Both are non-negative constants:
+
+\begin{align*}
+  \frac{dN(t)}{dt} = \beta N(t) - \mu N(t)\\
+  \frac{dN(t)}{dt} = (\beta - \mu)N(t)\\
+  \frac{dN(t)}{dt} = rN(t)
+\end{align*}
+
+Where $r = \beta-\mu$ is the instanteous growth rate or Malthus parameter or biological potential of the population.
+The equation can be solved through the separation of variables method:
+
+\begin{align*}
+  \frac{dN(t)}{dt} = rN(t)\\
+  \frac{dN(t)}{N(t)} = rdt\\
+  \int\frac{1}{N(t)}dN(t) = \int rdt\\
+  \ln(N(t)) = rt + c\\
+  N(t) = e^{rt + c}\\
+  N(t) = ke^{rt}\\
+  N(t) = ke^{(\beta-\mu)t}\\
+\end{align*}
+
+Where $k$ is the population size at time $0$.
+If $r<0$ the population will go extint, while if $r>0$ it will grow exponentially.
+If $r=0$ the population is constant.
+The basic reproduction number $R_0=\frac{\beta}{\mu}$ can be considered.
+$r<0$ is equivalent to $R_0<1$, while $R_0>1$ is equivalent to $r>0$.
+Now, the equilibria and stability can be computed:
+
+\begin{align*}
+  rN(t) &= 0\\
+  N(t) &= 0
+\end{align*}
+
+This is the only equilibrium point.
+
+\section{The logistic equation}
+The logistic equation introduces into the Malthus' one a term that limits the growth of the population.
+The simplest way to do so is to modify the rates, supposing that fertility decreses and mortailtiy inreases inearly with $N(t)$:
+
+\begin{align*}
+  \beta(N(t)) = \beta_0 - \tilde{\beta}N(t)\\
+  \mu(N(t)) = \mu_0 + \tilde{\mu}N(t)
+\end{align*}
+
+Where $\beta_0, \tilde{\beta}, \mu_0, \tilde{\mu}$ are positive constants.
+Now the equation becomes:
+
+\begin{align*}
+  \frac{dN(t)}{dt} &= \beta(N(t))N(t) - \mu(N(t))N(t)\\
+                   &= (\beta_0 - \tilde{\beta}N(t))N(t) - (\mu_0 + \tilde{\mu}N(t))N(t)\\
+                   &= \beta_0N(t) - \tilde{\beta}N^2(t) - \mu_0N(t) - \tilde{\mu}N^2(t)\\
+                   &= N(t)\left[\beta_0 - \tilde{\beta}N(t) - \mu_0 - \tilde{\mu}N(t)\right]\\
+                   &= N(t)\left[(\beta_0 - \mu_0) - (\tilde{\beta} - \tilde{\mu})N(t)\right]\\
+                   &= N(t)(\beta_0-\mu_0)\left[1-\frac{N(t)(\tilde{\beta}-\tilde{\mu})}{\beta_0-\mu_0}\right]\\
+\end{align*}
+
+Now $(\beta_0-\mu_0) = r$, the Malthus parameter, and $\frac{(\beta_0-\mu_0)}{(\tilde{\beta}-\tilde{\mu})} = K$, the carrying capacity:
+
+
+$$\frac{dN(t)}{dt} = rN(t)\left[1-\frac{N(t)}{K}\right]$$
+
+If both $\tilde{\beta}$ and $\tilde{\mu}$ are $0$ the equation goes back to the Malthus one.
+For very large $N(t)$ and $\tilde{\beta}>0$, the birth rate could go negative.
+This does not cause mathamtical problems and the conditions are which it happens do not occur, so it is neglected.
+Generally it is assumed that $r>0$, since the population is growing over time.
+So if $r>0$, and considering all the other assumptions $K>0$.
+
+  \subsection{Solution}
+  To solve the equation we solve for its reciprocal:
+
+  $$u(t) = \frac{1}{N(t)}$$
+
+  This implies that:
+
+  \begin{align*}
+    \frac{du(t)}{dt} &= -\frac{1}{N^2(t)}\frac{dN(t)}{dt}\\
+                     &= \frac{-rN(t)\left[1-\frac{N(t)}{K}\right]}{N^2(t)}\\
+                     &= \frac{-r\left[1-\frac{N(t)}{K}\right]}{N(t)}\\
+                     &= -r\left[\frac{1}{N(t)}-\frac{1}{K}\right]\\
+                     &= -ru(t) + \frac{r}{K}\\
+  \end{align*}
+
+  This is a linear non-homoeneous differential euqation that can be solved with the variation of constants method.
+  Solving first the associated homogeneous problem thorugh sepration of variables:
+
+  \begin{align*}
+    \frac{du(t)}{dt} &= -ru(t)\\
+    \frac{du(t)}{u(t)} &= -rdt\\
+    \int\frac{1}{u(t)}du(t) &= \int-rdt\\
+    \ln(u(t)) &= -rt + c\\
+    u(t) &= e^{-rt+c}\\
+    u(t) &= Ce^{-rt}\\
+  \end{align*}
+
+  Let $C$ be a function of $t$:
+
+  $$u(t) = C(t)e^{-rt}$$
+
+  And derive it:
+
+  $$\frac{du(t)}{dt} = C'(t)e^{-rt} - rC(t)e^{-rt}$$
+
+  Considering that:
+
+  $$\frac{du(t)}{dt} = -ru(t)+\frac{r}{K}$$
+
+  So that:
+
+  \begin{align*}
+    -ru(t) + \frac{r}{K} &= \frac{dC(t)}{dt}e^{-rt} - rC(t)e^{-rt}\\
+    -\cancel{rC(t)e^{-rt}}+ \frac{r}{L} &= \frac{dC(t)}{dt}e^{-rt} - \cancel{rC(t)e^{-rt}}\\
+    \frac{dC(t)}{dt}e^{-rt} &= \frac{r}{K}\\
+    \frac{dC(t)}{dt} &= \frac{r}{K}e^{rt}\\
+    C(t) &= \frac{r}{K}\int e^{rt}dt\\
+    C(t) &= \frac{\cancel{r}}{K\cancel{r}}e^{rt} + c\\
+    C(t) = \frac{1}{K}e^{rt} + c\\
+  \end{align*}
+
+  Subsitituting back into $u(t)$:
+
+  \begin{align*}
+    u(t) &= \lefft[\frac{e^{rt}}{K} + c\right]e^{-rt}\\
+    u(t) = \frac{1}{K} + ce^{-rt}\\
+  \end{align*}
+
+  So that:
+
+  $$N(t) = \frac{1}{\frac{1}{K} + ce^{-rt}}$$
+
+  Now, solving the Cauchy problem where $N(0) = N_0$:
+
+  \begin{align*}
+    \frac{1}{\frac{1}{K} + ce^{-r0}} &= N_0\\
+    \frac{1}{\frac{N_0}{K} + cN_0} &= 0\\
+    \frac{N_0}{K} + cN_0 &= 1\\
+    cN_0 &= 1 - \frac{N_0}{K}\\
+    c &= \frac{1}{N_0} - \frac{1}{K}\\
+  \end{align*}
+
+  So that, substituting:
+
+  \begin{align*}
+    N(t) &= \frac{1}{\frac{1}{K} + \left[\frac{1}{N_0} -\frac{1}{K}\right]e^{-rt}}\\
+         &= \frac{K}{1 + \left[\frac{K-N_0}{N_0}\right]e^{-rt}}\\
+  \end{align*}
+
+  \subsection{Equilibria and stability}
+  Assume $r>0$ and $K>0$:
+
+  \begin{align*}
+    rN(t)\left[1-\frac{N(t)}{K}\right] &= 0\\
+    N(t) = 0\qquad\land\qquad N(t) &= K\\
+  \end{align*}
+
+  The first equilibrium is unstable, since the population is growing, while the second is stable.
+
+
+\section{Logistic equation with periodic carrying capacity}
+The logistic model can be modified by assomng that the carrying capacity $K$ is a periodic, always positive function of $t$.
+For example:
+
+$$k(t) = K_0(1+\epsilon\cos(\omega t))\qquad\qquad 0<\epsilon< 1$$
+
+The model then becomes:
+
+\begin{align*}
+  \frac{dN(t)}{dt} &= rN(t)\left[1-\frac{N(t)}{K(t)}\right]\\
+                   &= rN(t)\left[1-\frac{N(t)}{K_0(1+\epsilon\cos(\omega t))}\right]\\
+\end{align*}
+
+Which makes the equation not autonomous anymore.
+
+  \subsection{Solution}
+  The equation can be solved with the same reciprocal trick:
+
+  $$u(t) = \frac{1}{N(t)}$$
+
+  \begin{align*}
+    \frac{du(t)}{dt} &= -\frac{1}{N^2(t)}\frac{dN(t)}{dt}\\
+                     &= \frac{-r\cancel{N(t)}\left[1-\frac{N(t)}{K(t)}\right]}{N^{\cancel{2}(t)}}\\
+                     &= \frac{-r\left[1-\frac{N(t)}{K(t)}\right]}{N(t)}\\
+                     &= -r\left[\frac{1}{N(t)}-\frac{1}{K(t)}\right]\\
+                     &= -ru(t) + \frac{r}{K(t)}\\
+  \end{align*}
+
+  Now this can be solved with the Variation of constants.
+  Solving the associated homogeneous problem:
+
+  $$u(t) = Ce^{-rt}$$
+
+  Now let $C$ a function of $t$ and compute the derivative:
+
+  $$\frac{du(t)}{dt} = \frac{dC(t)}{dt}e^{-rt} - rC(t)e^{-rt}$$
+
+  So now, substituting what we now:
+
+  \begin{align*}
+    \frac{dC(t)}{dt}e^{-rt} - rC(t)e^{-rt} = -ru(t) + \frac{r}{K(t)}\\
+    \frac{dC(t)}{dt}e^{-rt} - rC(t)e^{-rt} = -ru(t) + \frac{r}{K(t)}\\
+    \frac{dC(t)}{dt}e^{-rt} - \cancel{rC(t)e^{-rt}} = -\cancel{rC(t)e^{-rt}} + \frac{r}{K(t)}\\
+    \frac{dC(t)}{dt}e^{-rt} = \frac{r}{K(t)}\\
+    \frac{dC(t)}{dt} = \frac{r}{K(t)}e^{rt}\\
+    C(t) = r\int \frac{e^{rt}}{K(t)}dt\\
+    C(t) = r\int \frac{e^{rt}}{K_0(1+\epsilon\cos(\omega t))}dt\\
+    C(t) = \frac{r}{K_0}\int \frac{e^{rt}}{1+\epsilon\cos(\omega t)}dt\\
+  \end{align*}
+
+  Which has no analyitical solution.
+  So now:
+
+  $$u(t) = e^{-rt}\frac{r}{K_0}\int \frac{e^{rt}}{1+\epsilon\cos(\omega t)}dt$$
+
+  And:
+
+  $$N(t) = \frac{e^{rt}K_0}{r\int \frac{e^{rt}}{1+\epsilon\cos(\omega t)}dt}$$
+
+  \subsection{Equilibria}
+  Assuming still $r>0$ and $K_0>0$, the equilibria can be computed:
+
+  \begin{align*}
+    rN(t)\left[1-\frac{N(t)}{K(t)}\right] &= 0\\
+    N(t) = 0\qquad\land\qquad N(t) &= K(t)\\
+  \end{align*}
+
+  The first equlibria is unstable.
+  The second is an asymptotically stable periodic equilibria with period $T = \frac{2\pi}{\omega}$.
+
+\end{document}

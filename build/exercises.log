@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.5)  5 JUN 2023 14:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.5)  6 JUN 2023 12:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **exercises.tex
 (./exercises.tex
 LaTeX2e <2022-11-01> patch level 1
-L3 programming layer <2023-02-22> (./prefix.tex
+L3 programming layer <2023-02-22> (./prefix_exercises.tex
 (/usr/share/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
 (/usr/share/texmf-dist/tex/latex/base/bk10.clo
@@ -1741,54 +1741,54 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 637.
+(hyperref)                removing `\\' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 637.
+(hyperref)                removing `math shift' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\begingroup' on input line 637.
+(hyperref)                removing `\begingroup' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\endgroup' on input line 637.
+(hyperref)                removing `\endgroup' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@@over' on input line 637.
+(hyperref)                removing `\@@over' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\left' on input line 637.
+(hyperref)                removing `\left' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\beta' on input line 637.
+(hyperref)                removing `\beta' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 637.
+(hyperref)                removing `superscript' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\mu' on input line 637.
+(hyperref)                removing `\mu' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\right' on input line 637.
+(hyperref)                removing `\right' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\gamma' on input line 637.
+(hyperref)                removing `\gamma' on input line 640.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 637.
+(hyperref)                removing `math shift' on input line 640.
 
 [18]
-Underfull \hbox (badness 10000) in paragraph at lines 683--684
+Underfull \hbox (badness 10000) in paragraph at lines 686--687
 
  []
 
@@ -1797,7 +1797,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 683--684
 File: chapters/ex1/images/04_direction_field.png Graphic file (type png)
 <use chapters/ex1/images/04_direction_field.png>
 Package pdftex.def Info: chapters/ex1/images/04_direction_field.png  used on in
-put line 749.
+put line 752.
 (pdftex.def)             Requested size: 216.81pt x 241.55704pt.
 ) [20] [21 <./chapters/ex1/images/04_direction_field.png (PNG copy)>]
 (./build/exercises.aux)
@@ -1805,8 +1805,8 @@ Package rerunfilecheck Info: File `exercises.out' has not changed.
 (rerunfilecheck)             Checksum: 7CABBA2F8C0BB2CD66B0B3327A85BB9B;12669.
  ) 
 Here is how much of TeX's memory you used:
- 34952 strings out of 476025
- 673823 string characters out of 5796533
+ 34953 strings out of 476025
+ 673889 string characters out of 5796533
  1910388 words of memory out of 5000000
  54767 multiletter control sequences out of 15000+600000
  534458 words of font info for 88 fonts, out of 8000000 for 9000
@@ -1838,7 +1838,7 @@ er/sfbx2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb
 xmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/
 type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm
 -super/sfti1000.pfb>
-Output written on ./build/exercises.pdf (22 pages, 455152 bytes).
+Output written on ./build/exercises.pdf (22 pages, 455379 bytes).
 PDF statistics:
  422 PDF objects out of 1000 (max. 8388607)
  329 compressed objects within 4 object streams
