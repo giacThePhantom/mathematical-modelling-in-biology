@@ -121,6 +121,386 @@ Consequently, if in every point $(t_0, y_0)$ a small segment of slope $f(t_0, y_
       \end{itemize}
     \end{multicols}
 
+\section{Systems of ODEs}
+
+  \subsection{Homogeneous linear systems}
+  A homogenous linear system with constant coefficients is a system of ODES in the form:
+
+
+  $$\begin{cases}
+    \frac{dy_1(t)}{dt} &= a_{11}y_1(t) + a_{12}y_2(t) + \dots + a_{1n}y_n(t)\\
+    \frac{dy_2(t)}{dt} &= a_{21}y_1(t) + a_{22}y_2(t) + \dots + a_{2n}y_n(t)\\
+    \vdots\\
+    \frac{dy_n(t)}{dt} &= a_{n1}y_1(t) + a_{n2}y_2(t) + \dots + a_{nn}y_n(t)\\
+  \end{cases}$$
+
+  Since the coefficient are constants, this is an autonomous system and can be rewritten using the vector form:
+
+  $$\frac{d\vec{Y}(t)}{dt} = A\vec{Y(t)}$$
+
+  Where:
+
+  $$\vec{Y}(t) = \begin{bmatrix} y_1(t)\\ y_2(t)\\ \vdots\\ y_n(t)\\ \end{bmatrix} \qquad\qquad A = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n}\\a_{21} & a_{22} & \cdots & a_{2n}\\ \vdots & \vdots & \ddots & \vdots \\ a_{n1} & a_{n2} & \cdots & a_{nn}\end{bmatrix}$$
+
+  Which resembles the problem of $\frac{dy(t)}{dt} = ay(t)$, so it is tempting to use a solution in the form $\vec{Y}(t) = \vec{C}e^{A t}$.
+  To check this the derivative of $\vec{Y}(t)$ needs to be computed.
+  The matrix exponential needs to be solved.
+  To do so consider the Taylor expansion of the exponential:
+
+  $$e^{At} = \sum\limits_{k=0}^\infty\frac{{At}^k}{k!} = I + At + \frac{A^2t^2}{2} + \frac{A^3t^3}{3!} + \cdots + \frac{A^nt^n}{n!}$$
+
+  Which can be derived:
+
+  \begin{align*}
+    \frac{d\vec{Y}(t)}{dt} &= \vec{C}\frac{de^{At}}{dt}\\
+                           &= \vec{C}\left[0 + A + A^2t + \frac{A^3t^2}{2} + \cdots + \frac{A^nt^{n-1}}{(n-1)!}\right]\\
+                           &= \vec{C}A\left[I + At + \frac{A^2t^2}{2} + \frac{A^3t^3}{3!} + \cdots + \frac{A^nt^n}{n!}]\right]
+  \end{align*}
+
+  The last factor is the Taylor expansion of $e^{At}$.
+  So, in conclusion $\frac{d\vec{Y}(t)}{dt} = \vec{C}Ae^{At}$.
+  The general solution for a system of homogeneous linear ODS is indeed:
+
+  $$\vec{Y}(t) = \vec{C}e^{At}$$
+
+  Consideing the Cauhy problem: $\vec{Y}(0) = \vec{Y}_0$, then $\vec{C} = \vec{Y}_0$ and the solution is:
+
+  $$\vec{Y}(t) = \vec{Y}_0e^{At}$$
+
+  This method means evaluating the exponential $A^k$ of a matrix as $k$ grows, which is computationally expensive.
+  Assume that $A\in\mathbb{R}^{n\times n}$, is diagonalizable: there exists an invertible matrix $P\in\mathbb{R}^{n\times n}$ and a diagonal one $D\in\mathbb{R}^{n\times n}$ such that:
+
+  \begin{align*}
+    P^{-1}AP &= D\\
+    AP &= PD\\
+    A &= PDP^{-1}
+  \end{align*}
+
+  Where $D$ has as diagonal coefficients the eigenvalues of $A$.
+  Consider additionally the set $B$, the union of the basis-vectors of each eigenspace:
+
+  $$B = B_{E_\alpha} \cup E_{E_\beta} \cup \cdots \cup E_{E_\omega}$$
+
+  Which is a basis of $\mathbb{R}^n$.
+  There exists a basis $B$ of $\mathbb{R}^n$ formed by eigenvectors of $A$.
+  So every vector $\in\mathbb{R}^n$ can be written as a unique linear combination of the vectors in $B$.
+  Once it has been built, the vectors can be used as column vectors to build $P$.
+  Let $\vec{v}$ be an eigenvector, then:
+
+  $$e^{At}\vec{v} = \left(I + At + \frac{A^2t^2}{2} = \frac{A^3t^3}{3!} + \cdots + \frac{A^nt^n}{n!}\right)\vec{v}$$
+
+  Since $\vec{v}$ is an eigenvector, $A\vec{v} = \lambda\vec{v}$, where $\lambda$ is the eigenvalue correlated with $\vec{v}$.
+  If $A\vec{v} = \lambda\vec{v}$, then $A^k\vec{v} = \lambda^k\vec{v}$:
+
+  \begin{align*}
+    e^{At}\vec{v} &=\left(\vec{v} + \lambda\vec{v}t + \lambda^2\vec{v}\frac{t^2}{2} + \lambda^3\vec{v}\frac{t^3}{3!} + \cdots + \lambda^n\vec{v}\frac{^n}{n!}\right)\\
+                  &= \left(1 + \lambda t + \frac{\lambda^2t^2}{2} + \frac{\lambda^3t^3}{3!} + \cdots + \frac{\lambda^nt^n}{n!}\right)\vec{v}\\
+  \end{align*}
+
+  Noting that the right-hand ise is the power series for $e^{\lambda t}$, then, if $\vec{v}$ is an eigenvector of $A$ with eigenvalue $\lambda$:
+
+  $$e^{At}\vec{v} = e^{\lambda t}\vec{v}$$
+
+  If $\vec{v}$ is a generic vector, there exists a basis $B$ of $\mathbb{R}^n$ formed by eigenvectors of $A$, so it can be written as:
+
+  $$\vec{v} = c_1\vec{b}_1 + c_2\vec{b}_2 + c_3\vec{b}_3 + \cdots + c_n\vec{b}_n$$
+
+  So, for linearity:
+
+  $$e^{At}\vec{v} = c_1 e^{\lambda_1t}\vec{b}_1 + c_2e^{\lambda_2 t}\vec{b}_2 + \cdots + c_ne^{\lambda_n t}\vec{b}_n = \sum\limits_{j=1}^nc_je^{\lambda_jt}\vec{b}_j$$
+
+  Now, modifying the notation to bring back the context of the initial value problem $\vec{v} = \vec{C}$:
+
+  $$\vec{Y}(T) = \vec{C}e^{At} = \sum\limits_{j=1}^nc_je^{\lambda_j t}\vec{b}_j\Rightarrow \vec{Y}(t) = \vec{Y}_0e^{At} = \sum\limits_{j=1}^nc_je^{\lambda_j t}\vec{b}_j$$
+
+  Where $c_1, c_2, \dots, c_n$ are the coordinates of $\vec{Y}_0$ with respect to the basis formed by the eigenvectors of $A$:
+
+  $$\vec{Y}_0 = c_1\vec{b}_1 + c_2\vec{b}_2 + \cdots + c_n\vec{b}_n$$
+
+  Complex eigenvalues always come in pair of complex conjugates: $\lambda_{1,2} = r\pm i\omega$.
+  Also their eigenvectors are complex and complex conjugates.
+  Also $c_j$ will be complex, so, having as eigenvalues only the complex couple $\lambda_{1,2}$:
+
+  $$\vec{Y}_0e^{At} = c_1 e^{\lambda_1 t}\vec{b}_1 + c_2e^{\lambda_2 t}\vec{b}_2$$
+
+  Uing Euler's formula:
+
+  \begin{align*}
+    e^{\lambda_1 t} &= e^{(r + i\omega)t} = e^{rt}e&{i\omega t} = e^{rt}\left[\cos(\omega t) + i\sin(\omega t)\right]\\
+    e^{\lambda_2 t} &= e^{(r - i\omega)t} = e^{rt}e&{-i\omega t} = e^{rt}\left[\cos(\omega t) - i\sin(\omega t)\right]\\
+  \end{align*}
+
+  So that:
+
+  \begin{align*}
+    e^{At}\vec{v} &= c_1e^{rt}\left[\cos(\omega t) + i\sin(\omega t)\right]\vec{b}_1 + c_2 e^{rt}\left[\cos(\omega t) - i\sin(\omega t)\right]\vec{b_2}\\
+                  &= \left(c_1e^{rt}\vec{b}_1 + c_2e^{rt}\vec{b}_2\right)\cos(\omega t) + e^{rt}\left(c_1\vec{b}_1i - c_2\vec{b}_2 i)\sin(\omega t)\right)\\
+                  &= e^{rt}\cos(\omega t)\vec{u} + e^{rt}\sin(\omega t)\vec{w}
+  \end{align*}
+
+  Where:
+
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item $\vec{u} = c_1\vec{b}_1 + c_2\vec{b}_2 = \vec{Y}_0$
+      \item $\vec{w} = c_1\vec{b}_1i - c_2\vec{b}_2i$
+    \end{itemize}
+  \end{multicols}
+
+  So that, for homogeneous linear systems with constant coefficients described by a diagonalizable matrix, the solution is:
+
+  \begin{align*}
+    \vec{Y}(t) &= \vec{Y}_0 e^{At} = \\
+               &=\sum\limits_{j=1}^k c_j^{\lambda_j t}\vec{b}_j + \sum\limits_{j=k+1}^n e^{r_jt}\cos(\omega_jt)\vec{u}_j + e^{r_jt}\sin(\omega_jt)\vec{w}_j
+  \end{align*}
+
+  Where the first part accounts for non complex eigenvalues, while the second for each couple of complex conjugates one.
+
+    \subsubsection{Equilibrium points}
+    Equilibrum solution are particular solution such that $\frac{d\vec{Y}(t)}{dt} = 0$, so that:
+
+    $$\frac{d\vec{Y}(t)}{dt} = A\vec{Y}(t) = 0$$
+
+    If the matrix has $Rank(A) = n$ the equation has a single solution, the null vector $O$, which is always present.
+    The system has a single equilibrium in the origin of the plane having $y_i(t)$ in the axis.
+    If $Rank(a) \neq n$, the matrix has infinite equilibrium solutions.
+    The focus will be on $Rank(A) = n$.
+    Considering the $2D$ case, $A\in\mathbb{R}^{n\times n}$ and there are two eigenvalues with corresopnding eigenvectors, the basis for the phase plane.
+    Assuming non-complex eigenvalues the two eigenvector and their eigenspaces can be plotted into the phase plane.
+
+    \subsubsection{Stability}
+
+      \paragraph{Saddle}
+
+      $$\lambda_2< 0 < \lambda_1$$
+
+      If the initial poin is in $E_1$< the eigenspace of $\vec{b}_1$ ($c_2 = 0$), the solution at time $t$ falls in $E_1$, $c_1e^{\lambda_1 t}\vec{b}_1$.
+      If $c_2= 0$ and $c_1>0$, increasing $t$ measn that the solution travels along $E_1$ towards higher values.
+      If $c_2 = 0$ and $c_1 < 0$, the solutions travel along $E_1$ towards higher absolute values.
+      This is because $\lambda_1$ is positive.\\
+      Considering $\vec{b}_2$ and $E_2$, the opposite behavior is seen, whigh the solution approaching $0$ despite the sign of $c_2$: $\lambda_2$ is negative.\\
+      Staring on a generic pont as $t$ advances the influence of both is seen: projecting the starting point on the eigenspaces, its $\vec{b}_2$ component will shrink and the $\vec{b}_1$ will grow in absolute value.\\
+      With $t\to \infty$, the solutions will asymptically approach the origin.
+
+      \paragraph{Stable node}
+
+      $$\lambda_1, \lambda_2 < 0$$
+
+      With $t\to\infty$ the solution will converge to the oriding no matter the starting point.
+      Before falling into the oriding they will approach the eigenspace correlated with the less negative eigenvalue faster.
+
+      \paragraph{Unstable node}
+
+      $$0 < \lambda_1, \lambda_2$$
+
+      With $t\to\infty$ the solution will diverge from the origin no matter the starting point.
+
+    \subsubsection{Complex conjugate eigenvalues}
+    Complex eigenvalue appear in conjugates $\lambda_{1,2} = a\pm i\omega$:
+
+    $$\vec{Y}_0 = c_1\vec{b}_1 + c_2\vec{b}_2$$
+
+    $$\vec{Y}(t) = e^{rt}\cos(\omega t)\vec{Y}_0 + e^{rt}\sin(\omega t)\vec{w}$$
+
+    Trying to compute the value of the solution after an interval $\frac{2\pi}{\omega}$:
+
+    \begin{align*}
+      \vec{Y}\left(+ \frac{2\pi}{\omega}\right) &= e^{rt}e^{\frac{2\pi}{\omega}r}\cos\left(\omega t + \omega\frac{2\pi}{\omega}\right)\vec{Y}_0 + e^{rt}e^{\frac{2\pi}{\omega}r}\sin\left(\omega t + \omega\frac{2\pi}{\omega}\right)\vec{w}\\
+                                                &= e^{rt}e^{\frac{2\pi}{\omega}r}\cos(\omega t + 2\pi)\vec{Y}_0 + e^{rt}e^{\frac{2\pi}{\omega}}\sin(\omega t + 2\pi)\vec{w}\\
+                                                &= e^{rt}e^{\frac{2\pi}{\omega}r}\cos(\omega t)\vec{Y}_0 + e^{rt}e^{\frac{2\pi}{\omega}}\sin(\omega t)\vec{w}\\
+                                                &= e^{\frac{2\pi}{\omega}r}\left[e^{rt}\cos(\omega t)\vec{Y}_0 + e^{rt}e\sin(\omega t)\vec{w}\right]\\
+                                                &= e^{\frac{2\pi}{\omega}r}\vec{Y}(t)
+    \end{align*}
+
+    So the solution is the same but multiplied by $e^{\frac{2\pi}{\omega}r}$.
+    Focussing on the real part $r$.
+    if $r<0$, then $e^{\frac{2\pi}{\omega}r} < 1$ and the solution becomes smaller.
+    If $r>0$, then $e^{\frac{2\pi}{\omega}r} > 1$ and the solution becomes bigger.
+    Since this is true fora ll starting points, then if $r<0$ the solution spirals towards the oriding (stable focus, damped oscillation), while if $r>0$ the solution spirals away from the origin (unstable focus, amplified oscillation).
+
+    \subsubsection{Fast criteria for stability}
+    Suppose a homogeneous linear system with constant coefficients composed of $n$ ODEs.
+    In vector form the coefficient are in $A\in\mathbb{R}^{n\times n}$.
+    The stability of the $O$ equilibrium was not ifnluenced by the nature of the eigenvecture, but by the sign of the eigenvalues.
+    So, when looking only for stability:
+
+    \begin{multicols}{2}
+      \begin{itemize}
+        \item If forall $\lambda_j$, $Re(\lambda_j) < 0$, then all solutions will converge to $O$, which is an asypmtotically stable equilibrium.
+        \item If there exist at leas one $\lambda_j$ such that $Re(\lambda_i) >0$, for $t\to\infty$, almost all solutions will diverge from $O$, which is an unstable equilibrium.
+          There are exception for some situations and for somes tarting point: in a saddle if as starting point any point on the eigenspace of the eigenvalue with negative value is chosen, the solution will converge to $O$.
+      \end{itemize}
+    \end{multicols}
+
+    Let's introduce the spectral bound $S(A)$ of a matrix, which is the maximum real part $Re(\lambda_j)$ of any eigenvalue of $A$.
+    It is evident that:
+
+    \begin{multicols}{2}
+      \begin{itemize}
+        \item If $S(A)<0$, then for $t\to\infty$ all solutions will converge to $O$.
+        \item If $S(A) > 0$, then for $t\to\infty$, almost all solutions will diverge from $O$.
+      \end{itemize}
+    \end{multicols}
+
+    To apply it there is still need to compute the eigenvalues, but this can be simplified:
+
+    \begin{multicols}{2}
+      \begin{itemize}
+        \item If $A$ is diagonal the eigenvalues are the element of the diagonal.
+        \item If $A$ is upper or lower triangular, the eigenvalues are the elements on the main diagonal.
+        \item If $A$ is block-triangular the eigenvalues are the union of the eigenvalues of the blocks adjacent to the zero-block of the matrix.
+      \end{itemize}
+    \end{multicols}
+
+      \paragraph{Routh-Hurwitz criteria}
+      A set of rules that allow to understand if $S(A)<0$.
+      The criteria depend on the dimension of $A$.
+
+      \begin{multicols}{2}
+        If $A\in\mathbb{R}^{2\times 2}$, $S(A)<0$ if and only if:
+
+        $$\begin{cases}
+          det(A) >0\\
+          tr(A) < 0
+        \end{cases}$$
+
+        \columnbreak
+
+        If $A\int\mathbb{R}^{3\times3}$, $S(A)<0$ if and only if:
+
+        $$\begin{cases}
+          a_1 = -tr(A) >0\\
+          a_2 = \text{ sum of principal minors }>0\\
+          a_3 = -det(A) >0\\
+          a_1a_2-a_3 >0
+        \end{cases}$$
+      \end{multicols}
+
+      Where:
+
+      \begin{multicols}{2}
+        \begin{itemize}
+          \item $tr(A)$ is the trace of $A$, the sum of the elements of its main diagonal.
+          \item The principal minors of $A$ are the determinants of all the $n-1$ matrices generated by removing the $j$ and $j$ row from $A$.
+        \end{itemize}
+      \end{multicols}
+
+      These criteria are necessary and sufficient.
+      If they are not verified the equilibrium is unstable.
+
+  \subsection{Non-homogeneous linear systems}
+  They are in the form:
+
+  $$\frac{d\vec{Y}(t)}{dt} = A\vec{Y}(t) + \vec{F}(t)$$
+
+  The variation of constants and multiplication for an integrating factor can be used to solve them.
+
+    \subsubsection{Solution}
+    SUing the variation of of constants.
+    First solve the associated homogeneous system:
+
+    $$\frac{d\vec{Y}(t)}{dt} = A\vec{Y}(t)$$
+
+    The solution, assuming no complex eigenvalues:
+
+    $$\vec{Y}(t) = \sum\limits_{j=1}^kc_je^{\lambda_jt}\vec{b}_j$$
+
+    Which, in matrix form:
+
+    $$\vec{Y}(t) + \begin{bmatrix} e^{\lambda_1}b_{11} & \dots & e^{\lambda_k}b_{1k} \\ \vdots & \ddots & \vdots \\ e^{\lambda_1}b_{n1} & \dots & e^{\lambda_k}b_{nk} \end{bmatrix}\begin{bmatrix} c_1\\\vdots\\ c_k\end{bmatrix} = M\vec{C}$$
+
+    At this point the constant $\vec{C}$ is made a function of time:
+
+    $$\vec{Y}(t) = M\vec{C}(t) = M\begin{bmatrix}c_1(t)\\\vdots\\c_k(t)\end{bmatrix}$$
+
+    Taking the derivative of $\vec{Y}(t)$ and considering that $\frac{d\vec{Y}(t)}{dt} = A\vec{Y}(t) + \vec{F}(t)$ and $\vec{Y}(t) = m\vec{C}(t)$:
+
+    \begin{align*}
+      \frac{d\vec{Y}(t)}{dt}  &= \frac{dM}{dt}\vec{C}(t) + M\frac{d\vec{C}(t)}{dt}\\
+      A\vec{Y}(t) + \vec{F}(t) &=\frac{dM}{dt}\vec{C}(t) + M\frac{d\vec{C}(t)}{dt}\\
+    \end{align*}
+
+    It is always true that $AM\vec{C}(t) = \frac{dM}{dt}\vec{C}(t)$, so:
+
+    \begin{align*}
+      \vec{F}(t) = M\frac{d\vec{C}(t)}{dt}\\
+      \frac{d\vec{C}(t)}{dt} = M^{-1}\vec{F}(t)\\
+      \vec{C}(t) = \int M^{-1}\vec{F}(t)dt
+    \end{align*}
+
+    So the solution is:
+
+    \begin{align*}
+      \vec{Y}(t) &= M\vec{C}(t)\\
+      \vec{Y}(t) &= M\int M^{-1}\vec{F}(t)dt\\
+    \end{align*}
+
+    Wich can be written in the form:
+
+    $$\vec{Y}(t) = \sum\limits_{j=1}^kc_je^{\lambda_jt}\vec{b}_j + \vec{G}(t)$$
+
+    \subsubsection{Equilibria}
+    Finding an equilibrium means to solve the problem:
+
+    $$\frac{d\vec{Y}(t) = A\vec{Y}(t) + \vec{F}(t)}{dt} = 0$$
+
+    Even if $Rank(A) = n$ the zero vector is not guaranteed due to $\vec{F}(t)$.
+    In order to find equilibria there is a need to solve the corresponding system.
+    In the case where the system is non-autonomous ($F(t)$ depends explicitly on time), the zeros of each component will depend on time, meaning that there will be no equilibrium points.
+
+    \subsubsection{Stability}
+    Stability is the same as in the homogeneous case.
+
+  \subsection{Non-linear systems and linearization}
+  Solving non linear system is not always possible, but local properties such as stability of an equilibrium can be studied exploiting linearization.
+  This is a process that allows to derive a linear approximation of the system in the neighbourhood of a point of interest.
+  Consider the non linear system:
+
+  $$\frac{d\vec{Y}(t)}{dt} = f(t, \vec{Y}(t))$$
+
+  And assume that the system will be linearized around the equilibrium solution $\bar{\vec{Y}}(t)$.
+  That means that $f(t, \bar{vec{Y}}(t)) = 0\forall t$.
+  Consider a small displacement from equilibrium: $\vec{V}(t) = \vec{Y}(t) - \bar{\vec{Y}}(t)$, where $\vec{Y}(t)\approx\bar{\vec{Y}}(t)$:
+
+  $$\frac{d\vec{V}(t)}{dt} = \frac{d\vec{Y}(t)}{dt}$$
+
+  Since $\bar{\vec{Y}}(t)$ is constant.
+  Then:
+
+  $$\frac{d\vec{V}(t)}{dt} = \frac{d\vec{Y}(t)}{dt} = f(t, \bar{\vec{Y}}(t)) = f(t, \bar{\vec{Y}}(t) + \vec{V}(t))$$
+
+  Now, taking a Taylor expansion of $f(t, \bar{\vec{Y}}(t) + \vec{V}(t))$, with $\vec{X} = \bar{\vec{Y}}(t) + \vec{V}(t)$ and $a = \bar{\vec{Y}}(t)$ and stopping at the first order:
+
+  \begin{align*}
+    f(t, \bar{\vec{Y}}(t) + \vec{V}(t)) &= f(t, \bar\vec{Y}) + \frac{d}{dt}\left[f(\bar{\vec{Y}})\right]\left[\bar{\vec{Y}}(t) + \vec{V}(t) - \bar{\vec{Y}}(t)\right] + o(\vec{V}(t))\\
+                                        &= f(t, \bar{\vec{Y}}) + \frac{d}{dt}\left[f(\bar{\vec{Y}})\right]\vec{V}(t) + o(\vec{V}(t))\\
+  \end{align*}
+
+  So that:
+
+  $$\frac{d\vec{V}(t)}{dt} = f(\bar{\vec{Y}}(t)) + \frac{d}{dt}\left[f(\bar{\vec{Y}})\right]\vec{V}(t) + o(\vec{V}(t))$$
+
+  Since $\bar{\vec{Y}}(t)$ is a constant function, $f(\bar{\vec{Y}}(t)) = 0$, $o(\vec{V}(t))$ can be ignored:
+
+  $$\frac{d\vec{V}(t)}{dt} = f(\bar{\vec{Y}}(t)) + \frac{d}{dt}\left[f(\bar{\vec{Y}})\right]\vec{V}(t)$$
+
+  $\frac{d}{dt}\left[f(\bar{\vec{Y}})\right]$ is a Jacobian matrix $J$, with form:
+
+  $$J = \begin{bmatrix} \frac{\partial f_1}{\partial y_1} & \cdots & \frac{\partial f_1}{\partial y_n}\\\vdots & \ddots & \vdots\\\frac{\partial f_n}{\partial y_1} & \cdots & \frac{\partial f_n}{\partial y_n}\end{bmatrix}\qquad\qquad \frac{d\vec{V}(t)}{dt} = J\vec{V}(t)$$
+
+  In order to study the properties of the equilibrium solution, the Jacobian of the system at the equilibrium point, and then that is treated as the matrix $A$ of the linear systems.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

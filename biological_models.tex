@@ -57,7 +57,7 @@ $$\frac{dV(t)}{dt} = I(t)-O(t)$$
   So that the solution then becomes:
 
   \begin{align*}
-    V(t) &= \left[\Lambda\frac{e^{\gamma t}{\gamma} + c\right]e^{-\gamma t}}\\
+    V(t) &= \left[\Lambda\frac{e^{\gamma t}}{\gamma} + c\right]e^{-\gamma t}\\
          &= \frac{\Lambda}{\gamma} + ce^{-\gamma t}\\
   \end{align*}
 
@@ -257,7 +257,7 @@ So if $r>0$, and considering all the other assumptions $K>0$.
   Subsitituting back into $u(t)$:
 
   \begin{align*}
-    u(t) &= \lefft[\frac{e^{rt}}{K} + c\right]e^{-rt}\\
+    u(t) &= \left[\frac{e^{rt}}{K} + c\right]e^{-rt}\\
     u(t) = \frac{1}{K} + ce^{-rt}\\
   \end{align*}
 
@@ -362,5 +362,163 @@ Which makes the equation not autonomous anymore.
 
   The first equlibria is unstable.
   The second is an asymptotically stable periodic equilibria with period $T = \frac{2\pi}{\omega}$.
+
+\section{Predator-Prey system}
+The predator-prey system is a non-linear system of two differential equations:
+
+$$\begin{cases}
+  \frac{dH(t)}{dt} = rH(t)\left[1-\frac{H(t)}{K}\right] - \alpha H(t)P(t)\\
+  \frac{dP(t)}{dt} = -\mu P(t) + \gamma\alpha H(t)P(t)\\
+\end{cases}$$
+
+Estimating now the parameters:
+
+$$\begin{cases}
+  \frac{dH(t)}{dt} = 2H(t)\left[1-H(t)\right] - 2H(t)P(t)\\
+  \frac{dP(t)}{dt} = -\frac{1}{2} P(t) + 3H(t)P(t)\\
+\end{cases}$$
+
+  \subsection{Equilibrium points}
+
+  \begin{align*}
+    \begin{cases}
+      2H(t)\left[1-H(t)\right] - 2H(t)P(t) &= 0\\
+      -\frac{1}{2} P(t) + 3H(t)P(t) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      H(t) = 0\qquad\land\qquad H(t) &= 1-P(t)\\
+      -\frac{1}{2} P(t) + 3H(t)P(t) &= 0\\
+    \end{cases}\\
+  \end{align*}
+
+  There are two solution for the first equation.
+  Considering the first:
+
+  \begin{align*}
+    \begin{cases}
+      H(t) &= 0\\
+      -\frac{1}{2} P(t) + 3H(t)P(t) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      H(t) = 0\\
+      -\frac{1}{2} P(t)&= 0\\
+    \end{cases}\\
+    \begin{cases}
+      H(t) = 0\\
+      P(t)&= 0\\
+    \end{cases}\\
+  \end{align*}
+
+  So the first equilibrium point is $E_1 = (0,0)$.\\
+  Considering now the second:
+
+  \begin{align*}
+    \begin{cases}
+      H(t) &= 1-P(t)\\
+      -\frac{1}{2} P(t) + 3H(t)P(t) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      H(t) &= 1-P(t)\\
+      -\frac{1}{2} P(t) + 3(1-P(t))P(t) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      H(t) &= 1-P(t)\\
+      -\frac{1}{2} P(t) + 3P(t) - 3P^2(t) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      H(t) &= 1-P(t)\\
+      P(t)\left[-\frac{1}{2} + 3 - 3P(t)\right] &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      H(t) &= 1-P(t)\\
+      P(t) &= 0\qquad\land\qquad P(t) = \frac{5}{6}\\
+    \end{cases}\\
+  \end{align*}
+
+  So there are two equilibrium points: $E_2 = (1,0)$ and $E_3 = \left(\frac{1}{6},\frac{5}{6}\right)$.
+  The vector field will be enriched adding the equilibrium points and the null isoclines, the curves where the derivatives are posed equal to zero one at a time:
+
+  \begin{align*}
+    2H(t)\left[1-H(t)\right] - 2H(t)P(t) &= 0\\
+    H(t) = 0\qquad\land\qquad H(t) &= 1-P(t)\\
+  \end{align*}
+
+  And:
+
+  \begin{align*}
+    -\frac{1}{2}P(t) + 3H(t)P(t) &= 0\\
+    P(t) \left[-\frac{1}{2} + 3H(t)\right] &= 0\\
+    P(t) = 0\qquad\land\qquad H(t) = \frac{1}{6}\\
+  \end{align*}
+
+  Furhtermore the phase plane will be filled with vectors having components:
+
+  $$[f(H(t),P(t)),g(H(t),P(t))]$$
+
+  Solutions will be tangent to these vectors, although there will not be any information about the evolution in time (there is no $t$ axis).
+  The three equilibrium will be consant in time.
+  Since now the objective is qualitative it is enouch, instead of evaluating the points, to study the sign of the derivatives in the regions identified by the isoclines.
+  In each region the sign will be constant: the isoclines are points in which derivatives change sign, so:
+
+  \begin{align*}
+    \frac{dH(t)}{dt} &>0\\
+    2H(t)[1-H(t)] - 2H(t)P(t) &>0\\
+    2H(t) - 2H^2(t) - 2H(t)P(t) &>0\\
+    H(t)[2-2H(t) - 2P(t)] &>0\\
+    (H(t) > 0\land 2-2H(t) -2P(t) > 0)\lor(H(t) < 0\land 2-2H(t) -2P(t) < 0) &>0\\
+  \end{align*}
+
+  Since the second solution is not comptaible with the biological domain, $\frac{dH(t)}{dt} >0$:
+
+  $$H(t) > 0\land H(t) < 1- P(t)$$
+
+  Now, considering the second equation:
+
+  \begin{align*}
+    \frac{dP(t)}{dt} &> 0\\
+    -\frac{1}{2}P(t) + 3H(t)P(t) &> 0\\
+    P(t)\left[-\frac{1}{2} + 3H(t)\right] &> 0\\
+    (P(t) > 0\land -\frac{1}{2}+3H(t) >0)\lor (P(t) < 0\land -\frac{1}{2}+3H(t) <0) &> 0\\
+  \end{align*}
+
+  The second solution is again not compatible with the biological domain, $\frac{dP(t)}{dt} >0$:
+
+  $$P(t) > 0\land H(t) >\frac{1}{6}$$
+
+  From this the direction field can be populated with vectors with unitary coordinates and negative horizontal when over the $H(t) + 1-P(t)$ isocline and positive under it.
+  Morever vectors to the left of $H(t) = \frac{1}{6}$ wil have negative vertical component and positive to the right.
+  All vectors on an isocline will have the corresponding component equal to $0$.
+  From this $E_1$ and $E_2$ are unstable, whie it is hard to make predictions about $E_3$.
+
+  \subsection{Stability}
+  To compute the stability of the equilibria first the Jaciobian needs to be computed:
+
+  \begin{align*}
+    J &= \begin{bmatrix} \frac{\partial f}{\partial H(t)} & \frac{\partial f}{\partial P(t)}\\ \frac{\partial g}{\partial H(t)} & \frac{\partial g}{\partial P(t)} \end{bmatrix}\\
+      &=\begin{bmatrix} 2- 4H(t) -2H(t) & -2H(t)\\3P(t) & -\frac{1}{2} + 3H(t)\end{bmatrix}
+  \end{align*}
+
+  Now inserting the value of the equilibrium in the Jacobian.
+  For $E_1$:
+
+  $$J = \begin{bmatrix}2 & 0\\ 0 & -\frac{1}{2}\end{bmatrix}$$
+
+  It has eigenvalue $\lambda_1 = 2$ and $\lambda_2 = -\frac{1}{2}$, so $S(A)= 2>0$, then this equilibrium is unstable.\\
+
+  For $E_2$:
+
+  $$J = \begin{bmatrix} -2 & -2\\ 0 & \frac{5}{2}\end{bmatrix}$$
+
+  This is a triangular matrix, so it has eigenvalues $\lambda_1 = -2$ and $\lambda_2 = \frac{5}{2}$, so $S(A) = \frac{5}{2} > 0$, then this equilibrium is unstable.\\
+
+  For $E_3$:
+
+  $$J=\begin{bmatrix} -\frac{1}{3} & -\frac{1}{3}\\ \frac{5}{6} & 0\end{bmatrix}$$
+
+  To not compute the eigenvalues the Routh-Hurwitz critera are used.
+  It can be computed that $det(A) > 0$ and $tr(A) < 0$, so $S(A) < 0$, then this equilibrium is asymptotically stable.
+
+
+
 
 \end{document}

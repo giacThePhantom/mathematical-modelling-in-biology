@@ -1,12 +1,27 @@
 \babel@toc {english}{}\relax 
 \contentsline {section}{\numberline {1}Differential equations}{1}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Ordinary differential equation}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.1}Ordinary differential equation}{2}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Cauchy problem}{2}{subsection.1.2}%
 \contentsline {subsection}{\numberline {1.3}Autonomous equations}{2}{subsection.1.3}%
 \contentsline {subsection}{\numberline {1.4}Separable equations}{2}{subsection.1.4}%
 \contentsline {subsubsection}{\numberline {1.4.1}Separability}{2}{subsubsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.5}Linear ODE}{2}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.5}Linear ODE}{3}{subsection.1.5}%
 \contentsline {subsection}{\numberline {1.6}Direction field}{3}{subsection.1.6}%
 \contentsline {subsection}{\numberline {1.7}Autonomous equations}{3}{subsection.1.7}%
 \contentsline {subsection}{\numberline {1.8}Equilibrium points}{3}{subsection.1.8}%
 \contentsline {subsubsection}{\numberline {1.8.1}Stability}{3}{subsubsection.1.8.1}%
+\contentsline {section}{\numberline {2}Systems of ODEs}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Homogeneous linear systems}{4}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Equilibrium points}{7}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Stability}{7}{subsubsection.2.1.2}%
+\contentsline {paragraph}{\numberline {2.1.2.1}Saddle}{7}{paragraph.2.1.2.1}%
+\contentsline {paragraph}{\numberline {2.1.2.2}Stable node}{7}{paragraph.2.1.2.2}%
+\contentsline {paragraph}{\numberline {2.1.2.3}Unstable node}{7}{paragraph.2.1.2.3}%
+\contentsline {subsubsection}{\numberline {2.1.3}Complex conjugate eigenvalues}{7}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Fast criteria for stability}{8}{subsubsection.2.1.4}%
+\contentsline {paragraph}{\numberline {2.1.4.1}Routh-Hurwitz criteria}{8}{paragraph.2.1.4.1}%
+\contentsline {subsection}{\numberline {2.2}Non-homogeneous linear systems}{9}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Solution}{9}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Equilibria}{10}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Stability}{10}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}Non-linear systems and linearization}{11}{subsection.2.3}%
