@@ -25,3 +25,4 @@
 \contentsline {subsubsection}{\numberline {2.2.2}Equilibria}{10}{subsubsection.2.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.3}Stability}{10}{subsubsection.2.2.3}%
 \contentsline {subsection}{\numberline {2.3}Non-linear systems and linearization}{11}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Tikhonov's theorem}{12}{section.3}%

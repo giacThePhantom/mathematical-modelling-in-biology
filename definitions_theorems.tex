@@ -490,6 +490,36 @@ Consequently, if in every point $(t_0, y_0)$ a small segment of slope $f(t_0, y_
 
   In order to study the properties of the equilibrium solution, the Jacobian of the system at the equilibrium point, and then that is treated as the matrix $A$ of the linear systems.
 
+\section{Tikhonov's theorem}
+Let an autonomous system be:
+
+$$\begin{cases}
+  \frac{dx(\tau)}{d\tau} &= f(x(\tau)), y(\tau))\\
+  \epsilon\frac{dy(\tau)}{d\tau} &= g(x(\tau)), y(\tau))\\
+\end{cases}$$
+
+Let $x$ be the slow variable and $y$ the fast one and let $\epsilon\approx 0$:
+
+$$\begin{cases}
+  \frac{dx(\tau)}{d\tau} &= f(x(\tau)), y(\tau))\\
+  0 &= g(x(\tau)), y(\tau))\\
+\end{cases}$$
+
+Solving the equation $0 = g(x(\tau), y(\tau))$ in some interval, obtaining $\tilde{y}(\tau)$.
+This can be plugged in the slow equation:
+
+$$\frac{dx(\tau)}{d\tau} = f(x(\tau), \tilde{y}(\tau))$$
+
+Solving this and obtaining $\tilde{x}(\tau)$, obtaining a solution for the whole system:
+
+$$(\tilde{x}(\tau), \tilde{y}(\tau))$$
+
+This is called the degenerate solution.
+For $\epsilon\to 0$, the exact solution $(x(\tau), y(\tau))$ tends to the degenerate one:
+
+$$\epsilon\to0\Rightarrow (x(\tau), y(\tau))\to(\tilde{x}(\tau), \tilde{y}(\tau))$$
+
+
 
 
 

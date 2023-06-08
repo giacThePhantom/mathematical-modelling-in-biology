@@ -518,6 +518,798 @@ $$\begin{cases}
   To not compute the eigenvalues the Routh-Hurwitz critera are used.
   It can be computed that $det(A) > 0$ and $tr(A) < 0$, so $S(A) < 0$, then this equilibrium is asymptotically stable.
 
+\section{Epidemiological models}
+They are used to simulate the spread of an epidemic across a population.
+A simple one is the SIR one, that categorizes the population into:
+
+\begin{multicols}{2}
+  \begin{itemize}
+    \item $S$: the susceptible: when they come into contact with an infectious individual they contract the disease and transition to the infectious compartment.
+    \item $I$: the infectious individuals: they have been infectd and can infect the susceptible.
+    \item $R$ the removed (immune) individuals: they have been infected and have recovered, and entered the removed compartment.
+  \end{itemize}
+\end{multicols}
+
+The compartments are linnked via different rates:
+
+\begin{multicols}{2}
+  \begin{itemize}
+    \item The birth rate $\mu$ feeds people into $S$, with dynamics that depends on the total number of people $N = S+I+R$.
+    \item Natural deaths can occur in all gropups with rate equal to the one of births $\mu$ and with dynamics that depends on the number of people in the compartment.
+    \item Infections $S\to I$ happen with a contact rate $\beta$ and are modelled with mass action dynamics.
+    \item Infected people recover with a recovery rate $\gamma$, with dynamics that depend n the total number of infecte people.
+  \end{itemize}
+\end{multicols}
+
+Each SIR variable has the number of people as dimension, while rates $\frac{1}{t}$: the derivatives will have dimenison $\frac{people}{t}$.
+The system governing the dynamics is:
+
+$$\begin{cases}
+  \frac{dS(t)}{dt} &= -\beta S(t)\frac{I(t)}{N} - \mu S(t) + \mu N\\
+  \frac{dI(t)}{dt} &= \beta S(t)\frac{I(t)}{N} - \gamma I(t) - \mu I(t)\\
+  \frac{dR(t)}{dt} &= \gamma I(t) - \mu R(t)
+\end{cases}$$
+
+Since $N = S(t) + I(t) + R(t)\Rightarrow R(t) = N - S(t) - I(t)$, the system can be rewritten as:
+
+$$\begin{cases}
+  \frac{dS(t)}{dt} = -\beta S(t) \frac{I(t)}{N} - \mu S(t) + \mu N\\
+  \frac{dI(t)}{dt} = \beta S(t)\frac{I(t)}{N} - \gamma I(t) - \mu I(t)\\
+\end{cases}$$
+
+  \subsection{Normalization}
+  The system can be modified further by considering the fraction of people in each comparment instead of the total number introducing:
+
+  $$X(t) = \frac{S(t)}{N}\qquad\qquad Y(t) = \frac{I(t)}{N}$$
+
+  Dividing all terms in both equations by $N$.
+  It is expected that $0\ge X(t),Y(t)\le 1$.
+  Considering the derivatives:
+
+  \begin{align*}
+    \frac{dS(t)}{dt}\frac{I(t)}{N} &= \frac{d\frac{S(t)}{N}}{dt}\\
+                                 &= \frac{dX(t)}{dt}\\
+  \end{align*}
+
+  And:
+
+  \begin{align*}
+    \frac{dI(t)}{dt}\frac{I(t)}{N} &= \frac{d\frac{I(t)}{N}}{dt}\\
+                                 &= \frac{dY(t)}{dt}\\
+  \end{align*}
+
+  So that the normalized system becomes:
+
+  $$\begin{cases}
+    \frac{dX(t)}{dt} &= -\beta X(t)Y(t) - \mu X(t) + \mu\\
+    \frac{dY(t)}{dt} &= \beta X(t)Y(t) - \gamma Y(t) - \mu Y(t)
+  \end{cases}$$
+
+  \subsection{Vaccination rate and temporary immunity}
+  It can be assumed that immunity is temporary and people in $R$ can flow back in $S$ with rate $\sigma$, and that there is a vaccination rate $p$ at birth, so that a fraction $p$ of the births is automatically immune and $1-p$ feeds $S$.
+  The previous system described the case in which $p=0\land\sigma=0$.
+  Now the system becomes:
+
+  $$\begin{cases}
+    \frac{dS(t)}{dt} &= -\beta S(t)\frac{I(t)}{N} - \mu S(t) + \mu (1-p)N + \sigma R(t)\\
+    \frac{dI(t)}{dt} &= \beta S(t)\frac{I(t)}{N} - \gamma I(t) - \mu I(t)\\
+    \frac{dR(t)}{dt} &= \gamma I(t) - \mu R(t) - \sigma R(t) + \mu p N
+  \end{cases}$$
+
+  It is still true that $R = N-S-I$, so again the third equation can be not considered:
+
+  $$\begin{cases}
+    \frac{dS(t)}{dt} &= -\beta S(t)\frac{I(t)}{N} - \mu S(t) + \mu (1-p)N + \sigma (N - I(t) - S(t)\\
+    \frac{dI(t)}{dt} &= \beta S(t)\frac{I(t)}{N} - \gamma I(t) - \mu I(t)\\
+  \end{cases}$$
+
+  Then introduce $X(t) = \frac{S(t)}{N}$ and $Y(t) = \frac{I(t)}{N}$ to normalize the system:
+
+  $$\begin{cases}
+    \frac{dX(t)}{dt} &= -\beta X(t)Y(t) - \mu X(t) + \mu (1-p) + \sigma (1 - X(t) - Y(t))\\
+    \frac{dY(t)}{dt} &= \beta X(t)Y(t) - \gamma Y(t) - \mu Y(t)\\
+  \end{cases}$$
+
+  \subsection{Equilibria}
+  To find the equilibria let's first put the derivatives equal to zero:
+
+  \begin{align*}
+    \begin{cases}
+      -\beta X(t)Y(t) - \mu X(t) + \mu (1-p) + \sigma (1 - X(t) - Y(t)) &= 0\\
+      \beta X(t)Y(t) - \gamma Y(t) - \mu Y(t) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      -\beta X(t)Y(t) - \mu X(t) + \mu (1-p) + \sigma (1 - X(t) - Y(t)) &= 0\\
+      Y(t)(\beta X(t) - \gamma - \mu) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      -\beta X(t)Y(t) - \mu X(t) + \mu (1-p) + \sigma (1 - X(t) - Y(t)) &= 0\\
+      Y(t) = 0 \land X(t) &= \frac{\gamma+\mu}{\beta}\\
+    \end{cases}\\
+  \end{align*}
+
+  Discussing first for $Y(t) = 0$:
+
+  \begin{align*}
+    \begin{cases}
+      Y(t) &= 0\\
+      -\beta X(t)Y(t) - \mu X(t) + \mu (1-p) + \sigma (1 - X(t) - Y(t)) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      Y(t) &= 0\\
+      - \mu X(t) + \mu (1-p) + \sigma (1 - X(t)) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      Y(t) &= 0\\
+      - \mu X(t) + \mu (1-p) + \sigma - \sigma X(t)) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      Y(t) &= 0\\
+      -(\mu +\sigma)X(t) &=- \mu (1-p) - \sigma\\
+    \end{cases}\\
+    \begin{cases}
+      Y(t) &= 0\\
+      X(t) &= \frac{\mu (1-p) + \sigma}{\mu+\sigma}\\
+    \end{cases}\\
+  \end{align*}
+
+  So the first equilibrium, or desease free equilibrium $DFE$ is:
+
+  $$E_1 = DEF = \left(\frac{\mu (1-p) + \sigma}{\mu+\sigma},0\right)$$
+
+  Now discussing for $X(t) = \frac{\gamma+\mu}{\beta}$:
+
+  \begin{align*}
+    \begin{cases}
+      X(t) &= \frac{\gamma+\mu}{\beta}\\
+      -\beta X(t)Y(t) - \mu X(t) + \mu (1-p) + \sigma (1 - X(t) - Y(t)) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      X(t) &= \frac{\gamma+\mu}{\beta}\\
+      -\beta X(t)Y(t) - \mu X(t) + \mu (1-p) + \sigma - \sigma X(t) - \sigma Y(t)) &= 0\\
+    \end{cases}\\
+    \begin{cases}
+      X(t) &= \frac{\gamma+\mu}{\beta}\\
+      (\beta X(t) +\sigma)Y(t) &= - \mu X(t) + \mu (1-p) + \sigma - \sigma X(t)\\
+    \end{cases}\\
+    \begin{cases}
+      X(t) &= \frac{\gamma+\mu}{\beta}\\
+      (\beta X(t) +\sigma)Y(t) &= - (\mu+\sigma)X(t) + \mu (1-p) + \sigma\\
+    \end{cases}\\
+    \begin{cases}
+      X(t) &= \frac{\gamma+\mu}{\beta}\\
+      Y(t) &= \frac{- (\mu+\sigma)X(t) + \mu (1-p) + \sigma}{(\beta X(t) +\sigma)}\\
+    \end{cases}\\
+    \begin{cases}
+      X(t) &= \frac{\gamma+\mu}{\beta}\\
+      Y(t) &= \frac{- (\mu+\sigma)\frac{\gamma+\mu}{\beta} + \mu (1-p) + \sigma}{\left(\cancel{\beta} \frac{\gamma+\mu}{\cancel{\beta}} +\sigma\right)}\\
+    \end{cases}\\
+    \begin{cases}
+      X(t) &= \frac{\gamma+\mu}{\beta}\\
+      Y(t) &= \frac{ \mu (1-p) + \sigma- (\mu+\sigma)\frac{\gamma+\mu}{\beta}}{\gamma+\mu +\sigma}\\
+    \end{cases}\\
+  \end{align*}
+
+  So, the second equilibrium, or endemic equilibrium $EE$ is:
+
+  $$E_2 = EE = \left(\frac{\gamma + \mu}{\beta},\frac{ \mu (1-p) + \sigma- (\mu+\sigma)\frac{\gamma+\mu}{\beta}}{\gamma+\mu +\sigma}\right)$$
+
+  From an epiemiological point of view the quantity $R_0$, the average number of individuals infected by a newly infected individual over all its infecious period:
+
+  $$R_0 = \frac{\beta}{\mu+\gamma}\qquad\qquad\ X = \frac{1}{R_0}$$
+
+  Using $R_0$ the endemic equilibrium can be reformulated:
+
+  $$E_2 = EE = \left(\frac{1}{R_0}, \frac{\mu(1-p)+\sigma-\frac{1}{R_0}(\mu+\sigma)}{\mu+\gamma+\sigma}\right)$$
+
+    \subsubsection{Structuring the equilibria}
+    Consider now the case of no vaccination and permanent immunity ($p = 0$, $\sigma = 0$).
+    The equilibria now become:
+
+    $$E^*_1 = DFE^* = \left(1,0\right)\qquad\qquad E^*_2 = EE^* = \left(\frac{1}{R_0}, \frac{\mu\left(1-\frac{1}{R_0}\right)}{\mu+\gamma}\right)$$
+
+    While $DFE^*$ is always feasible, $EE^*$ is feasible only if $R_0 > 1$: if not $Y$ will eighter go to zero if $R_0=1$ (which is not compatible with this equilibrium), or it will reach negative numbers if $R_0<1$ (which is not compatible with biology).
+
+  \subsection{Stability}
+  To check for the stability of the equilibria, first write the Jacobian matrix:
+
+  $$J = \begin{bmatrix}-\beta Y(t) -\mu -\sigma & \beta X(t) -\sigma\\ \beta Y(t) & \beta X(t) - \gamma - \mu\end{bmatrix}$$
+
+  Then it is evaluated at the equilibria.
+  Start with $DFE = \left(\frac{\mu(1-p)+\sigma}{\mu+\sigma},0\right)$:
+
+  $$J_{DFE} = \begin{bmatrix}-\mu -\sigma & -\beta\frac{\mu(1-p)+\sigma}{\mu+\sigma}\\ 0 & \beta\frac{\mu(1-p)+\sigma}{\mu+\sigma}-\gamma-\mu\end{bmatrix}$$
+
+  This is a triangular matrix, so it has eigenvalues:
+
+  \begin{align*}
+    \lambda_1 &= -\mu-\sigma\\
+    \lambda_2 &= \beta\frac{\mu(1-p)+\sigma}{\mu+\sigma}-\gamma-\mu\\
+  \end{align*}
+
+  $\lambda_1$ is always negative, while to discuss $\lambda_2$ introduce:
+
+  $$R_c = \frac{\beta}{\mu+\gamma}\frac{\mu(1-p) +\sigma}{\mu + \sigma} = R_0\frac{\mu(1-p) + \sigma}{\mu+\sigma}$$
+
+  It can be seen that:
+
+  \begin{align*}
+    \lambda_2 &= R_c(\mu+\gamma)-\gamma-\mu\\
+              &= R_c(\mu+\gamma)-(\gamma+\mu)\\
+  \end{align*}
+
+  So that:
+
+  \begin{align*}
+    \lambda_2 &>0 \\
+    R_c(\mu+\gamma)-(\mu+\gamma) &> 0\\
+    R_c &> \frac{\mu+\gamma}{\mu+\gamma}\\
+    R_c &> 1\\
+  \end{align*}
+
+  The $DFE$ will be unstable if $R_c>1$ ($S(A)$ positive) and asymptotically stable if $R_c < 1$ ($S(A)$ negative).\\
+  Now, to discuss the stability of $E_2 = EE = \left(\frac{1}{R_0}, \frac{\mu(1-p) + \sigma - \frac{1}{R_0}(\mu+\sigma)}{\mu+\gamma+\sigma}\right)$.
+  Remember that the $EE$ is well defined only if $R_0>1$ and remembering $R_0 = \frac{\beta}{\mu+\gamma}$, the Jacobian will be:
+
+  \begin{align*}
+    J &= \begin{bmatrix}-\beta\frac{\mu(1-p) + \sigma - \frac{1}{R_0}(\mu+\sigma)}{\mu + \gamma+ \sigma} -\mu - \sigma & -\beta\frac{1}{R_0}-\sigma\\\beta\frac{\mu(1-p) + \sigma - \frac{1}{R_0}(\mu+\sigma)}{\mu + \gamma+ \sigma} & \beta\frac{1}{R_0} - \gamma - \mu\end{bmatrix}\\
+      &= \begin{bmatrix}-\beta\frac{\mu(1-p) + \sigma - \frac{\mu+\gamma}{\beta}(\mu+\sigma)}{\mu + \gamma+ \sigma} -\mu - \sigma & -\beta\frac{\mu+\gamma}{\beta}-\sigma\\\beta\frac{\mu(1-p) + \sigma - \frac{\mu+\gamma}{\beta}(\mu+\sigma)}{\mu + \gamma+ \sigma} & \beta\frac{\mu+\gamma}{\beta} - \gamma - \mu\end{bmatrix}\\
+      &= \begin{bmatrix}-\beta\frac{\mu(1-p) + \sigma - \frac{\mu+\gamma}{\beta}(\mu+\sigma)}{\mu + \gamma+ \sigma} -\mu - \sigma & -\mu-\gamma-\sigma\\\beta\frac{\mu(1-p) + \sigma - \frac{\mu+\gamma}{\beta}(\mu+\sigma)}{\mu + \gamma+ \sigma} & \mu+\gamma - \gamma - \mu\end{bmatrix}\\
+      &= \begin{bmatrix}-\beta\frac{\mu(1-p) + \sigma - \frac{\mu+\gamma}{\beta}(\mu+\sigma)}{\mu + \gamma+ \sigma} -\mu - \sigma & -\mu-\gamma-\sigma\\\beta\frac{\mu(1-p) + \sigma - \frac{\mu+\gamma}{\beta}(\mu+\sigma)}{\mu + \gamma+ \sigma} & 0\end{bmatrix}\\
+  \end{align*}
+
+  To discuss the stability consider the Routh-Hurzwitz criterion for square matrices.
+  First consider the trace of the matrix:
+
+  \begin{align*}
+    Tr(J) = -\beta\frac{\mu(1-p) + \sigma - \frac{\mu+\gamma}{\beta}(\mu+\sigma)}{\mu + \gamma+ \sigma} -\mu - \sigma + 0 &\overbrace{<}^{?} 0\\
+    -\beta\mu +\beta\mu p + \beta\sigma + \cancel{\beta}\frac{\mu+\gamma}{\cancel{\beta}}\mu+\cancel{\beta}\frac{\mu+\gamma}{\cancel{\beta}}\sigma -\mu^2 - \sigma\mu-\gamma\mu - \sigma\mu-\gamma\sigma-\sigma^2 &\overbrace{<}^{?} 0\\
+    -\beta\mu +\beta\mu p + \beta\sigma + (\mu+\gamma)\mu+(\mu+\gamma)\sigma -\mu^2 - \sigma\mu-\gamma\mu - \sigma\mu-\gamma\sigma-\sigma^2 &\overbrace{<}^{?} 0\\
+    -\beta\mu +\beta\mu p + \beta\sigma + \cancel{\mu^2}+\cancel{\gamma\mu}+\cancel{\mu\sigma}+\cancel{\gamma\sigma} -\cancel{\mu^2} - \cancel{\sigma\mu}-\cancel{\gamma\mu} - \sigma\mu-\cancel{\gamma\sigma}-\sigma^2 &\overbrace{<}^{?} 0\\
+    \overbrace{\underbrace{-\beta\mu +\beta\mu p}_{p<1}}^{<0} + \beta\sigma - \sigma\mu-\sigma^2 &\overbrace{<}^{?} 0\\
+    Tr(J) &< 0\\
+  \end{align*}
+
+  So $Tr(J) < 0$.
+  Now consider the determinant.
+  For a $2\times 2$ matrix the determinant is: $x_{11}x_{22}-x_{12}x_{21}$.
+  From the computation of the trace $x_{11} < 0$ and $x_{22} = 0$, while $x_{21} > 0$ and $x_{12} < 0$.
+  So the $det(J) > 0$.
+  From this it can be concluded that the Endemic equilibrium $EE$ is asymptotically stable, when it exists.
+
+\section{Enzymatic reactions}
+An enzymatic reaction follows:
+
+$$S + E \xrightleftharpoons[k_{-1}]{k_1} ES \xrightarrow{k_2} E + P$$
+
+By assuming a law of mass action dynamics (the rate of each reaction is proportional to the concentration of the reactants), this scheme can be transformed into a set of differential equations.
+Let $s = [S]$, $e = [E]$, $c = [SE]$ and $p = [P]$:
+
+$$\begin{cases}
+  \frac{ds(t)}{dt} = -k_1s(t)e(t) + k_{-1}c(t)\\
+  \frac{de(t)}{dt} = -k_1s(t)e(t) + (k_{-1}+k_2)c(t)\\
+  \frac{dc(t)}{dt} = k_1s(t)e(t) - (k_{-1}+k_2)c(t)\\
+  \frac{dp(t)}{dt} = k_2c(t)\\
+\end{cases}$$
+
+The first three equations do not depend on $p$, so the last equaiton can be excluded as:
+
+$$p(t) = k_2\int_0^tc(s)dt$$
+
+Then the system becomes:
+
+$$\begin{cases}
+  \frac{ds(t)}{dt} = -k_1s(t)e(t) + k_{-1}c(t)\\
+  \frac{de(t)}{dt} = -k_1s(t)e(t) + (k_{-1}+k_2)c(t)\\
+  \frac{dc(t)}{dt} = k_1s(t)e(t) - (k_{-1}+k_2)c(t)\\
+\end{cases}$$
+
+Addutionally it can be noted how $\frac{de(t)}{dt} + \frac{dc(t)}{dt} = 0$, meaning that:
+
+$$\frac{d}{dt}[e(t)+c(t)] = 0\rightarrow e(t) + c(t) = k = e_0$$
+
+Given that $\frac{de(t)}{dt}$ can be recovered when $\frac{dc(t)}{dt}$ is known, computing $e(t) = e_0-c(t)$, the second equation can be excluded from the system:
+
+$$\begin{cases}
+  \frac{ds(t)}{dt} = k_{-1}c(t)-k_1s(t)(e_0-c(t)) \\
+  \frac{dc(t)}{dt} = k_1s(t)(e_0-c(t)) - (k_{-1}+k_2)c(t)\\
+\end{cases}$$
+
+Now consider $s(0) = s_0$, $c(0) = 0$ and $p(0) = 0$ and normalize the system by:
+
+$$x(t) = \frac{s(t)}{s_0}\qquad\qquad\land\qquad\qquad y(t) = \frac{c(t)}{e_0}$$
+
+  \subsection{Reactant abundance}
+  Assume a negligibly small cocnentration of enzyme:
+
+  $$\epsilon = \frac{e_0}{s_0}\ll 1$$
+
+  Now normalizing the system, note that $\frac{ds(t)}{dt}\to\frac{ds(t)}{dt}\frac{1}{s_0} = \frac{d\frac{s(t)}{s_0}}{dt}$ and $\frac{dc(t)}{dt}\to\frac{dc(t)}{dt}\frac{1}{e_0}=\frac{d\frac{c(t)}{e_0}}{dt}$.
+  So that the normalized system:
+
+  \begin{align*}
+    \begin{cases}
+      s_0\frac{dx(t)}{dt} = k_{-1}y(t)e_0 - k_1x(t)s_0(e_0-y(t)e_0)\\
+      e_0\frac{dy(t)}{dt} = k_{1}s_0x(t)(e_0-e_0y(t)) - e_0y(t)(k_{-1}+k_2)\\
+    \end{cases}\\
+    \begin{cases}
+      \frac{dx(t)}{dt} = k_{-1}y(t)\frac{e_0}{s_0} - k_1x(t)s_0\frac{e_0}{s_0}(1-y(t))\\
+      \frac{dy(t)}{dt} = k_{1}s_0x(t)(1-y(t)) - y(t)(k_{-1}+k_2)\\
+    \end{cases}\\
+    \begin{cases}
+      \frac{dx(t)}{dt} = k_{-1}y(t)\epsilon - k_1x(t)s_0\epsilon(1-y(t))\\
+      \frac{dy(t)}{dt} = k_{1}s_0x(t)(1-y(t)) - y(t)(k_{-1}+k_2)\\
+    \end{cases}\\
+    \begin{cases}
+      \frac{dx(t)}{dt} = \epsilon[k_{-1}y(t) - k_1x(t)s_0(1-y(t))]\\
+      \frac{dy(t)}{dt} = k_{1}s_0x(t)(1-y(t)) - y(t)(k_{-1}+k_2)\\
+    \end{cases}\\
+  \end{align*}
+
+  Since it was assumed that $\epsilon\approx 0$:
+
+  $$\begin{cases}
+    \frac{dx(t)}{dt} = 0\\
+    \frac{dy(t)}{dt} = k_1s_0x(t)(1-y(t)) - y(t)(k_{-1}+k_2)\\
+  \end{cases}$$
+
+  So $x(t)$ is a constant.
+  Moreover, given that $x(t) = \frac{s(t)}{s_0}$, and that $s_0$ is a constant, then $s(t)$ is constant.
+  This means that it never changes from its initial value, so $x = \frac{s(t)}{s_0} = \frac{s_0}{s_0} = 1$.
+  Then a single ODE remains in the system:
+
+  $$\frac{dy}{dt} = k_1s_0(1-y(t)) - y(t)(k_{-1}+k_2)$$
+
+    \subsubsection{Equilibrium points}
+    Analyzing the equilibrium points of the system:
+
+    \begin{align*}
+      k_1s_0(1-y(t)) - y(t)(k_{-1}+k_2) &= 0\\
+      k_1s_0 - k_1s_0y(t) - y(t)(k_{-1} + k_2) &= 0\\
+      (k_1s_0 + k_{-1} + k_2)y(t) &= k_1s_0\\
+      y(t) &= \frac{k_1s_0}{k_1s_0 + k_{-1} + k_2}\\
+    \end{align*}
+
+  \subsection{Slower time-scale}
+  In a lower time-scale the system cannot be approximated into a single equation.
+  $t$ is replaced by a smaller unit $\tau$ such that:
+
+  $$\tau = \epsilon t$$
+
+  So that when $\epsilon$ is very small, also $\tau$ is very small and the timescale is slowed done.
+  Using the chain rule:
+
+  $$\frac{d}{d\tau} = \frac{d}{dt}\frac{dt}{d\tau}$$
+
+  And since $t = \frac{\tau}{\epsilon}$:
+
+  \begin{align*}
+    \frac{d}{d\tau} &= \frac{d}{dt}\frac{dt}{d\tau}\\
+                    &= \frac{d}{dt}\frac{1}{\epsilon}
+  \end{align*}
+
+  Applying this in $x(t)$ and $y(t)$:
+
+  \begin{align*}
+    \frac{d}{d\tau}x(\tau) &= \frac{d}{dt}\frac{1}{\epsilon}x(\tau)\\
+                        &=\frac{1}{\epsilon}\frac{dx(t)}{dt}\\
+  \end{align*}
+
+  \begin{align*}
+    \frac{d}{d\tau}y(\tau) &= \frac{d}{dt}\frac{1}{\epsilon}y(\tau)\\
+                        &=\frac{1}{\epsilon}\frac{dy(t)}{dt}\\
+  \end{align*}
+
+  So the system can be switched to the slower time scale by dividing by $\epsilon$:
+
+  \begin{align*}
+    \begin{cases}
+      \frac{dx(\tau)}{d\tau} &= \frac{1}{\cancel{\epsilon}}\cancel{\epsilon}[k_{-1}y(\tau) - k_1x(\tau)s_0(1-y(\tau))]\\
+      \frac{dy(\tau)}{\tau} &= \frac{1}{\epsilon}[k_1s_0x(\tau)(1-y(\tau)) - y(\tau)(k_{-1}+k_2)]\\
+    \end{cases}\\
+    \begin{cases}
+      \frac{dx(\tau)}{d\tau} &= k_{-1}y(\tau) - k_1x(\tau)s_0(1-y(\tau))\\
+      \frac{dy(\tau)}{\tau} &= \frac{1}{\epsilon}[k_1s_0x(\tau)(1-y(\tau)) - y(\tau)(k_{-1}+k_2)]\\
+    \end{cases}\\
+  \end{align*}
+
+  Switching back to the fast timescale for the second equation:
+
+  $$\begin{cases}
+    \frac{dx(\tau)}{d\tau} &= k_{-1}y(\tau) - k_1x(\tau)s_0(1-y(\tau))\\
+      \frac{dy(t)}{dt} = \epsilon\frac{dy(\tau)}{\tau} &= [k_1s_0x(\tau)(1-y(\tau)) - y(\tau)(k_{-1}+k_2)]\\
+  \end{cases}$$
+
+  But, since $\epsilon \approx 0$:
+
+  $$\begin{cases}
+      \frac{dx(\tau)}{d\tau} &= k_{-1}y(\tau) - k_1x(\tau)s_0(1-y(\tau))\\
+      0 &= [k_1s_0x(\tau)(1-y(\tau)) - y(\tau)(k_{-1}+k_2)]\\
+  \end{cases}$$
+
+  The second equation allow to extract the equilibrium value $\tilde{y}$ for $y(t)$ in the slower timescale:
+
+  \begin{align*}
+    [k_1s_0x(\tau)(1-\tilde{y}(\tau)) - \tilde{y}(\tau)(k_{-1}+k_2)] &= 0\\
+    k_1s_0x(\tau)-k_1s_0x(\tau)\tilde{y}(\tau) - \tilde{y}(\tau)(k_{-1}+k_2) &= 0\\
+    (k_1s_0x(\tau) + k_{-1} + k_2)\tilde{y}(\tau) &= k_1s_0x(\tau)\\
+    \tilde{y}(\tau) &= \frac{k_1s_0x(\tau)}{k_1s_0x(\tau) + k_{-1} + k_2}\\
+  \end{align*}
+
+  So that it can be subsituted in the first equation:
+
+  \begin{align*}
+    \frac{dx(\tau)}{d\tau} &= k_{-1}\tilde{y}(\tau) - k_1x(\tau)s_0(1-\tilde{y}(\tau))\\
+                           &= k_{-1}\frac{k_1s_0x(\tau)}{k_1s_0x(\tau)+k_{-1}+k_2} - k_1x(\tau)s_0\left(1-\frac{k_1s_0x(\tau)}{k_1s_0x(\tau)+k_{-1}+k_2}\right)\\
+                           &= k_1x(\tau)s_0\frac{k_{-1}}{k_1x(\tau)s_0+k_{-1}+k_2} - k_1x(\tau)s_0\left(1-\frac{k_1s_0x(\tau)}{k_1s_0x(\tau)+k_{-1}+k_2}\right)\\
+                           &= k_1x(\tau)s_0\left[\frac{k_{-1}}{k_1x(\tau)s_0+k_{-1}+k_2}-1+\frac{k_1x(\tau)s_0}{k_1x(\tau)s_0+k_{-1}+k_2}\right]\\
+                           &= k_1x(\tau)s_0\left[\frac{k_{-1} + k_1x(\tau)s_0}{k_1x(\tau)s_0+k_{-1}+k_2}-1\right]\\
+                           &= \frac{(k_1x(\tau)s_0)^2+k_{-1}k_1x(\tau)s_0 - k_1x(\tau)s_0[k_1x(\tau)s_0 + k_{-1} + k_2]}{k_1x(\tau)s_0+k_{-1}+k_2}\\
+                           &= \frac{\cancel{(k_1x(\tau)s_0)^2}+\cancel{k_{-1}k_1x(\tau)s_0} - \cancel{(k_1x(\tau)s_0)^2} - \cancel{k_{-1}k_1x(\tau)s_0} - k_2k_{-1}k_1x(\tau)s_0}{k_1x(\tau)s_0+k_{-1}+k_2}\\
+                           &= \frac{k_2k_1x(\tau)s_0}{k_1x(\tau)s_0+k_{-1}+k_2}\\
+  \end{align*}
+
+  Solving this equation $\tilde{x}(\tau)$, an approximate solution for $x(\tau)$ can be obtained.
+  This can be used in the identity of $\tilde{y}(\tau)$ to obtain an approximate equation for $y(\tau)$, approximating a solution for the whole system.\\
+  This is called quasi-equilibrium approximation: the timescale is changed to a slower one, and then one equation is reverted back to the quicker time scale that will be equal to $0$.
+  In this way that equation is solved so that the solutions for the two equations can be found.
+
+  \subsection{Michaelis Menten's Law}
+  Consider now the product:
+
+  $$\frac{dp(t)}{dt} = k_2c(t)$$
+
+  Since $y(t) = \frac{c(t)}{e_0}$:
+
+  $$\frac{dp(t)}{dt} = k_2e_0y(t)$$
+
+  Changing to the slow timescale:
+
+  $$\frac{dp(\tau)}{d\tau} = \frac{k_2e_0y(t)}{\epsilon} = k_2s_0y(\tau)$$
+
+  Assume to have applied the quasi-equilibrium approximation and found a value $\tilde{y}(\tau)$ that can be replaced in there.
+  Remembering:
+
+  $$\tilde{y}(\tau) = \frac{k_1x(\tau)s_0}{k_1x(\tau)s_0 + k_{-1} + k_2}$$
+
+  So:
+
+  \begin{align*}
+    \frac{dp(\tau)}{d\tau} &= k_2s_0\frac{k_1x(\tau)s_0}{k_1x(\tau)s_0 + k_{-1} + k_2}\\
+                         &= \frac{k_1k_2x(\tau)s_0^2}{k_1x(\tau)s_0 + k_{-1} + k_2}\\
+  \end{align*}
+
+  And remembering that $x(t) = \frac{s(t)}{s_0}$:
+
+  $$\frac{dp(\tau)}{d\tau} = \frac{k_1k_2s(\tau)s_0}{k_1s(\tau)+k_{-1}+k_2}$$
+
+  Now, multiplying by $\epsilon$ to go to the fast timescale:
+
+  \begin{align*}
+    \frac{dp(t)}{dt} = \epsilon\frac{dp(\tau)}{d\tau} &= \epsilon\frac{k_1k_2s(t)s_0}{k_1s(t)+k_{-1}+k_2}\\
+                                                      &= \frac{e_0}{\cancel{s_0}}\frac{k_1k_2s(t)\cancel{s_0}}{k_1s(t)+k_{-1}+k_2}
+                                                      &= \frac{\cancel{k_1}k_2s(t)e_0}{\cancel{k_1}s(t)+\frac{\cancel{k_1}(k_{-1}+k_2)}{k_1}}\\
+                                                      &= \frac{k_2s(t)e_0}{s(t)+\frac{k_{-1}+k_2}{k_1}}\\
+  \end{align*}
+
+  Given that $k_2$ and $e_0$ are constants, introduce $m = k_2e_0$, the same for $\frac{k_{-1}+k_2}{k_1}=s_h$, or the half saturation constant so that the Michaelis Menten's Law is obtained:
+
+  $$\frac{dp(t)}{dt} = \frac{ms(t)}{s(t) + s_h}$$
+
+  Where:
+
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item $m = k_2e_0$
+      \item $s_h = \frac{k_{-1}+k_2}{k_1}$
+    \end{itemize}
+  \end{multicols}
+
+  This law links the speed at which the product of an enzymatic reaction is produced to the concentration of substrate.
+  THe half saturation constant $s_h$ is the value of the concentration of $S$such that the rate of production of the product is hal of its maximum.
+  The rate of production will increase until saturation with maximum value $m$ as the concentration of substrate grows to infinity.
+
+  \subsection{Enzymatic reaction with reversible production}
+  An enzymatic reaction with reversible production follows:
+
+  $$S + E \xrightleftharpoons[k_{-1}]{k_1} ES \xrightleftharpoons[k_{-2}]{k_2} E + P$$
+
+  The system is:
+
+  $$\begin{cases}
+    \frac{ds(t)}{dt} &= -k_1s(t)e(t) + k_{-1}c(t)\\
+    \frac{de(t)}{dt} &= -k_1s(t)e(t) + k_{-1}c(t) + k_2c(t) - k_{-2}p(t)e(t)\\
+    \frac{dc(t)}{dt} &= k_1s(t)e(t) - k_{-1}c(t) - k_2c(t) + k_{-2}p(t)e(t)\\
+    \frac{dp(t)}{dt} &= k_2c(t) - k_{-2}p(t)e(t)\\
+  \end{cases}$$
+
+  It can be seen that:
+
+  \begin{align*}
+    \frac{d}{dt}[e(t)+c(t)] &= 0\Rightarrow e(t) + c(t) = k = e_0\\
+    \frac{d}{dt}[s(t) + c(t) + p(t)] &= 0\Rightarrow s(t) + c(t) + p(t) = k =  s_0\\
+  \end{align*}
+
+  Given that at any instant $e(t)$ can be recovered from $c(t)$ and $p(t)$ from $s(t)$ and $c(t)$, the system can be reduced to:
+
+  $$\begin{cases}
+    \frac{ds(t)}{dt} &= -k_1s(t)(e_0-c(t)) + k_{-1}c(t)\\
+    \frac{dc(t)}{dt} &= k_1s(t)(e_0-c(t)) - k_{-1}c(t) - k_2c(t) + k_{-2}(s_0-s(t)-c(t))(e_0-c(t))\\
+  \end{cases}$$
+
+    \subsubsection{Normalization}
+
+    $$x(t) = \frac{s(t)}{s_0}\qquad\qquad y(t) = \frac{c(t)}{e_0}\qquad\qquad\epsilon = \frac{e_0}{s_0}\ll 1$$
+
+    \begin{align*}
+      \begin{cases}
+        s_0\frac{dx(t)}{dt} &= -k_1s_0x(t)(e_0-e_0y(t)) + k_{-1}e_0y(t)\\
+        e_0\frac{dy(t)}{dt} &= k_1s_0x(t)(e_0-e_0y(t)) - k_{-1}e_0y(t) - k_2e_0y(t) + k_{-2}(s_0-s_0x(t)-e_0y(t))(e_0-e_0y(t))\\
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(t)}{dt} &= -k_1s_0\frac{e_0}{s_0}x(t)(1-y(t)) + k_{-1}\frac{e_0}{s_0}y(t)\\
+        \frac{dy(t)}{dt} &= k_1s_0x(t)(1-y(t)) - k_{-1}y(t) - k_2y(t) + k_{-2}s_0(1-x(t)-\frac{e_0}{s_0}y(t))(1-y(t))\\
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(t)}{dt} &= -k_1s_0\epsilon x(t)(1-y(t)) + k_{-1}\epsilon y(t)\\
+        \frac{dy(t)}{dt} &= k_1s_0x(t)(1-y(t)) - k_{-1}y(t) - k_2y(t) + k_{-2}s_0(1-x(t)-\epsilon y(t))(1-y(t))\\
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(t)}{dt} &= \epsilon[-k_1s_0 x(t)(1-y(t)) + k_{-1} y(t)]\\
+        \frac{dy(t)}{dt} &= k_1s_0x(t)(1-y(t)) - k_{-1}y(t) - k_2y(t) + k_{-2}s_0(1-x(t)-\epsilon y(t))(1-y(t))\\
+      \end{cases}\\
+      \epsilon \approx 0\\
+      \begin{cases}
+        \frac{dx(t)}{dt} &= 0[-k_1s_0 x(t)(1-y(t)) + k_{-1} y(t)]\\
+        \frac{dy(t)}{dt} &= k_1s_0x(t)(1-y(t)) - k_{-1}y(t) - k_2y(t) + k_{-2}s_0(1-x(t)-0y(t))(1-y(t))\\
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(t)}{dt} &= 0\\
+        \frac{dy(t)}{dt} &= k_1s_0x(t)(1-y(t)) - k_{-1}y(t) - k_2y(t) + k_{-2}s_0(1-x(t))(1-y(t))\\
+      \end{cases}\\
+    \end{align*}
+
+    So $x(t)$ is a constant.
+    Assuming $x(t) = x = 1$:
+
+    $$\frac{dy(t)}{dt} = k_1s_0(1-y(t)) - k_{-1}y(t) - k_2y(t)$$
+
+    \subsubsection{Equilibrium points}
+
+    \begin{align*}
+      k_1s_0(1-y(t)) - k_{-1}y(t) - k_2y(t) &= 0\\
+      k_1s_0 - k_1s_0y(t) - k_{-1}y(t) - k_2y(t) &= 0\\
+      (k_1s_0 - k_{-1} - k_2)y(t) &= k_1s_0\\
+      y(t) &= \frac{k_1s_0}{k_1s_0 + k_{-1} + k_2}\\
+    \end{align*}
+
+    \subsubsection{Quasi-equilibrium}
+    Switching to slower timescales:
+
+    $$\tau = \epsilon t$$
+
+    \begin{align*}
+      \frac{d}{\tau}x(\tau) &= \frac{d}{dt}\frac{1}{\tau}x(\tau) = \frac{dx(t)}{dt}\frac{1}{\epsilon}\\
+      \frac{d}{\tau}y(\tau) &= \frac{d}{dt}\frac{1}{\tau}y(\tau) = \frac{dy(t)}{dt}\frac{1}{\epsilon}\\
+    \end{align*}
+
+    \begin{align*}
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} = \frac{dx(t)}{dt}\frac{1}{\epsilon} &= \frac{1}{\cancel{\epsilon}}\cancel{\epsilon}[-k_1s_0 x(\tau)(1-y(\tau)) + k_{-1} y(\tau)]\\
+        \frac{dy(\tau)}{d\tau} = \frac{dy(t)}{dt}\frac{1}{\epsilon} &= \frac{1}{\epsilon}\left[k_1s_0x(\tau)(1-y(\tau)) - k_{-1}y(\tau) - k_2y(\tau) + k_{-2}s_0(1-x(\tau)-\epsilon y(\tau))(1-y(\tau))\right]\\
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} &= -k_1s_0 x(\tau)(1-y(\tau)) + k_{-1} y(\tau)\\
+        \frac{dy(\tau)}{d\tau} &= \frac{1}{\epsilon}\left[k_1s_0x(\tau)(1-y(\tau)) - k_{-1}y(\tau) - k_2y(\tau) + k_{-2}s_0(1-x(\tau)-\epsilon y(\tau))(1-y(\tau))\right]\\
+      \end{cases}\\
+    \end{align*}
+
+    Now applying the quasi-equilibrium conditiona nd reverting to the fast timecale for the second:
+
+    \begin{align*}
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} &= -k_1s_0 x(\tau)(1-y(\tau)) + k_{-1} y(\tau)\\
+        \frac{dy(t)}{dt} = \epsilon\frac{dy(\tau)}{d\tau} &= \cancel{\epsilon}\frac{1}{\cancel{\epsilon}}\left[k_1s_0x(\tau)(1-y(\tau)) - k_{-1}y(\tau) - k_2y(\tau) + k_{-2}s_0(1-x(\tau)-\cancel{\epsilon y(\tau)})(1-y(\tau))\right]\\
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} &= -k_1s_0 x(\tau)(1-y(\tau)) + k_{-1} y(\tau)\\
+        \frac{dy(t)}{dt} = \epsilon\frac{dy(\tau)}{d\tau} &= \cancel{\epsilon}\frac{1}{\cancel{\epsilon}}\left[k_1s_0x(\tau)(1-y(\tau)) - k_{-1}y(\tau) - k_2y(\tau) + k_{-2}s_0(1-x(\tau))(1-y(\tau))\right]\\
+      \end{cases}\\
+      \epsilon \approx 0\\
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} &= -k_1s_0 x(\tau)(1-y(\tau)) + k_{-1} y(\tau)\\
+        0 &= k_1s_0x(\tau)(1-y(\tau)) - k_{-1}y(\tau) - k_2y(\tau) + k_{-2}s_0(1-x(\tau))(1-y(\tau))\\
+      \end{cases}\\
+    \end{align*}
+
+    Now extracting $\tilde{y}(\tau)$:
+
+    \begin{align*}
+      &k_1s_0x(\tau)(1-y(\tau)) - k_{-1}y(\tau) - k_2y(\tau) + k_{-2}s_0(1-x(\tau))(1-y(\tau)) = 0\\
+      &k_1s_0x(\tau) - k_1s_0x(\tau)y(\tau) - k_{-1}y(\tau) - k_2y(\tau) + k_{-2}s_0(1-x(\tau) -y(\tau) + x(\tau)y(\tau)) = 0\\
+      &k_1s_0x(\tau) - k_1s_0x(\tau)y(\tau) - k_{-1}y(\tau) - k_2y(\tau) + k_{-2}s_0-k_{-2}s_0x(\tau) -k_{-2}s_0y(\tau) + k_{-2}s_0x(\tau)y(\tau)) = 0\\
+      &[-k_1s_0x(\tau)-k_{-1} - k_2 - k_{-2}s_0+k_{-2}s_0x(\tau)]y(\tau) = -k_1s_0x(\tau) - k_{-2}s_0 - k_{-2}s_0x(\tau)\\
+      &y(\tau) = -\frac{k_1s_0x(\tau) + k_{-2}s_0 + k_{-2}s_0x(\tau)}{-k_1s_0x(\tau)-k_{-1} - k_2 - k_{-2}s_0+k_{-2}xs_0(\tau)}\\
+      &y(\tau) = \frac{k_1s_0x(\tau) + k_{-2}s_0 + k_{-2}s_0x(\tau)}{k_1s_0x(\tau)+k_{-1} + k_2 + k_{-2}s_0-k_{-2}s_0x(\tau)}\\
+    \end{align*}
+
+    At this point it can be plugged into the equation for $\frac{dx(\tau)}{d\tau}$:
+
+    $$\frac{dx(\tau)}{d\tau} = -k_1s_0 x(\tau)(1-y(\tau)) + k_{-1} y(\tau)$$
+
+    \begin{align*}
+      1- y(\tau) &= 1 - \frac{k_1s_0x(\tau) + k_{-2}s_0 + k_{-2}s_0x(\tau)}{k_1s_0x(\tau)+k_{-1} + k_2 + k_{-2}s_0-k_{-2}x(\tau)}\\
+                 &= \frac{\cancel{k_1s_0x(\tau)}+k_{-1} + k_2 + \cancel{k_{-2}s_0}-\cancel{k_{-2}s_0x(\tau)} - \cancel{k_1s_0x(\tau)} - \cancel{k_{-2}s_0} - \cancel{k_{-2}s_0x(\tau)}}{k_1s_0x(\tau)+k_{-1} + k_2 + k_{-2}s_0-k_{-2}s_0x(\tau)}\\
+                 &= \frac{k_{-1} + k_2}{k_1s_0x(\tau)+k_{-1} + k_2 + k_{-2}s_0-k_{-2}s_0x(\tau)}\\
+    \end{align*}
+
+    So that:
+
+    \begin{align*}
+      \frac{dx(\tau)}{d\tau} &= \frac{-k_1s_0x(\tau)(k_{-1} + k_{2})}{k_1s_0x(\tau)+k_{-1} + k_2 + k_{-2}s_0-k_{-2}s_0x(\tau)} + \frac{k_{-1}k_1x(\tau)s_0 + k_{-1}k_{-2}s_0 - k_{-1}k_{-2}s_0x(\tau)}{k_1s_0x(\tau)+k_{-1} + k_2 + k_{-2}s_0-k_{-2}s_0x(\tau)}\\
+                             &= \frac{\cancel{-k_1k_{-1}s_0x(\tau)}-k_1k_2s_0x(\tau) +\cancel{k_{-1}k_1x(\tau)s_0} + k_{-1}k_{-2}s_0 - k_{-1}k_{-2}s_0x(\tau)}{k_1s_0x(\tau)+k_{-1} + k_2 + k_{-2}s_0-k_{-2}s_0x(\tau)}\\
+                             &= \frac{-k_1k_2s_0x(\tau) + k_{-1}k_{-2}s_0 - k_{-1}k_{-2}s_0x(\tau)}{k_1s_0x(\tau)+k_{-1} + k_2 + k_{-2}s_0-k_{-2}s_0x(\tau)}\\
+    \end{align*}
+
+    In order to apply Tikhonov's theorem, the equation has to be solved, finding $\tilde{x}(\tau)$, then it would be plugged into $\tilde{y}(\tau)$ to obtain $\bar{y}(\tau)$.
+    At this point for $\epsilon\to 0$ the exact solution converges to the degenerate $(\tilde{x}(\tau), \tilde{y}(\tau))$.
+
+  \subsection{Enzymatic inhibition}
+  An inhibitory molecule may decrease the rate at which an enzymatic reaction occurs.
+  Considering competitive inhibition, let $I$ be the inhibitory molecule, then the competitive inhibition is schematized as:
+
+  \begin{align*}
+    S + E &\xrightleftharpoons[k_{-1}]{k_1} ES \xrightarrow{k_2} E + P\\
+    I + E &\xrightleftharpoons[k_{-3}]{k_3} EI\\
+  \end{align*}
+
+  Let $s = [S]$, $e = [E]$, $i=[I]$, $c_1 = [SE]$, $c_2 = [IE]$ and $p = [P]$:
+
+  $$\begin{cases}
+    \frac{ds(t)}{dt} &= -k_1s(t)e(t) + k_{-1}c_1(t)\\
+    \frac{de(t)}{dt} &= -k_1s(t)e(t) + (k_{-1}+k_2)c_1(t) -k_3i(t)e(t) + k_{-3}c_2(t)\\
+    \frac{dc_1(t)}{dt} &= k_1s(t)e(t) - (k_{-1}+k_2)c_1(t)\\
+    \frac{dp(t)}{dt} &= k_2c_1(t)\\
+    \frac{di(t)}{dt} &= -k_3i(t)e(t) + k_{-3}c_2(t)\\
+    \frac{dc_2(t)}{dt} &= k_3i(t)e(t) - k_{-3}c_2(t)\\
+  \end{cases}$$
+
+  No equation depends on $p$, so it can be eliminated.
+  Moreover:
+
+  $$\frac{d}{dt}[e(t)+c_1(t) + c_2(t)] = k = e_0\qquad\qquad e(t) = (e_0-c_1(t) - c_2(t))$$
+
+  So $\frac{de(t)}{dt}$ can be elimintaed from the system.
+  Finally $[I]$ is assumed so large that its variation on time are negligible: $\frac{di(t)}{dt} = 0$.
+  Now the constant value of $i$ can be recovered:
+
+  \begin{align*}
+    \frac{di(t)}{dt} = -k_3i(t)e(t) + k_{-3}c_2(t) &= 0\\
+    k_3i(t)(e_0 -c_1(t) - c_2(t)) &=  k_{-3}c_2(t)\\
+    i = \frac{k_{-3}c_2(t)}{k_3(e_0 - c_1(t) - c_2(t))}
+  \end{align*}
+
+  With these assumptions the system becomes:
+
+  $$\begin{cases}
+    \frac{ds(t)}{dt} &= -k_1s(t)(e_0-c_1(t) - c_2(t)) + k_{-1}c_1(t)\\
+    \frac{dc_1(t)}{dt} &= k_1s(t)(e_0-c_1(t) - c_2(t)) - (k_{-1}+k_2)c_1(t)\\
+    \frac{dc_2(t)}{dt} &= k_3i(e_0-c_1(t)-c_2(t))-k_{-3}c_2(t)
+  \end{cases}$$
+
+    \subsubsection{Normalization}
+    Introduce:
+
+    $$x(t) = \frac{s(t)}{s_0}\qquad y_1(t) = \frac{c_1(t)}{e_0}\qquad y_2(t) = \frac{c_2(t)}{e_0}\qquad \epsilon = \frac{e_0}{s_0}\ll 1$$
+
+    \begin{align*}
+      \begin{cases}
+        s_0\frac{dx(t)}{dt} = -k_1s_0x(t)(e_0-e_0y_1(t) - e_0y_2(t)) + k_{-1}e_0y_1(t)\\
+        e_0\frac{dy_1(t)}{dt} = k_1s_0x(t)(e_0-e_0y_1(t) - e_0y_2(t)) - (k_{-1}+k_2)e_0y_1(t)\\
+        e_0\frac{y_2(t)}{dt} = k_3i(e_0-e_0y_1(t)-e_0y_2(t))-k_{-3}e_0y_2(t)
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(t)}{dt} = -k_1\frac{e_0}{s_0}s_0x(t)(1-y_1(t) -y_2(t)) + k_{-1}\frac{e_0}{s_0}y_1(t)\\
+        \frac{dy_1(t)}{dt} = k_1s_0x(t)(1-y_1(t) -y_2(t)) - (k_{-1}+k_2)y_1(t)\\
+        \frac{y_2(t)}{dt} = k_3i(1-y_1(t)-y_2(t))-k_{-3}y_2(t)
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(t)}{dt} = -k_1\epsilon s_0x(t)(1-y_1(t) -y_2(t)) + k_{-1}\epsilon y_1(t)\\
+        \frac{dy_1(t)}{dt} = k_1s_0x(t)(1-y_1(t) -y_2(t)) - (k_{-1}+k_2)y_1(t)\\
+        \frac{y_2(t)}{dt} = k_3i(1-y_1(t)-y_2(t))-k_{-3}y_2(t)/
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(t)}{dt} = \epsilon\left[-k_1s_0x(t)(1-y_1(t) -y_2(t)) + k_{-1}y_1(t)\right]\\
+        \frac{dy_1(t)}{dt} = k_1s_0x(t)(1-y_1(t) -y_2(t)) - (k_{-1}+k_2)y_1(t)\\
+        \frac{y_2(t)}{dt} = k_3i(1-y_1(t)-y_2(t))-k_{-3}y_2(t)\\
+      \end{cases}\\
+    \end{align*}
+
+    \subsubsection{Quasi-equilibrium}
+    Assume a slower timescale $\tau = \epsilon t$:
+
+    $$\frac{d}{d\tau}x(\tau) = \frac{dx(t)}{dt}\frac{1}{\epsilon}\quad \frac{d}{d\tau}y_1(\tau) = \frac{dy_1(t)}{dt}\frac{1}{\epsilon}\quad \frac{d}{d\tau}y_2(\tau) = \frac{dy_2(t)}{dt}\frac{1}{\epsilon}$$
+
+    $$\begin{cases}
+      \frac{dx(\tau)}{d\tau} &= -k_1s_0x(\tau)(1-y_1(\tau) -y_2(\tau)) + k_{-1}y_1(\tau)\\
+      \frac{dy_1(\tau)}{d\tau} &= \frac{1}{\epsilon}\left[k_1s_0x(\tau)(1-y_1(\tau) -y_2(\tau)) - (k_{-1}+k_2)y_1(\tau)\right]\\
+      \frac{dy_2(\tau)}{d\tau} &= \frac{1}{\epsilon}\left[k_3i(1-y_1(\tau)-y_2(\tau))-k_{-3}y_2(\tau)\right]\\
+    \end{cases}$$
+
+    Reverting back to the fast timescale the last two equations:
+
+    \begin{align*}
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} &= -k_1s_0x(\tau)(1-y_1(\tau) -y_2(\tau)) + k_{-1}y_1(\tau)\\
+        \epsilon\frac{dy_1(\tau)}{d\tau} &= k_1s_0x(\tau)(1-y_1(\tau) -y_2(\tau)) - (k_{-1}+k_2)y_1(\tau)\\
+        \epsilon\frac{dy_2(\tau)}{d\tau} &= k_3i(1-y_1(\tau)-y_2(\tau))-k_{-3}y_2(\tau)\\
+      \end{cases}\\
+      \epsilon\approx 0\\
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} &= -k_1s_0x(\tau)(1-y_1(\tau) -y_2(\tau)) + k_{-1}y_1(\tau)\\
+        0 &= k_1s_0x(\tau)(1-y_1(\tau) -y_2(\tau)) - (k_{-1}+k_2)y_1(\tau)\\
+        0 &= k_3i(1-y_1(\tau)-y_2(\tau))-k_{-3}y_2(\tau)\\
+      \end{cases}\\
+    \end{align*}
+
+    The last two equations can now be solved:
+
+    \begin{align*}
+      k_1s_0x(\tau)(1-y_1(\tau) -y_2(\tau)) - (k_{-1}+k_2)y_1(\tau)&=0\\
+      k_1s_0x(\tau)-k_1s_0x(\tau)y_1(\tau) -k_1s_0x(\tau)y_2(\tau)) - k_{-1}y_1(\tau)-k_2y_1(\tau)&=0\\
+      [k_1s_0x(\tau) + k_{-1}+k_2]y_1(\tau) &= k_1s_0x(\tau) -k_1s_0x(\tau)y_2(\tau)\\
+      y_1(\tau) &=\frac{k_1s_0x(\tau)-k_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_{-1}+k_2}\\
+    \end{align*}
+
+    This still depends on $y_2(\tau)$, so we need to solve the last equation:
+
+    \begin{align*}
+      k_3i\left(1-\frac{k_1s_0x(\tau)-k_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_{-1}+k_2}-y_2(\tau)\right)-k_{-3}y_2(\tau) = 0\\
+      k_3i-k_3i\frac{k_1s_0x(\tau)-k_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_3ik_{-1}+k_2}-y_2(\tau)-k_{-3}y_2(\tau) = 0\\
+      k_3i-k_3i\frac{k_1s_0x(\tau)}{k_1s_0x(\tau) + k_3ik_{-1}+k_2}+\frac{k_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_3ik_{-1}+k_2}-y_2(\tau)-k_{-3}y_2(\tau) = 0\\
+      \left[\frac{k_1s_0x(\tau)}{k_1s_0x(\tau) + k_3ik_{-1}+k_2}-1-k_{-3}\right]y_2(\tau) = k_3i-k_3i\frac{k_1s_0x(\tau)}{k_1s_0x(\tau) +k_3ik_{-1}+k_2}\\
+      y_2(\tau) = \frac{k_3i(k_1s_0x(\tau) + k_3ik_{-1}+k_2 -k_1s_0x(\tau))}{k_1s_0x(\tau)+k_3ik_{-1} + k_2}\frac{k_1s_0x(\tau) + k_3ik_{-1} + k_2}{k_1s_0x(\tau) -k_1s_0x(\tau) -l_3ik_{_1} - k_2-k_{-3}k_1s_0x(\tau) - k_{-3}k_3ik_{-1} - k_{-3}k_2}\\
+    \end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

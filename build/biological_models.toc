@@ -1,16 +1,34 @@
 \babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}The bathtub}{1}{section.1}%
+\contentsline {section}{\numberline {1}The bathtub}{2}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Constant input}{2}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Constant input and no output}{3}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Varying input}{3}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}Output flux but no input}{3}{subsection.1.4}%
-\contentsline {section}{\numberline {2}Malthus equation}{4}{section.2}%
-\contentsline {section}{\numberline {3}The logistic equation}{5}{section.3}%
+\contentsline {subsection}{\numberline {1.3}Varying input}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Output flux but no input}{4}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Malthus equation}{5}{section.2}%
+\contentsline {section}{\numberline {3}The logistic equation}{6}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Solution}{6}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Equilibria and stability}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.2}Equilibria and stability}{9}{subsection.3.2}%
 \contentsline {section}{\numberline {4}Logistic equation with periodic carrying capacity}{9}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Solution}{9}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Equilibria}{10}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Predator-Prey system}{10}{section.5}%
+\contentsline {subsection}{\numberline {4.2}Equilibria}{11}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Predator-Prey system}{11}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Equilibrium points}{11}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Stability}{13}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.2}Stability}{14}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Epidemiological models}{14}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Normalization}{15}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Vaccination rate and temporary immunity}{16}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Equilibria}{16}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Structuring the equilibria}{18}{subsubsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.4}Stability}{18}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Enzymatic reactions}{20}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Reactant abundance}{21}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}Equilibrium points}{22}{subsubsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.2}Slower time-scale}{22}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Michaelis Menten's Law}{24}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Enzymatic reaction with reversible production}{25}{subsection.7.4}%
+\contentsline {subsubsection}{\numberline {7.4.1}Normalization}{26}{subsubsection.7.4.1}%
+\contentsline {subsubsection}{\numberline {7.4.2}Equilibrium points}{27}{subsubsection.7.4.2}%
+\contentsline {subsubsection}{\numberline {7.4.3}Quasi-equilibrium}{27}{subsubsection.7.4.3}%
+\contentsline {subsection}{\numberline {7.5}Enzymatic inhibition}{28}{subsection.7.5}%
+\contentsline {subsubsection}{\numberline {7.5.1}Normalization}{29}{subsubsection.7.5.1}%
+\contentsline {subsubsection}{\numberline {7.5.2}Quasi-equilibrium}{30}{subsubsection.7.5.2}%
