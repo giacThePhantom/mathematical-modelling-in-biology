@@ -1264,45 +1264,278 @@ $$x(t) = \frac{s(t)}{s_0}\qquad\qquad\land\qquad\qquad y(t) = \frac{c(t)}{e_0}$$
     This still depends on $y_2(\tau)$, so we need to solve the last equation:
 
     \begin{align*}
-      k_3i\left(1-\frac{k_1s_0x(\tau)-k_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_{-1}+k_2}-y_2(\tau)\right)-k_{-3}y_2(\tau) = 0\\
-      k_3i-k_3i\frac{k_1s_0x(\tau)-k_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_3ik_{-1}+k_2}-y_2(\tau)-k_{-3}y_2(\tau) = 0\\
-      k_3i-k_3i\frac{k_1s_0x(\tau)}{k_1s_0x(\tau) + k_3ik_{-1}+k_2}+\frac{k_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_3ik_{-1}+k_2}-y_2(\tau)-k_{-3}y_2(\tau) = 0\\
-      \left[\frac{k_1s_0x(\tau)}{k_1s_0x(\tau) + k_3ik_{-1}+k_2}-1-k_{-3}\right]y_2(\tau) = k_3i-k_3i\frac{k_1s_0x(\tau)}{k_1s_0x(\tau) +k_3ik_{-1}+k_2}\\
-      y_2(\tau) = \frac{k_3i(k_1s_0x(\tau) + k_3ik_{-1}+k_2 -k_1s_0x(\tau))}{k_1s_0x(\tau)+k_3ik_{-1} + k_2}\frac{k_1s_0x(\tau) + k_3ik_{-1} + k_2}{k_1s_0x(\tau) -k_1s_0x(\tau) -l_3ik_{_1} - k_2-k_{-3}k_1s_0x(\tau) - k_{-3}k_3ik_{-1} - k_{-3}k_2}\\
+      k_3i(1-y_1(\tau)-y_2(\tau))-k_{-3}y_2(\tau) &= 0\\
+      k_3i\left(1-\frac{k_1s_0x(\tau)-k_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_{-1}+k_2} - y_2(\tau)\right)-k_{-3}y_2(\tau) &= 0\\
+      k_3i - \frac{k_3i(k_1s_0x(\tau) - k_1s_0x(\tau)y_2(\tau))}{k_1s_0x(\tau) + k_{-1}+k_2} - k_3iy_2(\tau) -k_{-3}y_2(\tau) &= 0\\
+      -\frac{k_3ik_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_{-1}+k_2} + k_3iy_2(\tau) + k_{-3}y_2(\tau) &= k_3i - \frac{k_3ik_1s_0x(\tau)}{k_1s_0x(\tau) + k_{-1} + k_2}\\
+      \frac{-k_3ik_1s_0x(\tau) + k_3i(k_1s_0x(\tau) + k_{-1} + k_2) + k_{-3}(k_1s_0x(\tau) + k_{-1} + k_2)}{k_1s_0x(\tau) + k_{-1} + k_2}y_2(\tau) &= \frac{k_3i(k_1s_0x(\tau) + k_{-1} + k_2)}{k_1s_0x(\tau) + k_{-1} + k_2} +\\&- \frac{k_3ik_1s_0x(\tau)}{k_1s_0x(\tau) + k_{-1} + k_2}\\
+      (\cancel{-k_3ik_1s_0x(\tau)} + \cancel{k_3ik_1s_0x(\tau)} + k_3ik_{-1} - k_3ik_2 + k_{-3}k_1s_0x(\tau) + k_{-3}k_{-1} + k_{-3}k_2)y_2(t) &= \cancel{k_3ik_1s_0x(\tau)} + k_3ik_{-1} + k_3ik_2 +\\&- \cancel{k_3ik_1s_0x(\tau)}\\
+      y_2(\tau) = \frac{k_3ik_{-1}+k_3ik_2}{k_3ik_{-1} - k_3ik_2 + k_{-3}k_1s_0x(\tau) + k_{-3}k_{-1} + k_{-3}k_2}\\
+      \tilde{y}_2(\tau) = \frac{k_3i(k_{-1} + k_2)}{k_3i(k_{-1} + k_2) + k_{-3}(k_1s_0x(\tau) + k_{-1} + k_2)}\\
     \end{align*}
 
+    Now, replugging into $y_1(\tau)$:
 
+    \begin{align*}
+      y_1(\tau) &=\frac{k_1s_0x(\tau)-k_1s_0x(\tau)y_2(\tau)}{k_1s_0x(\tau) + k_{-1}+k_2}\\
+       &=\frac{k_1s_0x(\tau)\left(1-\frac{k_3i(k_{-1} + k_2)}{k_3i(k_{-1} + k_2) + k_{-3}(k_1s_0x(\tau) + k_{-1} + k_2)}\right)}{k_1s_0x(\tau) + k_{-1}+k_2}\\
+       &=\frac{k_1s_0x(\tau)\frac{\cancel{k_3i(k_{-1} + k_2)} + k_{-3}(k_1s_0x(\tau) + k_{-1} + k_2) -  \cancel{k_3i(k_{-1} + k_2)}}{k_3i(k_{-1} + k_2) + k_{-3}(k_1s_0x(\tau) + k_{-1} + k_2)}}{k_1s_0x(\tau) + k_{-1}+k_2}\\
+       &=\frac{\frac{k_1s_0x(\tau)k_{-3}\cancel{(k_1s_0x(\tau) + k_{-1} + k_2)}}{k_3i(k_{-1} + k_2) + k_{-3}(k_1s_0x(\tau) + k_{-1} + k_2)}}{\cancel{k_1s_0x(\tau) + k_{-1}+k_2}}\\
+      \tilde{y}_1(\tau) &=\frac{k_1s_0x(\tau)k_{-3}}{k_3i(k_{-1} + k_2) + k_{-3}(k_1s_0x(\tau) + k_{-1} + k_2)}\\
+    \end{align*}
 
+    In order to apply TIkhonov's theorem, the two solutions will be plugged into $\frac{dx(\tau)}{\tau}$, solving the differential equation and plugging the values of $x(\tau)$ into the two soution.
 
+    \subsubsection{Rate of production of the product}
+    Now, since the objective is to find an explicit way to track the rate of production of the product and considering:
 
+    $$\frac{dp(t)}{dt} = k_2c_1(t) \qquad\land\qquad \frac{dp(t)}{dt} = k_2y_1(t)e_0$$
 
+    And transitioning to the slow timescale"
 
+    \begin{align*}
+      \frac{dp(\tau)}{d\tau} &= \frac{dp(t)}{dt}\frac{1}{\epsilon}\\
+                             &= \frac{k_2y_1(\tau)e_0}{\epsilon}\\
+                             &= k_2y_1(\tau)s_0
+    \end{align*}
 
+    Pligging the value for $\tilde{y})1(\tau)$:
 
+    \begin{align*}
+      \frac{dp(\tau)}{d\tau} &= k_2s_0\frac{k_1(s_0x(\tau))k_{-3}}{k_{-3}(k_{-1} + k_2 + k_1s_0x(\tau)) + k_3i(k_{-1} + k_2)}\\
+      &= \frac{k_2s_0k_1s(\tau)k_{-3}}{k_{-3}(k_{-1} + k_2 + k_1s_0x(\tau)) + k_3i(k_{-1} + k_2)}\\
+    \end{align*}
 
+    And going back to the fast timescale:
 
+    \begin{align*}
+      \epsilon\frac{dp(\tau)}{d\tau} = \frac{dp(t)}{dt} &= \frac{\epsilon k_2s_0k_1s(\tau)k_{-3}}{k_{-3}(k_{-1} + k_2 + k_1s_0x(\tau)) + k_3i(k_{-1} + k_2)}\\
+                                                        &=\frac{k_2e_0k_1s(t)k_{-3}}{k_{-3}(k_{-1} + k_2 + k_1s_0x(t)) + k_3i(k_{-1} + k_2)}\\
+                                                        &=\frac{\frac{k_2e_0k_1s(t)k_{-3}}{k_1k_{-3}}}{\frac{k_{-3}(k_{-1} + k_2 + k_1s_0x(t)) + k_3i(k_{-1} + k_2)}{k_1k_{-3}}}\\
+                                                        &=\frac{\frac{k_2e_0\cancel{k_1}s(t)\cancel{k_{-3}}}{\cancel{k_1}\cancel{k_{-3}}}}{\frac{\cancel{k_{-3}}}{k_1\cancel{k_{-3}}}(k_{-1} + k_2 + k_1s(t)) + \frac{k_3i}{k_1k_{-3}}(k_{-1} + k_2)}\\
+                                                        &=\frac{k_2e_0s(t)}{\frac{k_{-1} + k_2}{k_1} + \frac{\cancel{k_1}s(t)}{\cancel{k_1}} + \frac{k_3i}{k_1k_{-3}}(k_{-1} + k_2)}\\
+                                                        &=\frac{k_2e_0s(t)}{\frac{k_{-1} + k_2}{k_1} + s(t) + \frac{k_3i}{k_1k_{-3}}(k_{-1} + k_2)}\\
+    \end{align*}
 
+    Now setting $m = k_2e_0$, $s_h = \frac{k_{-1} + k_2}{k_1}$ and $s_i = \frac{k_3i}{k_1k_{_3}}(k_{-1}+k_2)$:
 
+    $$\frac{dp(t)}{dt} = \frac{ms(t)}{s_h + s(t) + s_i}$$
 
+    Which is the speed of production of $p$.
+    So adding an inhibitor will increase the half saturation constant from $s_h$ to $s_h+s_i$, decreasing the reaction rate when the substrate is not abundant.
+    When it grows to infinity, the enzyme is still capable of reaching its maximum speed $m$.
 
+  \subsection{Cooperativity}
+  In cooperativity an enzyme can bind up to two substrate molecules.
+  The reaction scheme is:
 
+  \begin{align*}
+    S + E &\xrightleftharpoons[k_{-1}]{k_1} C_1 \xrightarrow{k_2} E + P\\
+    C_1 + S &\xrightleftharpoons[k_{-3}]{k_3} C_2\xrightarrow{k_4} P + C_1\\
+  \end{align*}
 
+  This happens when the binding of the first molecule changes the enzyme configuration and changing the rate at which further binding occurs.
+  An extreme degree happens when $k_1$ is very low and $k_3$ is very high.
+  On the other hand independence means that $k_1 = 2k_3$ and $k_{-3} = 2k_{-1}$.
+  Moreover independence implies that $k_4 = k_2$.
+  The ODE system is:
 
+  $$\begin{cases}
+    \frac{ds(t)}{dt} &= -k_1s(t)e(t) + k_{-1}c_1(t) -k_3c_1(t)s(t) + k_{-3}c_2(t)\\
+    \frac{de(t)}{dt} &= -k_1s(t)e(t) + k_{-1}c_1(t) + k_2c_1(t)\\
+    \frac{dc_1(t)}{dt} &= k_1s(t)e(t) - k_{-1}c_1(t) - k_2c_1(t) - k_3c_1(t)s(t) + k_{-3}c_2(t) + k_4c_2(t)\\
+    \frac{dc_2(t)}{dt} &= k_3c_1(t)s(t) - k_{-3}c_2(t) - k_4c_2(t)\\
+    \frac{dp(t)}{dt} &= k_2c_1(t) + k_4c_2(t)\\
+  \end{cases}$$
 
+  $p$ appears in only one equation, so it can be recovered from other quantities.
+  Moreover:
 
+  $$\frac{d}{dt}[e(t) + c_1(t) + c_2(t)] = 0\Rightarrow e(t)+c_1(t) + c_2(t) = k = e_0$$
 
+  So that the dynamics of $e$ can be expluded.
+  So the system becomes:
 
+  $$\begin{cases}
+    \frac{ds(t)}{dt} &= -k_1s(t)(e_0-c_1(t)-c_2(t)) + k_{-1}c_1(t) -k_3c_1(t)s(t) + k_{-3}c_2(t)\\
+    \frac{dc_1(t)}{dt} &= k_1s(t)(e_0-c_1(t)-c_2(t)) - (k_{-1}+k_2)c_1(t) - k_3c_1(t)s(t) + k_{-3}c_2(t) + k_4c_2(t)\\
+    \frac{dc_2(t)}{dt} &= k_3c_1(t)s(t)-k_{-3}c_2(t)-k_4c_2(t)\\
+  \end{cases}$$
 
+    \subsubsection{Normalization}
+    Let:
 
+    $$x(t) = \frac{s(t)}{s_0}\qquad y_1(t) = \frac{c_1(t)}{e_0}\qquad y_2(t) = \frac{c_2(t)}{e_0}\qquad\epsilon = \frac{e_0}{s_0}\ll 1$$
 
+    Then the system becomes:
 
+    \begin{align*}
+      &\begin{cases}
+        s_0\frac{dx(t)}{dt} &= -k_1s_0x(t)(e_0-e_0y_1(t)-e_0y_2(t)) + k_{-1}e_0y_1(t) -k_3e_0y_1(t)s(t) + k_{-3}e_0y_2(t)\\
+        e_0\frac{dy_1(t)}{dt} &= k_1s_0x(t)(e_0-e_0y_1(t)-e_0y_2(t)) - (k_{-1}+k_2)e_0y_1(t) - k_3e_0y_1(t)s_0x(t) + k_{-3}e_0y_2(t) + k_4e_0y_2(t)\\
+        e_0\frac{dy_2(t)}{dt} &= k_3e_0y_1(t)s_0x(t)-k_{-3}e_0y_2(t)-k_4e_0y_2(t)\\
+      \end{cases}\\
+      &\begin{cases}
+        \frac{dx(t)}{dt} &= -k_1s_0x(t)\frac{e_0}{s_0}(1-y_1(t)-y_2(t)) + k_{-1}\frac{e_0}{s_0}y_1(t) -k_3\frac{e_0}{s_0}y_1(t)s(t) + k_{-3}\frac{e_0}{s_0}y_2(t)\\
+        \frac{dy_1(t)}{dt} &= k_1s_0x(t)(1-y_1(t)-y_2(t)) - (k_{-1}+k_2)y_1(t) - k_3y_1(t)s_0x(t) + k_{-3}y_2(t) + k_4y_2(t)\\
+        \frac{dy_2(t)}{dt} &= k_3y_1(t)s_0x(t)-k_{-3}y_2(t)-k_4y_2(t)\\
+      \end{cases}\\
+      &\begin{cases}
+        \frac{dx(t)}{dt} &= -k_1s_0x(t)\epsilon(1-y_1(t)-y_2(t)) + k_{-1}\epsilon y_1(t) -k_3\epsilon y_1(t)s(t) + k_{-3}\epsilon y_2(t)\\
+        \frac{dy_1(t)}{dt} &= k_1s_0x(t)(1-y_1(t)-y_2(t)) - (k_{-1}+k_2)y_1(t) - k_3y_1(t)s_0x(t) + k_{-3}y_2(t) + k_4y_2(t)\\
+        \frac{dy_2(t)}{dt} &= k_3y_1(t)s_0x(t)-k_{-3}y_2(t)-k_4y_2(t)\\
+      \end{cases}\\
+      &\begin{cases}
+        \frac{dx(t)}{dt} &= \epsilon\left[-k_1s_0x(t)(1-y_1(t)-y_2(t)) + k_{-1}y_1(t) -k_3y_1(t)s(t) + k_{-3}y_2(t)\right]\\
+        \frac{dy_1(t)}{dt} &= k_1s_0x(t)(1-y_1(t)-y_2(t)) - (k_{-1}+k_2)y_1(t) - k_3y_1(t)s_0x(t) + k_{-3}y_2(t) + k_4y_2(t)\\
+        \frac{dy_2(t)}{dt} &= k_3y_1(t)s_0x(t)-k_{-3}y_2(t)-k_4y_2(t)\\
+      \end{cases}\\
+    \end{align*}
 
+    \subsubsection{Changing timescale}
+    Let:
 
+    $$\tau = \frac{t}{\epsilon}$$
 
+    Then:
 
+    \begin{align*}
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} = \frac{1}{\epsilon}\frac{dx(t)}{dt} &= -k_1s_0x(\tau)(1-y_1(\tau)-y_2(\tau)) + k_{-1}y_1(\tau) -k_3y_1(\tau)s(\tau) + k_{-3}y_2(\tau)\\
+        \frac{dy_1(\tau)}{d\tau} = \frac{1}{\epsilon}\frac{dy_1(t)}{dt} &= \frac{1}{\epsilon}\left[k_1s_0x(\tau)(1-y_1(\tau)-y_2(\tau)) - (k_{-1}+k_2)y_1(\tau) - k_3y_1(\tau)s_0x(\tau) + k_{-3}y_2(\tau) + k_4y_2(\tau)\right]\\
+        \frac{dy_2(\tau)}{d\tau} = \frac{1}{\epsilon}\frac{dy_2(t)}{dt} &= \frac{1}{\epsilon}\left[k_3y_1(\tau)s_0x(\tau)-k_{-3}y_2(\tau)-k_4y_2(\tau)\right]\\
+      \end{cases}\\
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} = \frac{1}{\epsilon}\frac{dx(t)}{dt} &= -k_1s_0x(\tau)(1-y_1(\tau)-y_2(\tau)) + k_{-1}y_1(\tau) -k_3y_1(\tau)s(\tau) + k_{-3}y_2(\tau)\\
+        \frac{dy_1(\tau)}{d\tau} = \frac{1}{\epsilon}\frac{dy_1(t)}{dt} &= \frac{1}{\epsilon}\left[k_1s_0x(\tau)(1-y_1(\tau)-y_2(\tau)) - (k_{-1}+k_2)y_1(\tau) - k_3y_1(\tau)s_0x(\tau) + k_{-3}y_2(\tau) + k_4y_2(\tau)\right]\\
+        \frac{dy_2(\tau)}{d\tau} = \frac{1}{\epsilon}\frac{dy_2(t)}{dt} &= \frac{1}{\epsilon}\left[k_3y_1(\tau)s_0x(\tau)-k_{-3}y_2(\tau)-k_4y_2(\tau)\right]\\
+      \end{cases}\\
+      \text{Switching to fast timescale for the last two equation:}\\
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} = \frac{1}{\epsilon}\frac{dx(t)}{dt} &= -k_1s_0x(\tau)(1-y_1(\tau)-y_2(\tau)) + k_{-1}y_1(\tau) -k_3y_1(\tau)s(\tau) + k_{-3}y_2(\tau)\\
+        \epsilon\frac{dy_1(\tau)}{d\tau} = \frac{dy_1(t)}{dt} &= k_1s_0x(\tau)(1-y_1(\tau)-y_2(\tau)) - (k_{-1}+k_2)y_1(\tau) - k_3y_1(\tau)s_0x(\tau) + k_{-3}y_2(\tau) + k_4y_2(\tau)\\
+        \epsilon\frac{dy_2(\tau)}{d\tau} = \frac{dy_2(t)}{dt} &= k_3y_1(\tau)s_0x(\tau)-k_{-3}y_2(\tau)-k_4y_2(\tau)\\
+      \end{cases}\\
+      \epsilon\approx 0\\
+      \begin{cases}
+        \frac{dx(\tau)}{d\tau} = \frac{1}{\epsilon}\frac{dx(t)}{dt} &= -k_1s_0x(\tau)(1-y_1(\tau)-y_2(\tau)) + k_{-1}y_1(\tau) -k_3y_1(\tau)s(\tau) + k_{-3}y_2(\tau)\\
+        0 &= k_1s_0x(\tau)(1-y_1(\tau)-y_2(\tau)) - (k_{-1}+k_2)y_1(\tau) - k_3y_1(\tau)s_0x(\tau) + k_{-3}y_2(\tau) + k_4y_2(\tau)\\
+        0 &= k_3y_1(\tau)s_0x(\tau)-k_{-3}y_2(\tau)-k_4y_2(\tau)\\
+      \end{cases}\\
+    \end{align*}
 
+    To find quasi-equilibria solve first for $y_2(\tau)$:
 
+    \begin{align*}
+      &k_3y_1(\tau)s_0x(\tau)-k_{-3}y_2(\tau)-k_4y_2(\tau) = 0\\
+      [k_{-3}+k_4]y_2(\tau) &= k_3y_1(\tau)s_0x(\tau)\\
+      y_2(\tau) &= \frac{k_3y_1(\tau)s_0x(\tau)}{k_{-3}+k_4}\\
+    \end{align*}
 
+    Then for $y_1(\tau)$:
+
+    \begin{align*}
+      &k_1s_0x(\tau)(1-y_1(\tau)-y_2(\tau)) - (k_{-1}+k_2)y_1(\tau) - k_3y_1(\tau)s_0x(\tau) + k_{-3}y_2(\tau) + k_4y_2(\tau) = 0\\
+      &k_1s_0x(\tau) -k_1s_0x(\tau)y_1(\tau)-k_1s_0x(\tau)y_2(\tau) -(k_{-1}+k_2)y_1(\tau) - k_3y_1(\tau)s_0x(\tau) + k_{-3}y_2(\tau) + k_4y_2(\tau) = 0\\
+      &[-k_1s_0x(\tau)-k_{-1}-k_2 -k_3s_0x(\tau)]y_1(\tau) = k_1s_0x(\tau)y_2(\tau) - k_{-3}y_2(\tau) - k_4y_2(\tau)-k_1s_0x(\tau)\\
+      &[(k_1 + k_3)s_0x(\tau)+k_{-1}+k_2]y_1(\tau) =  (k_{-3} + k_4 - k_1s_0x(\tau))y_2(\tau) + k_1s_0x(\tau)\\
+      &y_1(t) = \frac{(k_{-3} + k_4 - k_1s_0x(\tau))y_2(\tau) + k_1s_0x(\tau)}{(k_1 + k_3)s_0x(\tau)+k_{-1}+k_2}\\
+    \end{align*}
+
+    Now, substituting $y_2(\tau)$:
+
+    \begin{align*}
+      y_1(t) &= \frac{(k_{-3} + k_4 - k_1s_0x(\tau))\frac{k_3y_1(\tau)s_0x(\tau)}{k_{-3}+k_4} + k_1s_0x(\tau)}{(k_1 + k_3)s_0x(\tau)+k_{-1}+k_2}\\
+      y_1(t) &= \frac{\cancel{(k_{-3} + k_4)}\frac{k_3y_1(\tau)s_0x(\tau)}{\cancel{k_{-3}+k_4}} - k_1s_0x(\tau)\frac{k_3y_1(\tau)s_0x(\tau)}{k_{-3} + k_4} + k_1s_0x(\tau)}{(k_1+k_3)s_0x(\tau) + k_{-1} + k_2}\\
+      y_1(t) &=\frac{k_3y_1(\tau)s_0x(\tau) - \frac{k_1k_3y_1(\tau)s_0^2x^2(\tau)}{k_{-3} + k_4} + k_1s_0x(\tau)}{(k_1+k_3)s_0x(\tau) + k_{-1} + k_2}\\
+      [k_1s_0x(\tau) &+ k_3s_0x(\tau) + k_{-1} + k_2]y_1(t) = k_3s_0x(\tau)y_1(\tau) - \frac{k_1k_3s_0^2x^2(\tau)y_1(\tau)}{k_{-3} + k_4} + k_1s_0x(\tau)\\
+      [k_1s_0x(\tau) &+ \cancel{k_3s_0x(\tau)} + k_{-1} + k_2 - \cancel{k_3s_0x(\tau)} + \frac{k_1k_3s_0^2x^2(\tau)}{k_{-3} + k_4}]y_1(t) = + k_1s_0x(\tau)\\
+      \tilde{y}_1(\tau) &= \frac{k_1s_0x(\tau)}{k_1s_0x(\tau) + k_2 + k_{-1} + \frac{k_1k_3s_0^2x^2(\tau)}{k_{-3} + k_4}}\\
+    \end{align*}
+
+    So now, in $y_2(\tau)$:
+
+    \begin{align*}
+      \tilde{y}_2(\tau) &= \frac{k_3\frac{k_1s_0x(\tau)}{k_1s_0x(\tau) + k_2 + k_{-1} + \frac{k_1k_3s_0^2x^2(\tau)}{k_{-3} + k_4}}s_0x(\tau)}{k_{-3}+k_4}\\
+                        &= \frac{k_3k_1s^2_0x^2(\tau)}{(k_{-3}+k_4)\left(k_1s_0x(\tau) + k_2 + k_{-1} + \frac{k_1k_3s_0^2x^2(\tau)}{k_{-3} + k_4}\right)}\\
+                        &= \frac{k_3k_1s^2_0x^2(\tau)}{(k_{-3}+k_4)(k_1s_0x(\tau) + k_2 + k_{-1}) + k_1k_3s_0^2x^2(\tau)}\\
+    \end{align*}
+
+    To solve Tikhonov those values would be fed into $\frac{dx(\tau)}{d\tau}$ to btain an equation from which to deriver $\bar{x}(t)$ and use it to derive $\bar{y}_1(t)$ and $\bar{y}_2(t)$.
+
+    \subsubsection{Rate of production of the product}
+    Since the interest is in the rate of production of the product, consider:
+
+    $$\frac{dp(t)}{dt} = k_2c_1(t) + k_4c_2(t)$$
+
+    Applying the normalizations:
+
+    $$\frac{dp(t)}{dt} = k_2e_0y_1(t) + k_4e_0y_2(t)$$
+
+    And transitioning to the slow time-scale:
+
+    \begin{align*}
+      \frac{dp(\tau)}{d\tau} &= \frac{dp(t)}{dt}\frac{1}{\epsilon}\\
+                             &= k_2y_1(\tau)\frac{e_0}{\epsilon} + k_4\frac{e_0}{\epsilon}y_2(\tau)\\
+                             &= k_2y_1(\tau)s_0 + k_4y_2(\tau)s_0
+    \end{align*}
+
+    Plugging the values for $\tilde{y}_1(\tau)$ and $\tilde{y}_2(\tau)$:
+
+    \begin{align*}
+      \frac{dp(\tau)}{d\tau} &= k_2s_0\frac{k_1s_0x(\tau)}{k_1s_0x(\tau) + k_{-1} + k_2+ \frac{k_1k_3s_0^2x^2(\tau)}{k_{-3} + k_4}} + k_4s_0\frac{k_1k_3s_0^2x^2(\tau)}{(k_{-3}+k_4)(k_1s_0x(\tau) + k_2 + k_{-1}) + k_1k_3s_0^2x^2(\tau)}\\
+                             &= k_2s_0\frac{k_1s(\tau)}{k_1s(\tau) + k_{-1} + k_2+ \frac{k_1k_3s^2(\tau)}{k_{-3} + k_4}} + k_4s_0\frac{k_1k_3s^2(\tau)}{(k_{-3}+k_4)(k_1s(\tau) + k_2 + k_{-1}) + k_1k_3s^2(\tau)}\\
+                             &= \frac{k_1k_2s_0s(\tau)(k_{-3}+k_4)}{(k_{-3}+k_4)(k_1s(\tau) + k_{-1} + k_2)+ k_1k_3s^2(\tau)} + \frac{k_1k_3k_4s_0s^2(\tau)}{(k_{-3}+k_4)(k_1s(\tau) + k_2 + k_{-1}) + k_1k_3s^2(\tau)}\\
+                             &= \frac{k_1k_2s_0s(\tau)(k_{-3}+k_4) + k_1k_3k_4s_0s^2(\tau)}{(k_{-3}+k_4)(k_1s(\tau) + k_{-1} + k_2)+ k_1k_3s^2(\tau)}\\
+    \end{align*}
+
+    Going back to the fast time-scale:
+
+    \begin{align*}
+      \epsilon\frac{dp(\tau)}{d\tau} = \frac{dp(t)}{dt} &= \epsilon\frac{k_1k_2s_0s(t)(k_{-3}+k_4) + k_1k_3k_4s_0s^2(t)}{(k_{-3}+k_4)(k_1s(t) + k_{-1} + k_2)+ k_1k_3s^2(t)}\\
+                                                        &= \frac{e_0}{s_0}\frac{k_1k_2s_0s(t)(k_{-3}+k_4) + k_1k_3k_4s_0s^2(t)}{(k_{-3}+k_4)(k_1s(t) + k_{-1} + k_2)+ k_1k_3s^2(t)}\\
+                                                        &= \frac{k_1k_2e_0s(t)(k_{-3}+k_4) + k_1k_3k_4e_0s^2(t)}{(k_{-3}+k_4)(k_1s(t) + k_{-1} + k_2)+ k_1k_3s^2(t)}
+    \end{align*}
+
+    So depending on the value of the constants this last expression can correpond to different shapes of the function.
+    If the binding sites are independent, $k_1 = 2k_3\land k_{-3} = 2k_{_1}\land k_4 = 2k_2$:
+
+    \begin{align*}
+      \frac{dp(t)}{dt} &= \frac{k_1k_2e_0s(t)(k_{-3}+k_4) + k_1k_3k_4e_0s^2(t)}{(k_{-3}+k_4)(k_1s(t) + k_{-1} + k_2)+ k_1k_3s^2(t)}\\
+                       &= \frac{4k_3k_2e_0s(t)(k_{-1}+k_2) + 4k^2k_3k_2e_0s^2(t)}{(2k_{-1}+2k_2)(2k_3s(t) + k_{-1} + k_2)+ 2k_3k_3s^2(t)}\\
+                       &= \frac{2k_3k_2e_0s(t)(2k_{-1}+2k_2) + 2k_3k_32k_2e_0s^2(t)}{2(k_{-1}+k_2)(2k_3s(t) + k_{-1} + k_2)+ 2k_3k_3s^2(t)}\\
+                       &= \frac{4k_3k_2e_0s(t)(k_{-1} + k_2 + k_3s(t))}{2[2k_{-1}k_3s(t) + k_{-1}^2 + k_{-1}k_2 + 2k_{2}k_3s(t) + k_{-1}k_2 + 2k^2_2 + k^2_3s^2(t)]}\\
+                       &= \frac{\cancelto{4}{2}k_3k_2e_0s(t)(k_{-1} + k_2 + k_3s(t))}{\cancel{2}[2k_{-1}k_3s(t) + k_{-1}^2 + 2k_{-1}k_2 + 2k_{2}k_3s(t) + 2k^2_2 + k^2_3s^2(t)]}\\
+                       &= \frac{2k_3k_2e_0s(t)\cancel{(k_{-1} + k_2 + k_3s(t))}}{2(k_{-1} + k_2 + k_3s(t))^{\cancel{2}}}\\
+                       &= \frac{2k_3k_2e_0s(t)}{2(k_{-1} + k_2 + k_3s(t))}\\
+                       &= \frac{2k_2e_0s(t)}{\frac{k_{-1}+k_2}{k_3} + s(t)}\\
+            k_1 = 2k_3 &\\
+                       &= \frac{2k_2e_0s(t)}{\frac{2(k_{-1}+k_2)}{k_1} + s(t)}\\
+
+    \end{align*}
+
+    If the sites are totally dependent $k_1\ll 1$ and $k_3\gg 1$.
+    The terms with only $k_1$ can be sent to $o$:
+
+    \begin{align*}
+      \frac{dp(t)}{dt} &= \frac{\cancel{k_1k_2e_0s(t)(k_{-3}+k_4)} + k_1k_3k_4e_0s^2(t)}{(k_{-3}+k_4)(\cancel{k_1s(t)} + k_{-1} + k_2)+ k_1k_3s^2(t)}\\
+                       &= \frac{k_1k_3k_4e_0s^2(t)}{(k_{-3}+k_4)(k_{-1}+k_2) + k_11k_2s^2(t)}\\
+                       &= \frac{k_4e_0s^{2}(t)}{\frac{(k_{-3}+k_4)(k_{_1}+k_2)}{k_1k_3} + \frac{\cancel{k_1}\cancel{k_3}}{\cancel{k_1}\cancel{k_3}}s^2(t)}\\
+                       &= \frac{k_4e_0s^{2}(t)}{\frac{(k_{-3}+k_4)(k_{_1}+k_2)}{k_1k_3} + s^2(t)}\\
+    \end{align*}
+
+    Introducing now:
+
+    $$K = \frac{(k_{-3} + k_4)(k_{-1} + k_2)}{k_1k_3}$$
+
+    Then the equation becomes:
+
+    $$\frac{dp(t)}{dt} = \frac{k_4e_0s^2(t)}{K + s^2(t)}$$
+
+    Or the Hill equation, which is an example of sigmoidal rate equations: the binding of an additional substrate becomes more efficient if there is already a substrate interacting with the enzyme.
+    This converges to $k_4e_0$.
+
+\section{Molecular networks}
 
 
 
