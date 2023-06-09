@@ -1511,7 +1511,6 @@ $$x(t) = \frac{s(t)}{s_0}\qquad\qquad\land\qquad\qquad y(t) = \frac{c(t)}{e_0}$$
                        &= \frac{2k_2e_0s(t)}{\frac{k_{-1}+k_2}{k_3} + s(t)}\\
             k_1 = 2k_3 &\\
                        &= \frac{2k_2e_0s(t)}{\frac{2(k_{-1}+k_2)}{k_1} + s(t)}\\
-
     \end{align*}
 
     If the sites are totally dependent $k_1\ll 1$ and $k_3\gg 1$.
@@ -1536,6 +1535,367 @@ $$x(t) = \frac{s(t)}{s_0}\qquad\qquad\land\qquad\qquad y(t) = \frac{c(t)}{e_0}$$
     This converges to $k_4e_0$.
 
 \section{Molecular networks}
+Molecolar networks consist of a large number of molecular species with complex patterns of interactions.
+Now reaction loops will be considered, networks with two moelcular species, each acting on the rates of synthesis and decay of the other.
+There are three possible cases:
+
+\begin{multicols}{2}
+  \begin{itemize}
+    \item Each molecular species has a positive effect on the other (mutual activation), $++$ positive loop.
+    \item Each has a negative effect on the other (mutual inhibition), $--$ negative loop.
+    \item One has a positive effect, while the other has a negative (activation-inhibitioin), $+-$ negative loop.
+  \end{itemize}
+\end{multicols}
+
+  \subsection{Signal-response mechanism}
+  How the concentration of a substance respons to a stimulus that increase its synthesis rate.
+  $S$, the concentration of some substance favouring the synthesis of $X$ is the signal, while the equilibrium concentration of $X$ is the response.
+
+    \subsubsection{Linear response}
+    The concentration of $S$ promotes linearly the production of $X$.
+    $X$ has a basal production rate $k_0$, the ODE governing the system will be:
+
+    $$\frac{dX(t)}{dt} = k_0 + k_1S(t) - k_2X(t)$$
+
+    The response is the concentration of $X$ at equiibrium:
+
+    \begin{align*}
+      k_0 + k_1S(t) - k_2X_{eq} &= 0\\
+      X_{eq} &= \frac{k_0 + k_1S(t)}{k_2}\\
+    \end{align*}
+
+    \subsubsection{Hyperbolic response}
+    The molecule $X$ can be present in an active state $X_a$ and inactive $X_i$.
+    $S$ promotes the transition towards the active state.
+    $S$ and $X_i$ partecipate to the productiono f $X_a$:
+
+    $$\frac{dX_a(t)}{dt} = k_1S(t)X_i(t) - k_2X_a(t)$$
+
+    Introducing $X_T = X_a + X_i$:
+
+    $$\frac{dX_a(t)}{dt} = k_1S(t)(X_T - X_a(t)) - k_2X_a(t)$$
+
+    Computing now the equilibrium:
+
+    \begin{align*}
+      k_1S(t)(X_T - X_a(t)) - k_2X_a(t) &= 0\\
+      k_1S(t)X_T - k_1S(t)X_a(t) - k_2X_a(t) &= 0\\
+      (k_1S(t) - k_2)X_a(t) &= k_1S(t)X_T\\
+      X_a(t) &= \frac{k_1S(t)X_T}{k_1S(t) - k_2}\\
+    \end{align*}
+
+    \subsection{Adapted response}
+    There are several physiological systems tthat give a constant response, independent of the strength of the signal.
+    The ODEs are:
+
+    $$\begin{cases}
+      \frac{dX(t)}{dt} &= k_{0_1} + k_1S(t) - k_2X(t)Y(t)\\
+      \frac{dY(t)}{dt} &= k_{0_2} + k_3S(t) - k_4Y(t)\\
+    \end{cases}$$
+
+    Assuming that in the absence of $S$ there is no production:
+
+    $$\begin{cases}
+      \frac{dX(t)}{dt} &= k_1S(t) - k_2X(t)Y(t)\\
+      \frac{dY(t)}{dt} &= k_3S(t) - k_4Y(t)\\
+    \end{cases}$$
+
+    The response is the concentration at equilibrium:
+
+    \begin{align*}
+      \begin{cases}
+        k_1S(t) - k_2X(t)Y(t) &= 0\\
+        k_3S(t) - k_4Y(t) &= 0\\
+      \end{cases}\\
+      \begin{cases}
+        k_2X(t)Y(t) &= k_1S(t)\\
+        Y(t) &=\frac{k_3}{k_4}S(t)\\
+      \end{cases}\\
+      \begin{cases}
+        k_2X(t)\frac{k_3}{k_4}\cancel{S(t)} &= k_1\cancel{S(t)}\\
+        Y(t) &=\frac{k_3}{k_4}S(t)\\
+      \end{cases}\\
+      \begin{cases}
+        X(t) &= \frac{k_1k_4}{k_2k_3}\\
+        Y(t) &=\frac{k_3}{k_4}S(t)\\
+      \end{cases}\\
+    \end{align*}
+
+    So the concentration of $X$ is independent o $S$: its response its independent of the signal if it is not null.
+    In that case the system is:
+
+    $$\begin{cases}
+      \frac{dX(t)}{dt} &=  - k_2X(t)Y(t)\\
+      \frac{dY(t)}{dt} &= - k_4Y(t)\\
+    \end{cases}$$
+
+    And at equilibrium:
+
+    \begin{align*}
+      \begin{cases}
+         - k_2X(t)Y(t) &= 0\\
+         - k_4Y(t) &= 0\\
+      \end{cases}//
+      \begin{cases}
+         X(t) &= 0\\
+         Y(t) &= 0\\
+      \end{cases}//
+    \end{align*}
+
+    \subsubsection{Sigmoidal response}
+    The activation and inactivation rates follow a Michaelis-Menten law.
+    The production of a species is:
+
+    $$\frac{dp(t)}{dt} = \frac{ms(t)}{s_h + s(t)}$$
+
+    Considering this for an enzymatic production of $X_a$:
+
+    $$\frac{dX_a(t)}{dt} = \frac{mX_i(t)}{X_{sh} + X_i(t)}$$
+
+    There is $S$ as an activator and an opposite reaction that converts the active form into the inactive form:
+
+    \begin{align*}
+      \frac{dX_a(t)}{dt} &= \frac{m_1X_i(t)S(t)}{X_{ih} + X_i(t)} - \frac{m_2X_a(t)}{X_{ah} + X_a(t)}\\
+                         &= \frac{m_1(X_T-X_a(t))S(t)}{X_{ih} +X_T - X_a(t)} - \frac{m_2X_a(t)}{X_{ah} + X_a(t)}\\
+    \end{align*}
+
+    Consiering the equilibrium:
+
+    \begin{align*}
+      \frac{m_1(X_T-X_a(t))S(t)}{X_{ih} +X_T - X_a(t)} - \frac{m_2X_a(t)}{X_{ah} + X_a(t)} &= 0
+      \frac{m_1(X_T-X_a(t))S(t)}{X_{ih} +X_T - X_a(t)} &= \frac{m_2X_a(t)}{X_{ah} + X_a(t)}\\
+    \end{align*}
+
+    Introducing:
+
+    $$X(t) = \frac{X_a}{X_T}\qquad C(t) = S(t)\frac{m_1}{m_2}\qquad L_1 = \frac{X_{ih}}{X_T}\qquad L_2 = \frac{X_{ah}}{X_T}$$
+
+    The equation becomes:
+
+    \begin{align*}
+      \frac{m_1S(t)\cancel{X_T}(1-X(t))}{\cancel{X_T}(L_1 + 1 - X(t))} &= \frac{m_2\cancel{X_T}X(t)}{\cancel{X_T}(L_2 + X(t))}\\
+      \frac{m_1S(t)(1-X(t))}{L_1 + 1 - X(t)} &= \frac{m_2X(t)}{L_2 + X(t)}\\
+      \frac{\frac{m_1}{m_2}S(t)(1-X(t))}{L_1 + 1 - X(t)} &= \frac{X(t)}{L_2 + X(t)}\\
+      \frac{C(t)(1-X(t))}{L_1+1-X(t)} &= \frac{X(t)}{L_2 + X(t)}\\
+      C(t)(1-X(t))(L_2 + X(t)) - X(t)(L_1+1-X(t)) &= 0\\
+    \end{align*}
+
+    This will lead to a single biologically viable solution (a single equilibrium), in the form of a Goldbeter-Koshland function $x = f(x)$.
+    Theay are a family of functions for which the shape canb e predicted by observing some of its parameters:
+
+    \begin{multicols}{2}
+      \begin{itemize}
+        \item If $1+ L_1-L_1L_2 > 0$ the function is sigmoidal.
+          The bigger the value, the more accentuated the sigmoidal behavior.
+        \item If $1+ L_1-L_1L_2 < 0$ the function is a concave saturating function.
+      \end{itemize}
+    \end{multicols}
+
+    It can be useful to write $C(t)$ as a function of $X(t)$: $C(X(T))$.
+    Since $C$ is a function of $S$, it is equivalent to write $S(X)$:
+
+    $$C(X) = \frac{X(T)(L_1+1-X(T))}{(1-X(t))(L_2+X(T))}$$
+
+  \subsection{Feedback loops}
+
+    \subsubsection{Positive feedback loop (switch with mutual inhibition)}
+    Consider a feedback loope of positive type: $E$ decreases the concentration of $X$, while $X$ increases the concentration of $E$.
+    Hence an increase in $X$ decrease the concentration of $E$.
+    This decreases the decay rate of $X$, increasing its concentration.
+    The set of ODE is:
+
+    $$\begin{cases}
+      \frac{dX(t)}{dt} &= k_0 + k_1S(t) - k_2X(t) - k'_2X(t)E(t)\\
+      \frac{dE(t)}{dt} &= \frac{m_1e_p}{e_{ph} + e_p} - \frac{m_2E(t)X(t)}{e_h + E(t)}
+    \end{cases}$$
+
+    By setting $e_p = e_T-E(t)$:
+
+    $$\begin{cases}
+      \frac{dX(t)}{dt} &= k_0 + k_1S(t) - k_2X(t) - k'_2X(t)E(t)\\
+      \frac{dE(t)}{dt} &= \frac{m_1(e_T-E(t))}{e_{ph} + e_T-E(t)} - \frac{m_2E(t)X(t)}{e_h + E(t)}
+    \end{cases}$$
+
+    To find the equilibrium point start with $X$:
+
+    \begin{align*}
+      k_0 + k_1S(t) - k_2X(t) - k'_2X(t)E(t) &= 0\\
+      [k'_2E(t) + k_2]X(t) &= k_0 + k_1S(t)\\
+      X(t) &= \frac{k_0 + k_1S(t)}{k'_2E(t) + k_2}
+    \end{align*}
+
+    Introducing $y(t) = \frac{E(t)}{e_T}$ this is a decreasing function of $y$:
+
+    $$X(t) = f(y) = \frac{k_0 + k_1S(t)}{k'_2e_Ty(t) + k_2}$$
+
+    Considering now the second equation:
+
+    \begin{align*}
+      \frac{m_1(e_T-E(t))}{e_{ph} + e_T-E(t)} - \frac{m_2E(t)X(t)}{e_h + E(t)} &= 0\\
+      \frac{m_1(e_T-E(t))}{e_{ph} + e_T-E(t)} &= \frac{m_2E(t)X(t)}{e_h + E(t)}\\
+    \end{align*}
+
+    Considering:
+
+    $$y(t) = \frac{E(t)}{e_T}\qquad c(t) = \frac{m_2}{m_1}X(t)\qquad L_1 = \frac{e_{ph}}{e_T}\qquad L_2=\frac{e_h}{e_T}$$
+
+    Now solving:
+
+    \begin{align*}
+      \frac{m_1e_T(1-y(t))}{e_T(L_1 + 1-y(t))} &= \frac{m_2y(t)X(t)}{L_2 + y(t)}\\
+      \frac{1-y}{L_1 + 1-y(t)} &= \frac{c(t)y(t)}{L_2 + y(t)}\\
+    \end{align*}
+
+    This is a Glodbeter Koshland function with $y = f(c)$, and since $c(t) = \frac{m_1}{m_2}x(t)$, the function is $y = f(x)$.
+    This the goal is to find the equilibrium points, it is possible to compute the intersection of the first isocline and this one.
+    First the second problem should be written as $x = f(y)$.
+
+    \begin{align*}
+      \frac{1-y(t)}{L_1 + 1-y(t)} &= \frac{c(t)y(t)}{L_2 + y(t)}\\
+      c(t) = \frac{(1-y(t))(L_2 + y(t))}{y(t)(L_1 + 1-y(t))}\\
+      \frac{m_2}{m_1}X(t) &= \frac{(1-y(t))(L_2 + y(t))}{y(t)(L_1 + 1-y(t))}\\
+      X(t) &= \frac{m_1}{m_2}\frac{(1-y(t))(L_2 + y(t))}{y(t)(L_1 + 1-y(t))}\\
+    \end{align*}
+
+    The behavior of this equation can be inferred from $L_1$ and $L2$.
+    Moreover, this function has flipped numerator and denominator with the term introduced previosly, so the inverse function has to be flipped.
+    Finally:
+
+    $$X(t) = f(t) = \frac{k_0 + k_1S(t)}{k_2+k'_2e_ty(t)}$$
+
+    It is a decreasing function of $y$.
+    Woth this $x(y)$ can be plotted for both functions.
+    Thre equilibrium points are found.
+    The central is unstable, while the other two are asymptotically stable if the GOldbeter Koshland is sigmoidal.
+    If the Goldbeter Koshland is hyperbloic then ther eis only one equilibrium point.
+
+    \subsubsection{Negative feedback loop}
+    Mechanisms are at the basis of homeostasis.
+    The associated ODEs are:
+
+    $$\begin{cases}
+      \frac{dx(t)}{dt} = k_0 + k_1s(t) - k_2x(t) - k_3x(e_T-x(t))\\
+      \frac{de(t)}{dt} = \frac{m_1e_px(t)}{a + e_p} - \frac{m_2e(t)}{b+e(t)}
+    \end{cases}$$
+
+    Setting $e_T = e(t) + e_p$, so that $e_p = e_t-e(t)$:
+
+    $$\begin{cases}
+      \frac{dx(t)}{dt} = k_0 + k_1s(t) - k_2x(t) - k_3x(t)e(t)\\
+      \frac{de(t)}{dt} = \frac{m_1(e_T-e(t))x(t)}{a + e_T-e(t)} - \frac{m_2e(t)}{b+e(t)}
+    \end{cases}$$
+
+    Finding the equilbria:
+
+    \begin{align*}
+      k_0 + k_1s(t) - k_2x(t) - k_3x(t)e(t) &= 0\\
+      (k_2+k_3e(t))x(t) &= k_0 + k_1s(t)\\
+      x(t) &= \frac{k_0 + k_1s(t)}{k_2 + k_3e(t)}
+    \end{align*}
+
+    Introducing $y(t) = \frac{e(t)}{e_T}$, this is a decreasing function of $y$:
+
+    $$x(t) = f(y) = \frac{k_0 + k_1s(t)}{k_2 + k_3e_Ty(t)}$$
+
+    Considering the second equation introduce $y(t) = \frac{e(t)}{e_T}$, $L_1 = \frac{a}{e_T}$, $L_2 = \frac{b}{e_T}$, $c = \frac{m_1}{m_2}x(t)$:
+
+    \begin{align*}
+      \frac{m_1e_T(1-y(t))x(t)}{e_T(L_1+1-y(t))} &= \frac{m_2e_Ty(t)}{e_T(L_2+y(t))}\\
+      \frac{m_1(1-y(t))x(t)}{L_1+1-y(t)} &= \frac{m_2y(t)}{L_2+y(t)}\\
+      \frac{c(t)(1-y(t))}{L_1 + 1-y(t)} &= \frac{y(t)}{L_2 + y(t)}\\
+    \end{align*}
+
+    This leads to a second degree equation for $y$, which lieads to a single viable solution in the form of a Goldbeter Koshland function $y(t) = f(c) = f(x)$.
+    Its shape will be predicted from $L_1$ and $L_2$>
+    Both isoclines are expressed as a function of the same variable.
+    The first:
+
+    $$x = f(y) = \frac{k_0 + k_1s(t)}{k_2 + k_3e_Ty}$$
+
+    For the second:
+
+    \begin{align*}
+      x(1-y) &= \frac{y(L_1+1-y)}{L_2+y}\\
+      c &= \frac{y(L_1+1-y)}{(1-y)(L_2+y)}\\
+      x &= f(y) = \frac{y(L_1 + 1-y)}{(1-y)(L_2+y)\frac{m_1}{m_2}}\\
+    \end{align*}
+
+    Solving this the inverso of the Goldbeter KOshland function are obtained.
+    In the case of a negative feedback loop, there is a single equilibrium which is always asymptotically stable.
+    After perturbations, the system is taken back to the equilibrium.
+
+    \subsubsection{Multiple negative feedback loop}
+    Consider the set of ODE:
+
+    $$\begin{cases}
+      \frac{dx(t)}{dt} &= k_0 + k_1s -k_2x(t) - k_3x(t)y_p(t)\\
+      \frac{de(t)}{dt} &= \frac{m_1e_px(t)}{a = e_p} - \frac{m_2e(t)}{b + e(t)}\\
+      \frac{y_p(t)}{dt} &= \frac{m_3y(t)e(t)}{x+y(t)} - \frac{m_4y_p(t)}{c+y_p(t)}
+    \end{cases}$$
+
+    Looking for the equilibria:
+
+    $$x(t) = \frac{k_0 + k_1s}{k_2 + k_3y_p(t)}$$
+
+    Introducing $v(t) = \frac{y_p(t)}{y_T}$, it is a decreasing function of $v$:
+
+    $$x = f(v) = \frac{k_0 + k_1s}{k_2 + k_3y_Tv(t)}$$
+
+    For the second equation let $z(t) = \frac{e(t)}{e_T}$, $L_1 = \frac{a}{e_T}$, $L_2 = \frac{b}{e_T}$ and $c(t) = \frac{m_1}{m_2}x(t)$ and $e_p(t) = e_T- e(t)$:
+
+    \begin{align*}
+      \frac{m_1e_px(t)}{a + e_p} - \frac{m_2e(t)}{b + e(t)} &= 0\\
+      \frac{m_1(e_T-e(t))x(t)}{a + (e_T-e(t))} - \frac{m_2e(t)}{b + e(t)} &= 0\\
+      \frac{m_1e_T(1-z(t))x(t)}{e_T(L_1+1-z(t))} &= \frac{m_2e_Tz(t)}{e_T(L_2 + z(t))}\\
+      \frac{m_1(1-z(t))x(t)}{L_1 + 1-z(t)} &= \frac{m_2z(t)}{L_2 + z(t)}\\
+      \frac{c(t)(1-z(t))}{L_1+1-z(t)} &= \frac{z(t)}{L_2 + z(t)}\\
+    \end{align*}
+
+    Solving this leads to a Goldbeter Koshland function $z = f(x)$.
+    Rewriting the generating function isolating $x$:
+
+    \begin{align*}
+      c(t) &= x(t) \frac{m_1}{m_2} = \frac{z(t)(L_1+1-z(t))}{(1-z(t))(L_2+z(t))}\\
+      x(t) &= \frac{z(t)(L_1+1-z(t))}{(1-z(t))(L_2+z(t))\frac{m_1}{m_2}}\\
+    \end{align*}
+
+    here numerator and denominator are not flipped with respect to what it was introduced, solving this will lead exactly to the inverse of the Goldbeter Koshland function.\\
+    For the third equation with $y(t) = y_T-y_p(t)$, $v(t) = \frac{y_p(t)}{y_T}$, $L_3 = \frac{c}{y_T}$ and $L_4 = \frac{d}{y_T}$ and $c(t) = \frac{m_3}{m_4}e(t)$:
+
+    \begin{align*}
+      \frac{m_3y(t)e(t)}{c(t) + y(t)} - \frac{m_4y_p}{d + y_p(t)} &= 0\\
+      \frac{m_3(y_T-y_p(t))e(t)}{c(t) + y_T-y_p(t)} &= \frac{m_4y_p(t)}{d + y_p(t)}\\
+      \frac{m_3y_T(1-v(t))e(t)}{y_T(L_3+1-v(t))} &= \frac{m_4y_Tv(t)}{y_T(L_4 + v(t))}\\
+      \frac{m_3(1-v(t))e(t)}{L_3+1-v(t)} &= \frac{m_4v(t)}{L_4 + v(t)}\\
+      \frac{c(t)(1-v(t))}{L_3+1-v(t)} &= \frac{v(t)}{L_4 + v(t)}\\
+    \end{align*}
+
+    Considering that $e = f(v)$:
+
+    \begin{align*}
+      c &= \frac{m_3}{m_4}e(t) = \frac{v(t)(L_3+1-v(t))}{(1-v(t))(L_4+v(t))}\\
+      e(t) &= \frac{v(t)(L_3+1-v(t))}{(1-v(t))(L_4+v(t))\frac{m_3}{m_4}}\\
+    \end{align*}
+
+    Numerator and denominator are not flipped and solving this will lead to the inverse of the Goldbeter Koshland function.\\
+    Because of their shape the two inverses Goldbeter Koshland will be increasing functions, and at equilibrium:
+
+    $$x = f(v)\qquad x = f(z)\qquad e = f(v)$$
+
+    BUt $f(z)\to f(e)$ since $z = \frac{e}{e_T}$, so:
+
+    $$x = f(v)\qquad x = f(e)\qquad e = f(v)$$
+
+    Considering the composition of the last two $xx = f(e(v))$, which is $x= f(v0$.
+    So only the function $x = f(v)$ will be considered and plotted represengin the equilibrium of the first equation oand $f(e(v))$ representing a composition of two function, both inverse of the GOldbeter Koshland is an increasing function, so also the composition is inraesing.
+    The first function is decreeasing.
+    So there will be a single equilibrium found, of stability dependant on parameter values.
+
+
+
+
+
+
 
 
 
