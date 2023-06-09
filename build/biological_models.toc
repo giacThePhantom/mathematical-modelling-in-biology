@@ -42,3 +42,8 @@
 \contentsline {subsubsection}{\numberline {8.1.1}Linear response}{39}{subsubsection.8.1.1}%
 \contentsline {subsubsection}{\numberline {8.1.2}Hyperbolic response}{40}{subsubsection.8.1.2}%
 \contentsline {subsection}{\numberline {8.2}Adapted response}{40}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}Sigmoidal response}{41}{subsubsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.3}Feedback loops}{42}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Positive feedback loop (switch with mutual inhibition)}{42}{subsubsection.8.3.1}%
+\contentsline {subsubsection}{\numberline {8.3.2}Negative feedback loop}{44}{subsubsection.8.3.2}%
+\contentsline {subsubsection}{\numberline {8.3.3}Multiple negative feedback loop}{45}{subsubsection.8.3.3}%

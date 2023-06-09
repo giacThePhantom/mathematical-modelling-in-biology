@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.5)  9 JUN 2023 14:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.5)  9 JUN 2023 16:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1217,15 +1217,16 @@ Overfull \hbox (11.733pt too wide) detected at line 1490
 []
  []
 
-[37] [38] [39] [40] [41] (./build/biological_models.aux)
+[37] [38] [39] [40] [41] [42] [43] [44] [45] [46] [47]
+(./build/biological_models.aux)
 Package rerunfilecheck Info: File `biological_models.out' has not changed.
-(rerunfilecheck)             Checksum: C41F8ABFC5E506835B0FF2A187D1724C;6837.
+(rerunfilecheck)             Checksum: F4402B4EF217EE0BCFE82934257B27AB;7907.
  ) 
 Here is how much of TeX's memory you used:
- 33998 strings out of 476025
- 662754 string characters out of 5796533
+ 34014 strings out of 476025
+ 662986 string characters out of 5796533
  1885388 words of memory out of 5000000
- 53814 multiletter control sequences out of 15000+600000
+ 53819 multiletter control sequences out of 15000+600000
  528514 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,27n,83p,430b,1037s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1246,10 +1247,10 @@ fbx2488.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></u
 sr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-
 dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type
 1/public/cm-super/sfrm1728.pfb>
-Output written on ./build/biological_models.pdf (41 pages, 381242 bytes).
+Output written on ./build/biological_models.pdf (47 pages, 402751 bytes).
 PDF statistics:
- 531 PDF objects out of 1000 (max. 8388607)
- 442 compressed objects within 5 object streams
- 86 named destinations out of 1000 (max. 500000)
- 357 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 583 PDF objects out of 1000 (max. 8388607)
+ 488 compressed objects within 5 object streams
+ 97 named destinations out of 1000 (max. 500000)
+ 397 words of extra memory for PDF output out of 10000 (max. 10000000)
 
